@@ -9,9 +9,10 @@
     "*.js": "eslint --cache --fix"
   },
   "scripts": {
-    "prepare": "husky install",
+    "build": "parcel build public/index.html",
+    "dev": "parcel public/index.html",
     "lint": "eslint --ignore-path .gitignore . --fix",
-    "dev": "parcel public/index.html"
+    "prepare": "husky install"
   },
   "dependencies": {
     "bootstrap": "5.1.0",

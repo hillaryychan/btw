@@ -1,0 +1,12 @@
+{
+  "name": "btw",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hillaryychan/btw.git",
+  "author": "Hillary Chan <hillary.chan91@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^8.10.0",
+    "parcel-bundler": "^1.12.5"
+  }
+}

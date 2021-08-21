@@ -1,13 +1,15 @@
 import "firebase/auth";
 import {Button, Navbar} from "react-bootstrap";
+import {Home} from "./Home";
 import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";
 
 function initFirebaseAuth() {
-  // Every time auth state is changed re-render auth buttons
+  // Every time auth state is changed re-render auth buttons and home page
   firebase.auth().onAuthStateChanged(() => {
     ReactDOM.render(<ToggleAuthButtons />, document.getElementById("auth"));
+    ReactDOM.render(<Home />, document.getElementById("home"));
   });
 }
 
@@ -50,4 +52,5 @@ function ToggleAuthButtons() {
   );
 }
 
+export {getUserName, isUserSignedIn, signIn, signOut};
 export default initFirebaseAuth;

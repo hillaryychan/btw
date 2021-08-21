@@ -36,7 +36,9 @@ function ToggleAuthButtons() {
   if (isUserSignedIn()) {
     return (
       <>
-        <Navbar.Text>Signed in as: {getUserName()}</Navbar.Text>
+        <Navbar.Text className="me-2">
+          Signed in as: {getUserName()}
+        </Navbar.Text>
         <Button variant="secondary" onClick={() => signOut()}>
           Sign out
         </Button>

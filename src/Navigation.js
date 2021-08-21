@@ -1,4 +1,4 @@
-import {Button, Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
+import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
 import React from "react";
 
 function Navigation() {
@@ -21,9 +21,7 @@ function Navigation() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Button className="justify-content-end" variant="primary">
-            Sign in with Google
-          </Button>
+          <Nav id="auth"></Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>

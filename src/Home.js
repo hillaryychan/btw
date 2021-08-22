@@ -17,7 +17,7 @@ function Welcome() {
         Keep track of <b>what</b> you want to talk about with <b>whom</b> you
         want to talk to.
       </p>
-      <Button variant="outline-primary" onClick={() => signIn()}>
+      <Button variant="outline-primary" onClick={signIn}>
         Sign in with Google
       </Button>
     </>

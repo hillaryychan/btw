@@ -39,7 +39,7 @@ function ToggleAuthButtons() {
         <Navbar.Text className="me-2">
           Signed in as: {getUserName()}
         </Navbar.Text>
-        <Button variant="secondary" onClick={() => signOut()}>
+        <Button variant="secondary" onClick={signOut}>
           Sign out
         </Button>
       </>
@@ -47,7 +47,7 @@ function ToggleAuthButtons() {
   }
   return (
     <>
-      <Button variant="primary" onClick={() => signIn()}>
+      <Button variant="primary" onClick={signIn}>
         Sign in with Google
       </Button>
     </>

@@ -3,16 +3,13 @@ import {isUserSignedIn, signIn} from "./Authentication";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
+import styles from "./styles";
 
 function Welcome() {
   return (
     <>
       <h1>
-        Welcome to{" "}
-        <b>
-          <i>btw</i>
-        </b>
-        !
+        Welcome to <span style={styles.Brand}>btw</span>!
       </h1>
       <p>
         Keep track of <b>what</b> you want to talk about with <b>whom</b> you

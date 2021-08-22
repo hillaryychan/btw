@@ -4,6 +4,7 @@ import {Home} from "./Home";
 import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";
+import styles from "./styles";
 
 function initFirebaseAuth() {
   // Every time auth state is changed re-render auth buttons and home page
@@ -37,7 +38,7 @@ function ToggleAuthButtons() {
     return (
       <>
         <Navbar.Text className="me-2">
-          Signed in as: {getUserName()}
+          Signed in as: <span style={styles.Username}>{getUserName()}</span>
         </Navbar.Text>
         <Button variant="secondary" onClick={signOut}>
           Sign out

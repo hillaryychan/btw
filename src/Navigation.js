@@ -1,14 +1,13 @@
 import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
 import React from "react";
+import styles from "./styles";
 
 function Navigation() {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">
-          <b>
-            <i>btw</i>
-          </b>
+        <Navbar.Brand href="/" style={styles.Brand}>
+          btw
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

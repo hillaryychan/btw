@@ -1,7 +1,8 @@
+import React, {useState} from "react";
 import {isUserSignedIn, signIn} from "./Authentication";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import React from "react";
+import Modal from "react-bootstrap/Modal";
 
 function Welcome() {
   return (
@@ -25,7 +26,44 @@ function Welcome() {
 }
 
 function Notes() {
-  return <h1>My Notes</h1>;
+  const [
+    show,
+    setShow
+  ] = useState(false);
+
+  function handleClose() {
+    return setShow(false);
+  }
+
+  function handleShow() {
+    return setShow(true);
+  }
+
+  return (
+    <>
+      <h1>My Notes</h1>
+      <Button variant="primary" onClick={handleShow}>
+        New Note
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>New Note</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Woohoo, you&apos;re reading this text in a modal!
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 function Home() {

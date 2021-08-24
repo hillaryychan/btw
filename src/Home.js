@@ -1,19 +1,27 @@
 import Container from "react-bootstrap/Container";
+import Loading from "./Loading";
 import Notes from "./Notes";
+import PropTypes from "prop-types";
 import React from "react";
 import Welcome from "./Welcome";
-import {isUserSignedIn} from "./Authentication";
 
-function Home() {
-  const isSignedIn = isUserSignedIn();
-  return <>{isSignedIn
-    ? <Notes />
-    : <Welcome />}</>;
+function Home(props) {
+  if (props.init) {
+    return <Loading />;
+  }
+
+  return (
+    <Container id="home" className="mt-2">
+      {props.signedIn
+        ? <Notes />
+        : <Welcome />}
+    </Container>
+  );
 }
 
-function HomeContainer() {
-  return <Container id="home" className="mt-2"></Container>;
-}
+Home.propTypes = {
+  "init": PropTypes.bool,
+  "signedIn": PropTypes.bool
+};
 
-export {Home};
-export default HomeContainer;
+export default Home;

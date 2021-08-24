@@ -1,13 +1,14 @@
 import {Route, Switch} from "react-router-dom";
 import About from "./About";
-import HomeContainer from "./Home";
+import Home from "./Home";
+import PropTypes from "prop-types";
 import React from "react";
 
-function Routes() {
+function Routes(props) {
   return (
     <Switch>
       <Route exact path="/">
-        <HomeContainer />
+        <Home init={props.init} signedIn={props.signedIn} />
       </Route>
       <Route path="/about">
         <About />
@@ -15,5 +16,10 @@ function Routes() {
     </Switch>
   );
 }
+
+Routes.propTypes = {
+  "init": PropTypes.bool,
+  "signedIn": PropTypes.bool
+};
 
 export default Routes;

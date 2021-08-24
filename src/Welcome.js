@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import React from "react";
-import {signIn} from "./Authentication";
+import {signIn} from "./AuthUtils";
 import styles from "./styles";
 
 function Welcome() {

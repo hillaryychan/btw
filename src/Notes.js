@@ -1,46 +1,35 @@
-import React, {useState} from "react";
+import React, {Component} from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import NotesModalForm from "./NotesModalForm";
 
-function Notes() {
-  const [
-    show,
-    setShow
-  ] = useState(false);
-
-  function handleClose() {
-    return setShow(false);
+class Notes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {"show": false};
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
-  function handleShow() {
-    return setShow(true);
+  handleClose() {
+    return this.setState({"show": false});
   }
 
-  return (
-    <>
-      <h1>My Notes</h1>
-      <Button variant="primary" onClick={handleShow}>
-        New Note
-      </Button>
+  handleShow() {
+    return this.setState({"show": true});
+  }
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>New Note</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Woohoo, you&apos;re reading this text in a modal!
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Create Note
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+  render() {
+    return (
+      <>
+        <h1>My Notes</h1>
+        <Button variant="primary" onClick={this.handleShow}>
+          New Note
+        </Button>
+
+        <NotesModalForm handleClose={this.handleClose} show={this.state.show} />
+      </>
+    );
+  }
 }
 
 export default Notes;

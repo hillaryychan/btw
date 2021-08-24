@@ -3,7 +3,7 @@ import Navigation from "./Navigation";
 import PropTypes from "prop-types";
 import React from "react";
 import Routes from "./Routes";
-import {isUserSignedIn} from "./AuthUtils";
+import {isUserSignedIn} from "./utils/auth";
 
 function App(props) {
   const isSignedIn = isUserSignedIn();

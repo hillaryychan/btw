@@ -1,8 +1,8 @@
 import {Button, Navbar} from "react-bootstrap";
-import {getUserName, signIn, signOut} from "./AuthUtils";
+import {getUserName, signIn, signOut} from "./utils/auth";
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "./styles";
+import styles from "./utils/styles";
 
 function AuthButtons(props) {
   if (props.init) {

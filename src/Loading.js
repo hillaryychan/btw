@@ -1,6 +1,6 @@
 import {Container, Spinner} from "react-bootstrap";
 import React from "react";
-import styles from "./styles";
+import styles from "./utils/styles";
 
 function Loading() {
   return (

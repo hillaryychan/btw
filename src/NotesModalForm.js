@@ -48,10 +48,16 @@ class NotesModalForm extends Component {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>
+                Description{" "}
+                <span style={{"color": "grey"}}>
+                  ({this.state.description.length}/500)
+                </span>
+              </Form.Label>
               <Form.Control
                 name="description"
                 as="textarea"
+                maxLength={500}
                 rows={5}
                 placeholder="Description (optional)"
                 value={this.state.description}

@@ -2,6 +2,8 @@ import {Alert, Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 
+const MAX_DESC_LEN = 500;
+
 class NotesForm extends Component {
   defaultState = {
     "description": "",
@@ -73,11 +75,17 @@ class NotesForm extends Component {
           />
         </Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>
+            Description{" "}
+            <span style={{"color": "gray"}}>
+              ({this.state.description.length}/{MAX_DESC_LEN})
+            </span>
+          </Form.Label>
           <Form.Control
             name="description"
             as="textarea"
             rows={5}
+            maxLength={MAX_DESC_LEN}
             placeholder="Description (optional)"
             value={this.state.description}
             onChange={this.handleInputChange}

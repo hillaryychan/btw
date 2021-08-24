@@ -2,7 +2,7 @@ import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";
-import initFirebaseAuth from "./Authentication";
+import initFirebaseAuth from "./utils/auth";
 
 const firebaseConfig = {
   "apiKey": "AIzaSyBd0Gqvdm-tz3u34CNta6H6br11WTLpIHQ",
@@ -14,7 +14,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-ReactDOM.render(<App />, document.getElementById("root"));
-
 initFirebaseAuth();
+
+ReactDOM.render(<App init={true} />, document.getElementById("root"));

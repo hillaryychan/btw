@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
-import NotesModalForm from "./NotesModalForm";
+import NotesModal from "./NotesModal";
 
 function Notes() {
   const [show, setShow] = useState(false);
@@ -20,7 +20,7 @@ function Notes() {
         New Note
       </Button>
 
-      <NotesModalForm handleClose={handleClose} show={show} />
+      <NotesModal handleClose={handleClose} show={show} />
     </>
   );
 }

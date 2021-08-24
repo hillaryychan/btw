@@ -1,35 +1,28 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import NotesModalForm from "./NotesModalForm";
 
-class Notes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {"show": false};
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
+function Notes() {
+  const [show, setShow] = useState(false);
+
+  function handleClose() {
+    return setShow(false);
   }
 
-  handleClose() {
-    return this.setState({"show": false});
+  function handleShow() {
+    return setShow(true);
   }
 
-  handleShow() {
-    return this.setState({"show": true});
-  }
+  return (
+    <>
+      <h1>My Notes</h1>
+      <Button variant="primary" onClick={handleShow}>
+        New Note
+      </Button>
 
-  render() {
-    return (
-      <>
-        <h1>My Notes</h1>
-        <Button variant="primary" onClick={this.handleShow}>
-          New Note
-        </Button>
-
-        <NotesModalForm handleClose={this.handleClose} show={this.state.show} />
-      </>
-    );
-  }
+      <NotesModalForm handleClose={handleClose} show={show} />
+    </>
+  );
 }
 
 export default Notes;

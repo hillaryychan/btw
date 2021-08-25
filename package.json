@@ -4,17 +4,20 @@
   "repository": "git@github.com:hillaryychan/btw.git",
   "author": "Hillary Chan <hillary.chan91@gmail.com>",
   "license": "MIT",
+  "source": "src/index.html",
+  "main": "dist/main.js",
   "lint-staged": {
     "*.js": "eslint --cache --fix"
   },
   "scripts": {
-    "build": "parcel build src/index.html",
-    "dev": "parcel src/index.html",
+    "build": "parcel build",
+    "dev": "parcel",
     "lint": "eslint --ignore-path .gitignore . --fix",
     "prepare": "husky install",
     "test": "jest"
   },
   "dependencies": {
+    "@parcel/transformer-react-refresh-wrap": "^2.0.0-alpha.3",
     "@react-firebase/auth": "^0.2.10",
     "bootstrap": "5.1.0",
     "firebase": "^8.10.0",
@@ -35,7 +38,7 @@
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lint-staged": "^11.1.2",
-    "parcel-bundler": "^1.12.5",
+    "parcel": "^2.0.0-rc.0",
     "react-test-renderer": "^17.0.2"
   }
 }

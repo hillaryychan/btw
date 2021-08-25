@@ -8,13 +8,47 @@ it("AuthButtons when initialising", () => {
   expect(tree).toMatchInlineSnapshot("null");
 });
 
-test("AuthButtons when signed out", () => {
+it("AuthButtons when signed out", () => {
   const tree = renderer.create(<AuthButtons />).toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(tree).toMatchInlineSnapshot(`
+<button
+  className="btn btn-primary"
+  disabled={false}
+  onClick={[Function]}
+  type="button"
+>
+  Sign in with Google
+</button>
+`);
 });
 
-test("AuthButtons when signed in", () => {
+it("AuthButtons when signed in", () => {
   jest.spyOn(authUtils, "getUsername").mockReturnValue("John Doe");
   const tree = renderer.create(<AuthButtons signedIn={true} />).toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(tree).toMatchInlineSnapshot(`
+Array [
+  <span
+    className="me-2 navbar-text"
+  >
+    Signed in as: 
+    <span
+      style={
+        Object {
+          "color": "white",
+        }
+      }
+    >
+      John Doe
+    </span>
+  </span>,
+  <button
+    className="btn btn-secondary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sign out
+  </button>,
+]
+`);
 });

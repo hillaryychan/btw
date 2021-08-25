@@ -29,7 +29,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
 
       - name: Check dependencies cache
         if: steps.yarn-cache.outputs.cache-hit != 'true'
@@ -43,7 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
 
       - name: Check dependencies cache
         if: steps.yarn-cache.outputs.cache-hit != 'true'

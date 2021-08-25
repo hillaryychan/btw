@@ -1,8 +1,10 @@
 import {Alert, Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
+import CharCounter from "./CharCounter";
 import PropTypes from "prop-types";
 
 const MAX_DESC_LEN = 500;
+const MAX_TITLE_LEN = 100;
 
 class NotesForm extends Component {
   defaultState = {
@@ -58,17 +60,23 @@ class NotesForm extends Component {
   }
 
   render() {
-    const {errors} = this.state;
     return (
       <Form>
-        {errors.map((message, idx) => <Alert key={idx} variant="danger">
-            Error: {message}
+        {this.state.errors.map((msg, idx) => <Alert key={idx} variant="danger">
+            Error: {msg}
         </Alert>)}
         <Form.Group className="mb-3">
-          <Form.Label>Title</Form.Label>
+          <Form.Label>
+            Title{" "}
+            <CharCounter
+              count={this.state.title.length}
+              maxCount={MAX_TITLE_LEN}
+            />
+          </Form.Label>
           <Form.Control
             name="title"
             type="text"
+            maxLength={MAX_TITLE_LEN}
             placeholder="Note title"
             value={this.title}
             onChange={this.handleInputChange}
@@ -77,9 +85,10 @@ class NotesForm extends Component {
         <Form.Group className="mb-3">
           <Form.Label>
             Description{" "}
-            <span style={{"color": "gray"}}>
-              ({this.state.description.length}/{MAX_DESC_LEN})
-            </span>
+            <CharCounter
+              count={this.state.description.length}
+              maxCount={MAX_DESC_LEN}
+            />
           </Form.Label>
           <Form.Control
             name="description"

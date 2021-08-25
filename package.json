@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@react-firebase/auth": "^0.2.10",
+    "@testing-library/react": "^12.0.0",
     "bootstrap": "5.1.0",
     "firebase": "^8.10.0",
     "prop-types": "^15.7.2",

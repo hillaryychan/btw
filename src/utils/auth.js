@@ -22,7 +22,7 @@ function signOut() {
   // TODO: provide error handling?
 }
 
-function getUserName() {
+function getUsername() {
   return firebase.auth().currentUser.displayName;
 }
 
@@ -30,5 +30,5 @@ function isUserSignedIn() {
   return Boolean(firebase.auth().currentUser);
 }
 
-export {getUserName, isUserSignedIn, signIn, signOut};
+export {getUsername, isUserSignedIn, signIn, signOut};
 export default initFirebaseAuth;

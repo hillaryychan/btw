@@ -1,7 +1,6 @@
 {
   "name": "btw",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@github.com:hillaryychan/btw.git",
   "author": "Hillary Chan <hillary.chan91@gmail.com>",
   "license": "MIT",
@@ -9,8 +8,8 @@
     "*.js": "eslint --cache --fix"
   },
   "scripts": {
-    "build": "parcel build public/index.html",
-    "dev": "parcel public/index.html",
+    "build": "parcel build src/index.html",
+    "dev": "parcel src/index.html",
     "lint": "eslint --ignore-path .gitignore . --fix",
     "prepare": "husky install",
     "test": "jest"

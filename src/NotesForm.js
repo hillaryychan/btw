@@ -1,5 +1,6 @@
-import {Alert, Button, Form} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
+import Alerts from "./Alerts";
 import CharCounter from "./CharCounter";
 import PropTypes from "prop-types";
 
@@ -62,9 +63,7 @@ class NotesForm extends Component {
   render() {
     return (
       <Form>
-        {this.state.errors.map((msg, idx) => <Alert key={idx} variant="danger">
-            Error: {msg}
-        </Alert>)}
+        <Alerts errors={this.state.errors} />
         <Form.Group className="mb-3">
           <Form.Label>
             Title{" "}

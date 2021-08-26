@@ -2,11 +2,9 @@ import {Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
 import Alerts from "./Alerts";
 import AudienceInput from "./AudienceInput";
-import CharCounter from "./CharCounter";
+import DescriptionInput from "./DescriptionInput";
 import PropTypes from "prop-types";
-
-const MAX_DESC_LEN = 500;
-const MAX_TITLE_LEN = 100;
+import TitleInput from "./TitleInput";
 
 class NotesForm extends Component {
   defaultState = {
@@ -88,41 +86,14 @@ class NotesForm extends Component {
     return (
       <Form>
         <Alerts errors={this.state.errors} />
-        <Form.Group className="mb-3">
-          <Form.Label>
-            Title{" "}
-            <CharCounter
-              count={this.state.title.length}
-              maxCount={MAX_TITLE_LEN}
-            />
-          </Form.Label>
-          <Form.Control
-            name="title"
-            type="text"
-            maxLength={MAX_TITLE_LEN}
-            placeholder="Note title"
-            value={this.title}
-            onChange={this.handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>
-            Description{" "}
-            <CharCounter
-              count={this.state.description.length}
-              maxCount={MAX_DESC_LEN}
-            />
-          </Form.Label>
-          <Form.Control
-            name="description"
-            as="textarea"
-            rows={5}
-            maxLength={MAX_DESC_LEN}
-            placeholder="Description (optional)"
-            value={this.state.description}
-            onChange={this.handleInputChange}
-          />
-        </Form.Group>
+        <TitleInput
+          title={this.state.title}
+          handleInputChange={this.handleInputChange}
+        />
+        <DescriptionInput
+          description={this.state.description}
+          handleInputChange={this.handleInputChange}
+        />
         <AudienceInput
           addAudience={this.addAudience}
           audience={this.state.audience}

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
-import NotesModal from "./NotesModal";
+import NotesModal from "../components/NotesModal";
 
 function Notes() {
   const [show, setShow] = useState(false);

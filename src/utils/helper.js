@@ -1,3 +1,7 @@
+function containsDuplicates(array) {
+  return new Set(array).size !== array.length;
+}
+
 function normaliseAudience(member) {
   let normalised = member.trim();
   normalised = normalised.toLowerCase();
@@ -5,4 +9,4 @@ function normaliseAudience(member) {
   return normalised;
 }
 
-export {normaliseAudience};
+export {containsDuplicates, normaliseAudience};

@@ -1,11 +1,11 @@
 import {Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
+import {containsDuplicates, normaliseAudience} from "../utils/helper";
 import Alerts from "./Alerts";
 import AudienceInput from "./AudienceInput";
 import DescriptionInput from "./DescriptionInput";
 import PropTypes from "prop-types";
 import TitleInput from "./TitleInput";
-import {normaliseAudience} from "../utils/helper";
 
 class NotesForm extends Component {
   defaultState = {
@@ -42,8 +42,8 @@ class NotesForm extends Component {
 
   addAudience() {
     const {audienceInput} = this.state;
-    if (audienceInput !== "") {
-      const member = normaliseAudience(audienceInput);
+    const member = normaliseAudience(audienceInput);
+    if (member !== "") {
       this.setState((prevState) => ({
         "audience": [...prevState.audience, member],
         "audienceInput": this.defaultState.audienceInput // reset audienceInput
@@ -63,14 +63,17 @@ class NotesForm extends Component {
   validateForm() {
     const {title} = this.state;
     const {description} = this.state;
+    const {audience} = this.state;
     const errors = [];
 
     if (title === "" && description === "") {
-      errors.push("cannot create an empty note");
+      errors.push("Cannot create an empty note");
     } else if (title === "") {
-      errors.push("note must have a title");
+      errors.push("Note must have a title");
     }
-
+    if (containsDuplicates(audience)) {
+      errors.push("Audience contains duplicates");
+    }
     return errors;
   }
 

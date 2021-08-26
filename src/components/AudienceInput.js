@@ -5,6 +5,8 @@ import React from "react";
 import {normaliseAudience} from "../utils/helper";
 import styles from "../utils/styles";
 
+const MAX_NAME_LEN = 35;
+
 function AudienceInput(props) {
   const audienceValue = normaliseAudience(props.audienceInput);
   return (
@@ -15,6 +17,7 @@ function AudienceInput(props) {
           <Form.Control
             name="audienceInput"
             as="input"
+            maxLength={MAX_NAME_LEN}
             placeholder="Add an audience"
             value={props.audienceInput}
             onChange={props.handleInputChange}

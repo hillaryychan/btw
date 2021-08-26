@@ -19,8 +19,12 @@ it("Alerts renders error message", () => {
 <div
   className="fade alert alert-danger show"
   role="alert"
+  style={
+    Object {
+      "textAlign": "center",
+    }
+  }
 >
-  Error: 
   error msg 1
 </div>
 `);
@@ -34,22 +38,34 @@ Array [
   <div
     className="fade alert alert-danger show"
     role="alert"
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
   >
-    Error: 
     error msg 1
   </div>,
   <div
     className="fade alert alert-danger show"
     role="alert"
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
   >
-    Error: 
     error msg 2
   </div>,
   <div
     className="fade alert alert-danger show"
     role="alert"
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
   >
-    Error: 
     error msg 3
   </div>,
 ]

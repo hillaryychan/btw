@@ -6,8 +6,8 @@ function Alerts(props) {
   if (props.errors) {
     return (
       <>
-        {props.errors.map((msg, idx) => <Alert key={idx} variant="danger">
-            Error: {msg}
+        {props.errors.map((msg, idx) => <Alert key={idx} variant="danger" style={{"textAlign": "center"}}>
+          {msg}
         </Alert>)}
       </>
     );

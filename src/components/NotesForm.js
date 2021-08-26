@@ -1,4 +1,12 @@
-import {Badge, Button, Col, Form, Row} from "react-bootstrap";
+import {
+  Badge,
+  Button,
+  Col,
+  Form,
+  OverlayTrigger,
+  Row,
+  Tooltip
+} from "react-bootstrap";
 import React, {Component} from "react";
 import Alerts from "./Alerts";
 import CharCounter from "./CharCounter";
@@ -6,6 +14,14 @@ import PropTypes from "prop-types";
 
 const MAX_DESC_LEN = 500;
 const MAX_TITLE_LEN = 100;
+
+function renderTooltip(props) {
+  return (
+    <Tooltip id="button-tooltip" {...props}>
+      Click to remove
+    </Tooltip>
+  );
+}
 
 class NotesForm extends Component {
   defaultState = {
@@ -23,6 +39,7 @@ class NotesForm extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addAudience = this.addAudience.bind(this);
+    this.removeAudience = this.removeAudience.bind(this);
   }
 
   resetState() {
@@ -41,10 +58,21 @@ class NotesForm extends Component {
 
   addAudience() {
     const {audienceInput} = this.state;
-    this.setState((prevState) => ({
-      "audience": [...prevState.audience, audienceInput],
-      "audienceInput": this.defaultState.audienceInput // reset audienceInput
-    }));
+    if (audienceInput !== "") {
+      this.setState((prevState) => ({
+        "audience": [...prevState.audience, audienceInput],
+        "audienceInput": this.defaultState.audienceInput // reset audienceInput
+      }));
+    }
+  }
+
+  removeAudience(event) {
+    const person = event.target.id;
+    const idx = parseInt(person.slice(5), 10);
+
+    const {audience} = this.state;
+    audience.splice(idx, 1);
+    this.setState([audience]);
   }
 
   validateForm() {
@@ -129,9 +157,21 @@ class NotesForm extends Component {
             </Col>
           </Row>
           <div>
-            {this.state.audience.map((person, idx) => <Badge pill key={idx} className="m-1">
-              {person}
-            </Badge>)}
+            {this.state.audience.map((person, idx) => <OverlayTrigger
+              key={idx}
+              placement="top"
+              delay={{"hide": 400, "show": 250}}
+              overlay={renderTooltip}
+            >
+              <Badge
+                pill
+                id={`pers-${idx}`}
+                className="m-1"
+                onClick={this.removeAudience}
+              >
+                {person}
+              </Badge>
+            </OverlayTrigger>)}
           </div>
         </Form.Group>
         <Button

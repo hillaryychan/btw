@@ -1,22 +1,7 @@
-import {
-  Badge,
-  Button,
-  Col,
-  Form,
-  OverlayTrigger,
-  Row,
-  Tooltip
-} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
+import AudiencePills from "./AudiencePills";
 import PropTypes from "prop-types";
 import React from "react";
-
-function renderTooltip(props) {
-  return (
-    <Tooltip id="button-tooltip" {...props}>
-      Click to remove
-    </Tooltip>
-  );
-}
 
 function AudienceInput(props) {
   return (
@@ -38,23 +23,11 @@ function AudienceInput(props) {
           </Button>
         </Col>
       </Row>
-      <div id="audience-list">
-        {props.audience.map((person, idx) => <OverlayTrigger
-          key={idx}
-          placement="top"
-          delay={{"hide": 400, "show": 250}}
-          overlay={renderTooltip}
-        >
-          <Badge
-            pill
-            id={`pers-${idx}`}
-            className="m-1"
-            onClick={props.removeAudience}
-          >
-            {person}
-          </Badge>
-        </OverlayTrigger>)}
-      </div>
+      <AudiencePills
+        audience={props.audience}
+        actionName="remove"
+        doAction={props.removeAudience}
+      />
     </Form.Group>
   );
 }

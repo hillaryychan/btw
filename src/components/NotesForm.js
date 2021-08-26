@@ -1,27 +1,12 @@
-import {
-  Badge,
-  Button,
-  Col,
-  Form,
-  OverlayTrigger,
-  Row,
-  Tooltip
-} from "react-bootstrap";
+import {Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
 import Alerts from "./Alerts";
+import AudienceInput from "./AudienceInput";
 import CharCounter from "./CharCounter";
 import PropTypes from "prop-types";
 
 const MAX_DESC_LEN = 500;
 const MAX_TITLE_LEN = 100;
-
-function renderTooltip(props) {
-  return (
-    <Tooltip id="button-tooltip" {...props}>
-      Click to remove
-    </Tooltip>
-  );
-}
 
 class NotesForm extends Component {
   defaultState = {
@@ -138,42 +123,13 @@ class NotesForm extends Component {
             onChange={this.handleInputChange}
           />
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Audience</Form.Label>
-          <Row className="g-2" xs={2}>
-            <Col md>
-              <Form.Control
-                name="audienceInput"
-                as="input"
-                placeholder="Add an audience"
-                value={this.state.audienceInput}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-            <Col md>
-              <Button variant="outline-primary" onClick={this.addAudience}>
-                Add
-              </Button>
-            </Col>
-          </Row>
-          <div>
-            {this.state.audience.map((person, idx) => <OverlayTrigger
-              key={idx}
-              placement="top"
-              delay={{"hide": 400, "show": 250}}
-              overlay={renderTooltip}
-            >
-              <Badge
-                pill
-                id={`pers-${idx}`}
-                className="m-1"
-                onClick={this.removeAudience}
-              >
-                {person}
-              </Badge>
-            </OverlayTrigger>)}
-          </div>
-        </Form.Group>
+        <AudienceInput
+          addAudience={this.addAudience}
+          audience={this.state.audience}
+          audienceInput={this.state.audienceInput}
+          handleInputChange={this.handleInputChange}
+          removeAudience={this.removeAudience}
+        />
         <Button
           variant="secondary"
           onClick={this.exitForm}

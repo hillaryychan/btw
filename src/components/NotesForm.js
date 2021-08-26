@@ -5,6 +5,7 @@ import AudienceInput from "./AudienceInput";
 import DescriptionInput from "./DescriptionInput";
 import PropTypes from "prop-types";
 import TitleInput from "./TitleInput";
+import {normaliseAudience} from "../utils/helper";
 
 class NotesForm extends Component {
   defaultState = {
@@ -42,8 +43,9 @@ class NotesForm extends Component {
   addAudience() {
     const {audienceInput} = this.state;
     if (audienceInput !== "") {
+      const member = normaliseAudience(audienceInput);
       this.setState((prevState) => ({
-        "audience": [...prevState.audience, audienceInput],
+        "audience": [...prevState.audience, member],
         "audienceInput": this.defaultState.audienceInput // reset audienceInput
       }));
     }

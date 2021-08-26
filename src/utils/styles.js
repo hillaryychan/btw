@@ -10,6 +10,10 @@ const Center = {
   "transform": "translate(-50%, -50%)"
 };
 
+const Faded = {
+  "color": "gray"
+};
+
 const ReqInput = {
   "color": "red"
 };
@@ -21,6 +25,7 @@ const Username = {
 const styles = {
   Brand,
   Center,
+  Faded,
   ReqInput,
   Username
 };

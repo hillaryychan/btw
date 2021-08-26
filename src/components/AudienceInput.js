@@ -2,8 +2,11 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import AudiencePills from "./AudiencePills";
 import PropTypes from "prop-types";
 import React from "react";
+import {normaliseAudience} from "../utils/helper";
+import styles from "../utils/styles";
 
 function AudienceInput(props) {
+  const audienceValue = normaliseAudience(props.audienceInput);
   return (
     <Form.Group className="mb-3">
       <Form.Label>Audience</Form.Label>
@@ -23,6 +26,12 @@ function AudienceInput(props) {
           </Button>
         </Col>
       </Row>
+
+      {audienceValue !== "" &&
+        <div style={styles.Faded} className="m-1">
+          Audience member will be added as <b>{audienceValue}</b>
+        </div>
+      }
       <AudiencePills
         audience={props.audience}
         actionName="remove"

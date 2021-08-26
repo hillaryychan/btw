@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
+import styles from "../utils/styles";
 
 function CharCounter(props) {
   return (
-    <span style={{"color": "gray"}}>
+    <span style={styles.Faded}>
       ({props.count}/{props.maxCount})
     </span>
   );

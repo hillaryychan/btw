@@ -100,7 +100,11 @@ class NotesForm extends Component {
             onChange={this.handleInputChange}
           />
         </Form.Group>
-        <Button variant="secondary" onClick={this.exitForm}>
+        <Button
+          variant="secondary"
+          onClick={this.exitForm}
+          data-testid="cancel-btn"
+        >
           Cancel
         </Button>{" "}
         <Button variant="primary" type="submit" onClick={this.submitForm}>

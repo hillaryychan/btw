@@ -1,4 +1,4 @@
-import * as authUtils from "../utils/auth";
+import * as authUtils from "../../utils/auth";
 import AuthButtons from "../AuthButtons";
 import React from "react";
 import renderer from "react-test-renderer";

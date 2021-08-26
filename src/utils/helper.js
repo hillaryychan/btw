@@ -3,8 +3,7 @@ function containsDuplicates(array) {
 }
 
 function normaliseAudience(member) {
-  let normalised = member.trim();
-  normalised = normalised.toLowerCase();
+  let normalised = member.toLowerCase();
   normalised = normalised.replace(/\W+/gu, "-");
   return normalised;
 }

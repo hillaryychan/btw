@@ -10,10 +10,6 @@ test("conta1insDuplicates when there are duplicates", () => {
   expect(containsDuplicates(arr)).toBe(true);
 });
 
-test("normaliseAudience trims leading and trailing space", () => {
-  expect(normaliseAudience("   extra         ")).toBe("extra");
-});
-
 test("normaliseAudience converts to lowercase", () => {
   expect(normaliseAudience("LOWERCASE")).toBe("lowercase");
 });
@@ -22,6 +18,6 @@ test("normaliseAudience changes non alphanumeric chars to dash", () => {
   expect(normaliseAudience("!@#$%^&*()=+[]{}\\|;:'\"<>,./?")).toBe("-");
 });
 
-test("normaliseAudience trims leading and trailing space", () => {
-  expect(normaliseAudience("  #hop #$%pop     % ")).toBe("-hop-pop-");
+test("normaliseAudience converts input corrects", () => {
+  expect(normaliseAudience("  hop #$%pop     % ")).toBe("-hop-pop-");
 });

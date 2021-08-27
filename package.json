@@ -9,9 +9,9 @@
   },
   "scripts": {
     "build": "parcel build src/index.html",
-    "dev": "parcel src/index.html",
     "lint": "eslint --ignore-path .gitignore . --fix",
     "prepare": "husky install",
+    "start": "parcel src/index.html",
     "test": "jest"
   },
   "dependencies": {

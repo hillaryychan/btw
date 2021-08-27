@@ -10,17 +10,9 @@ import TitleInput from "./TitleInput";
 import firebase from "firebase/app";
 
 class NotesForm extends Component {
-  defaultState = {
-    audience: [],
-    audienceInput: "",
-    description: "",
-    errors: [],
-    title: ""
-  };
-
   constructor(props) {
     super(props);
-    this.state = this.defaultState;
+    this.state = this.initialState = this.initFormState();
     this.exitForm = this.exitForm.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -28,8 +20,25 @@ class NotesForm extends Component {
     this.removeAudience = this.removeAudience.bind(this);
   }
 
+  initFormState() {
+    const state = {
+      audience: [],
+      audienceInput: "",
+      description: "",
+      errors: [],
+      title: ""
+    };
+    const note = this.props.noteData;
+    if (note) {
+      state.title = note.title;
+      state.description = note.description;
+      state.audience = note.audience;
+    }
+    return state;
+  }
+
   resetState() {
-    this.setState(this.defaultState);
+    this.setState(this.initialState);
   }
 
   exitForm() {
@@ -48,7 +57,7 @@ class NotesForm extends Component {
     if (member !== "") {
       this.setState((prevState) => ({
         audience: [...prevState.audience, member],
-        audienceInput: this.defaultState.audienceInput // reset audienceInput
+        audienceInput: this.initialState.audienceInput // reset audienceInput
       }));
     }
   }
@@ -68,9 +77,10 @@ class NotesForm extends Component {
     const {audience} = this.state;
     const errors = [];
 
-    if (title === "" && description === "") {
-      errors.push("Cannot create an empty note");
-    } else if (title === "") {
+    if (title === "" && description === "" && audience.length === 0) {
+      errors.push("Note cannot be empty");
+    }
+    if (title === "") {
       errors.push("Note must have a title");
     }
     if (containsDuplicates(audience)) {
@@ -95,20 +105,7 @@ class NotesForm extends Component {
     const errors = this.validateForm();
     if (errors.length === 0) {
       const note = this.createNote();
-      firebase.
-        firestore().
-        collection("notes").
-        add(note).
-        then((docRef) => {
-          this.props.addNote({data: note, ref: docRef.id});
-        }).
-        catch((/* error*/) => {
-          // TODO: error handling
-          // console.error(
-          //   "Error writing new message to Firebase Database",
-          //   error
-          // );
-        });
+      this.props.doNoteAction(note);
       this.exitForm();
     }
     this.setState({errors});
@@ -141,7 +138,7 @@ class NotesForm extends Component {
           Cancel
         </Button>{" "}
         <Button variant="primary" type="submit" onClick={this.submitForm}>
-          Create Note
+          {this.props.action}
         </Button>
       </Form>
     );
@@ -149,8 +146,10 @@ class NotesForm extends Component {
 }
 
 NotesForm.propTypes = {
-  addNote: PropTypes.func,
+  action: PropTypes.string,
+  doNoteAction: PropTypes.func,
   handleClose: PropTypes.func,
+  noteData: PropTypes.object,
   notes: PropTypes.array
 };
 

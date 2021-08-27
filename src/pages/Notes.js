@@ -1,28 +1,60 @@
-import React, {useState} from "react";
+import "firebase/firestore";
+import React, {Component} from "react";
 import Button from "react-bootstrap/Button";
+import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
+import firebase from "firebase/app";
 
-function Notes() {
-  const [show, setShow] = useState(false);
-
-  function handleClose() {
-    return setShow(false);
+class Notes extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initNotes: true,
+      notes: [],
+      show: false
+    };
+    this.handleClose = this.handleClose.bind(this);
+    this.handleShow = this.handleShow.bind(this);
   }
 
-  function handleShow() {
-    return setShow(true);
+  handleClose() {
+    return this.setState({show: false});
   }
 
-  return (
-    <>
-      <h1>My Notes</h1>
-      <Button variant="primary" onClick={handleShow}>
-        New Note
-      </Button>
+  handleShow() {
+    return this.setState({show: true});
+  }
 
-      <NotesModal handleClose={handleClose} show={show} />
-    </>
-  );
+  componentDidMount() {
+    const db = firebase.firestore();
+    const retrievedNotes = [];
+    db.collection("notes").
+      orderBy("lastModified", "desc").
+      limit(3).
+      get().
+      then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          retrievedNotes.push({data: doc.data(), ref: doc.id});
+        });
+      }).
+      then((_) => {
+        this.setState({initNotes: false, notes: retrievedNotes});
+      });
+  }
+
+  render() {
+    return (
+      <>
+        <h1>My Notes</h1>
+        <Button variant="primary" onClick={this.handleShow}>
+          New Note
+        </Button>
+        <NotesModal handleClose={this.handleClose} show={this.state.show} />
+        <hr />
+        <NotesList initNotes={this.state.initNotes} notes={this.state.notes} />
+      </>
+    );
+  }
 }
 
 export default Notes;

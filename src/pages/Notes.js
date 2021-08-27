@@ -16,6 +16,7 @@ class Notes extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.addNote = this.addNote.bind(this);
+    this.deleteNote = this.deleteNote.bind(this);
   }
 
   handleClose() {
@@ -32,9 +33,24 @@ class Notes extends Component {
     }));
   }
 
-  componentDidMount() {
+  deleteNote(idx, docRef) {
     const db = firebase.firestore();
+    db.collection("notes").
+      doc(docRef).
+      delete().
+      then(() => {
+        const {notes} = this.state;
+        notes.splice(idx, 1);
+        this.setState([notes]);
+      }).
+      catch(() => {
+        // TODO: error handling
+      });
+  }
+
+  componentDidMount() {
     const retrievedNotes = [];
+    const db = firebase.firestore();
     db.collection("notes").
       orderBy("lastModified", "desc").
       limit(50).
@@ -62,7 +78,11 @@ class Notes extends Component {
           addNote={this.addNote}
         />
         <hr />
-        <NotesList initNotes={this.state.initNotes} notes={this.state.notes} />
+        <NotesList
+          initNotes={this.state.initNotes}
+          notes={this.state.notes}
+          deleteNote={this.deleteNote}
+        />
       </>
     );
   }

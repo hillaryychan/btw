@@ -1,9 +1,15 @@
 import {Accordion, Button, Col, Row} from "react-bootstrap";
+import React, {useState} from "react";
 import AudiencePills from "../components/AudiencePills";
 import PropTypes from "prop-types";
-import React from "react";
 
 function NotesList(props) {
+  const [collapse, useCollapse] = useState(false); // Hack to make accordion collapse on delete
+  function deleteNote(idx, docRef) {
+    useCollapse(!collapse);
+    props.deleteNote(idx, docRef);
+  }
+
   if (props.initNotes) {
     return null;
   } else if (props.notes.length === 0) {
@@ -16,7 +22,7 @@ function NotesList(props) {
 
   return (
     <div id="notes-list">
-      <Accordion>
+      <Accordion key={collapse}>
         {props.notes.map((note, idx) => <Accordion.Item key={idx} eventKey={idx}>
           <Accordion.Header>
             <b>{note.data.title}</b>
@@ -40,7 +46,11 @@ function NotesList(props) {
             <div id={`note-${idx}-actions`}>
               <Row className="g-2" xs={2}>
                 <Col>
-                  <Button size="sm" variant="success">
+                  <Button
+                    size="sm"
+                    variant="success"
+                    onClick={() => deleteNote(idx, note.ref)}
+                  >
                       Complete
                   </Button>{" "}
                   <Button size="sm" variant="secondary">
@@ -48,7 +58,12 @@ function NotesList(props) {
                   </Button>
                 </Col>
                 <Col>
-                  <Button size="sm" variant="danger" className="float-end">
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    className="float-end"
+                    onClick={() => deleteNote(idx, note.ref)}
+                  >
                       Delete
                   </Button>
                 </Col>
@@ -62,6 +77,7 @@ function NotesList(props) {
 }
 
 NotesList.propTypes = {
+  deleteNote: PropTypes.func,
   initNotes: PropTypes.bool,
   notes: PropTypes.array
 };

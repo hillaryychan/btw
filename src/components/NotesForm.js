@@ -1,3 +1,4 @@
+import "firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import React, {Component} from "react";
 import {containsDuplicates, normaliseAudience} from "../utils/helper";
@@ -6,6 +7,7 @@ import AudienceInput from "./AudienceInput";
 import DescriptionInput from "./DescriptionInput";
 import PropTypes from "prop-types";
 import TitleInput from "./TitleInput";
+import firebase from "firebase/app";
 
 class NotesForm extends Component {
   defaultState = {
@@ -77,11 +79,33 @@ class NotesForm extends Component {
     return errors;
   }
 
+  createNote() {
+    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+    return {
+      "active_audience": this.state.audience,
+      "created_at": timestamp,
+      "description": this.state.description,
+      "inactive_audience": [],
+      "last_modified": timestamp,
+      "title": this.state.title
+    };
+  }
+
   submitForm(event) {
     event.preventDefault();
     const errors = this.validateForm();
     if (errors.length === 0) {
-      // TODO: store in firestore
+      firebase.
+        firestore().
+        collection("notes").
+        add(this.createNote()).
+        catch((/* error*/) => {
+          // TODO: error handling
+          // console.error(
+          //   "Error writing new message to Firebase Database",
+          //   error
+          // );
+        });
       this.exitForm();
     }
     this.setState({errors});

@@ -15,6 +15,7 @@ class Notes extends Component {
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.addNote = this.addNote.bind(this);
   }
 
   handleClose() {
@@ -23,6 +24,12 @@ class Notes extends Component {
 
   handleShow() {
     return this.setState({show: true});
+  }
+
+  addNote(note) {
+    return this.setState((prevState) => ({
+      notes: [note, ...prevState.notes]
+    }));
   }
 
   componentDidMount() {
@@ -49,7 +56,11 @@ class Notes extends Component {
         <Button variant="primary" onClick={this.handleShow}>
           New Note
         </Button>
-        <NotesModal handleClose={this.handleClose} show={this.state.show} />
+        <NotesModal
+          handleClose={this.handleClose}
+          show={this.state.show}
+          addNote={this.addNote}
+        />
         <hr />
         <NotesList initNotes={this.state.initNotes} notes={this.state.notes} />
       </>

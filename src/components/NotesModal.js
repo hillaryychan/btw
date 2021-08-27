@@ -10,13 +10,14 @@ function NotesModal(props) {
         <Modal.Title>New Note</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <NotesForm handleClose={props.handleClose} />
+        <NotesForm handleClose={props.handleClose} addNote={props.addNote} />
       </Modal.Body>
     </Modal>
   );
 }
 
 NotesModal.propTypes = {
+  addNote: PropTypes.func,
   handleClose: PropTypes.func,
   show: PropTypes.bool
 };

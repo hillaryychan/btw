@@ -94,10 +94,14 @@ class NotesForm extends Component {
     event.preventDefault();
     const errors = this.validateForm();
     if (errors.length === 0) {
+      const note = this.createNote();
       firebase.
         firestore().
         collection("notes").
-        add(this.createNote()).
+        add(note).
+        then((docRef) => {
+          this.props.addNote({data: note, ref: docRef.id});
+        }).
         catch((/* error*/) => {
           // TODO: error handling
           // console.error(
@@ -145,7 +149,9 @@ class NotesForm extends Component {
 }
 
 NotesForm.propTypes = {
-  handleClose: PropTypes.func
+  addNote: PropTypes.func,
+  handleClose: PropTypes.func,
+  notes: PropTypes.array
 };
 
 export default NotesForm;

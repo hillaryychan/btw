@@ -1,5 +1,7 @@
 import Home from "../Home";
+import Notes from "../Notes";
 import React from "react";
+import firebase from "firebase/app";
 import renderer from "react-test-renderer";
 
 it("Home page when initialising", () => {
@@ -79,6 +81,16 @@ it("Home page when signed out", () => {
 });
 
 it("Home page when signed in", () => {
+  const firestoreMock = {
+    collection: jest.fn().mockReturnThis(),
+    get: jest.fn().mockReturnThis(),
+    limit: jest.fn().mockReturnThis(),
+    orderBy: jest.fn().mockReturnThis(),
+    then: jest.fn().mockResolvedValueOnce()
+  };
+  jest.spyOn(Notes.prototype, "componentDidMount");
+  jest.spyOn(firebase, "firestore").mockImplementationOnce(() => firestoreMock);
+
   const tree = renderer.create(<Home signedIn={true} />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
@@ -96,6 +108,7 @@ it("Home page when signed in", () => {
   >
     New Note
   </button>
+  <hr />
 </div>
 `);
 });

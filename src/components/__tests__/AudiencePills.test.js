@@ -24,10 +24,6 @@ it("AudiencePills renders single audience", () => {
   <span
     className="m-1 badge rounded-pill bg-primary"
     id="pers-0"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     donald duck
   </span>
@@ -45,30 +41,18 @@ it("AudiencePills render multiple audience members", () => {
   <span
     className="m-1 badge rounded-pill bg-primary"
     id="pers-0"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     huey
   </span>
   <span
     className="m-1 badge rounded-pill bg-primary"
     id="pers-1"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     dewey
   </span>
   <span
     className="m-1 badge rounded-pill bg-primary"
     id="pers-2"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
     louie
   </span>
@@ -76,7 +60,7 @@ it("AudiencePills render multiple audience members", () => {
 `);
 });
 
-it("AudiencePills calls doAction on clicking person", () => {
+it("AudiencePills when given an action calls doAction on clicking person", () => {
   let container = document.createElement("div");
   document.body.appendChild(container);
   const doAction = jest.fn();

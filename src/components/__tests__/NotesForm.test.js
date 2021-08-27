@@ -28,7 +28,7 @@ it("NotesForm calls handleClose on cancel button", () => {
   expect(button.innerHTML).toBe("Cancel");
 
   act(() => {
-    button.dispatchEvent(new MouseEvent("click", {"bubbles": true}));
+    button.dispatchEvent(new MouseEvent("click", {bubbles: true}));
   });
   expect(handleClose).toHaveBeenCalledTimes(1);
 });

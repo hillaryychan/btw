@@ -11,11 +11,11 @@ import firebase from "firebase/app";
 
 class NotesForm extends Component {
   defaultState = {
-    "audience": [],
-    "audienceInput": "",
-    "description": "",
-    "errors": [],
-    "title": ""
+    audience: [],
+    audienceInput: "",
+    description: "",
+    errors: [],
+    title: ""
   };
 
   constructor(props) {
@@ -47,8 +47,8 @@ class NotesForm extends Component {
     const member = normaliseAudience(audienceInput);
     if (member !== "") {
       this.setState((prevState) => ({
-        "audience": [...prevState.audience, member],
-        "audienceInput": this.defaultState.audienceInput // reset audienceInput
+        audience: [...prevState.audience, member],
+        audienceInput: this.defaultState.audienceInput // reset audienceInput
       }));
     }
   }
@@ -82,12 +82,12 @@ class NotesForm extends Component {
   createNote() {
     const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     return {
-      "active_audience": this.state.audience,
-      "created_at": timestamp,
-      "description": this.state.description,
-      "inactive_audience": [],
-      "last_modified": timestamp,
-      "title": this.state.title
+      activeAudience: this.state.audience,
+      created: timestamp,
+      description: this.state.description,
+      inactiveAudience: [],
+      lastModified: timestamp,
+      title: this.state.title
     };
   }
 
@@ -146,7 +146,7 @@ class NotesForm extends Component {
 }
 
 NotesForm.propTypes = {
-  "handleClose": PropTypes.func
+  handleClose: PropTypes.func
 };
 
 export default NotesForm;

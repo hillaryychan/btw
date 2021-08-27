@@ -91,7 +91,7 @@ it("AudiencePills calls doAction on clicking person", () => {
   expect(person.innerHTML).toBe("sprig");
 
   act(() => {
-    person.dispatchEvent(new MouseEvent("click", {"bubbles": true}));
+    person.dispatchEvent(new MouseEvent("click", {bubbles: true}));
   });
   expect(doAction).toHaveBeenCalledTimes(1);
 

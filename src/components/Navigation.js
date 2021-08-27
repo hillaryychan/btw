@@ -32,8 +32,8 @@ function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  "init": PropTypes.bool,
-  "signedIn": PropTypes.bool
+  init: PropTypes.bool,
+  signedIn: PropTypes.bool
 };
 
 export default Navigation;

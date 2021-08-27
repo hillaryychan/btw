@@ -16,7 +16,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  "init": PropTypes.bool
+  init: PropTypes.bool
 };
 
 export default App;

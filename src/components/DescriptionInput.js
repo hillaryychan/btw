@@ -26,8 +26,8 @@ function DescriptionInput(props) {
 }
 
 DescriptionInput.propTypes = {
-  "description": PropTypes.string,
-  "handleInputChange": PropTypes.func
+  description: PropTypes.string,
+  handleInputChange: PropTypes.func
 };
 
 export default DescriptionInput;

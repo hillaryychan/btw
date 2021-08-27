@@ -45,11 +45,11 @@ function AudienceInput(props) {
 }
 
 AudienceInput.propTypes = {
-  "addAudience": PropTypes.func,
-  "audience": PropTypes.array,
-  "audienceInput": PropTypes.string,
-  "handleInputChange": PropTypes.func,
-  "removeAudience": PropTypes.func
+  addAudience: PropTypes.func,
+  audience: PropTypes.array,
+  audienceInput: PropTypes.string,
+  handleInputChange: PropTypes.func,
+  removeAudience: PropTypes.func
 };
 
 export default AudienceInput;

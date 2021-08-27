@@ -27,8 +27,8 @@ function AuthButtons(props) {
 }
 
 AuthButtons.propTypes = {
-  "init": PropTypes.bool,
-  "signedIn": PropTypes.bool
+  init: PropTypes.bool,
+  signedIn: PropTypes.bool
 };
 
 export default AuthButtons;

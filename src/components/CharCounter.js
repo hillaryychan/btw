@@ -11,8 +11,8 @@ function CharCounter(props) {
 }
 
 CharCounter.propTypes = {
-  "count": PropTypes.number,
-  "maxCount": PropTypes.number
+  count: PropTypes.number,
+  maxCount: PropTypes.number
 };
 
 export default CharCounter;

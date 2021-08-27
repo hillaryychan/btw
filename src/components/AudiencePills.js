@@ -18,7 +18,7 @@ function AudiencePills(props) {
         {audience.map((person, idx) => <OverlayTrigger
           key={idx}
           placement="top"
-          delay={{"hide": 400, "show": 250}}
+          delay={{hide: 400, show: 250}}
           overlay={renderTooltip}
         >
           <Badge
@@ -37,9 +37,9 @@ function AudiencePills(props) {
 }
 
 AudiencePills.propTypes = {
-  "actionName": PropTypes.string,
-  "audience": PropTypes.array,
-  "doAction": PropTypes.func
+  actionName: PropTypes.string,
+  audience: PropTypes.array,
+  doAction: PropTypes.func
 };
 
 export default AudiencePills;

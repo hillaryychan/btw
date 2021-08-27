@@ -26,8 +26,8 @@ function TitleInput(props) {
 }
 
 TitleInput.propTypes = {
-  "handleInputChange": PropTypes.func,
-  "title": PropTypes.string
+  handleInputChange: PropTypes.func,
+  title: PropTypes.string
 };
 
 export default TitleInput;

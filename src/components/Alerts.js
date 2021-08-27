@@ -6,7 +6,7 @@ function Alerts(props) {
   if (props.errors) {
     return (
       <>
-        {props.errors.map((msg, idx) => <Alert key={idx} variant="danger" style={{"textAlign": "center"}}>
+        {props.errors.map((msg, idx) => <Alert key={idx} variant="danger" style={{textAlign: "center"}}>
           {msg}
         </Alert>)}
       </>
@@ -17,7 +17,7 @@ function Alerts(props) {
 }
 
 Alerts.propTypes = {
-  "errors": PropTypes.array
+  errors: PropTypes.array
 };
 
 export default Alerts;

@@ -17,8 +17,8 @@ function NotesModal(props) {
 }
 
 NotesModal.propTypes = {
-  "handleClose": PropTypes.func,
-  "show": PropTypes.bool
+  handleClose: PropTypes.func,
+  show: PropTypes.bool
 };
 
 export default NotesModal;

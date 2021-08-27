@@ -37,7 +37,6 @@ function AudienceInput(props) {
       }
       <AudiencePills
         audience={props.audience}
-        actionName="remove"
         doAction={props.removeAudience}
       />
     </Form.Group>

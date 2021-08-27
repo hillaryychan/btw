@@ -30,7 +30,7 @@ class Notes extends Component {
     const retrievedNotes = [];
     db.collection("notes").
       orderBy("lastModified", "desc").
-      limit(3).
+      limit(50).
       get().
       then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

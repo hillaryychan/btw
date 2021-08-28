@@ -1,8 +1,8 @@
 import {Button, Container, Form} from "react-bootstrap";
 import React, {Component} from "react";
+import {signIn, signInWithGoogle} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
-import {signIn} from "../utils/auth";
 
 class SignIn extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class SignIn extends Component {
     const {email, password} = this.state;
     return (
       <Container className="mt-2">
-        <h1>Sign Up</h1>
+        <h1>Sign In</h1>
         <Form>
           <Alerts errors={this.state.errors} />
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -76,9 +76,17 @@ class SignIn extends Component {
             />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={this.submitForm}>
-            Submit
+            Sign in
           </Button>
         </Form>
+        <hr />
+        <Button
+          variant="outline-primary"
+          type="submit"
+          onClick={signInWithGoogle}
+        >
+          Sign in with Google
+        </Button>
       </Container>
     );
   }

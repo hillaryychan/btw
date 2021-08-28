@@ -1,8 +1,8 @@
 import {Button, Container, Form} from "react-bootstrap";
 import React, {Component} from "react";
+import {signInWithGoogle, signUp} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
-import {signUp} from "../utils/auth";
 
 class SignUp extends Component {
   constructor(props) {
@@ -88,9 +88,17 @@ class SignUp extends Component {
             />
           </Form.Group>
           <Button variant="primary" type="submit" onClick={this.submitForm}>
-            Submit
+            Sign up
           </Button>
         </Form>
+        <hr />
+        <Button
+          variant="outline-primary"
+          type="submit"
+          onClick={signInWithGoogle}
+        >
+          Sign in with Google
+        </Button>
       </Container>
     );
   }

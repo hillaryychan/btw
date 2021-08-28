@@ -11,14 +11,15 @@
   },
   "scripts": {
     "build": "parcel build",
-    "dev": "parcel",
     "lint": "eslint --ignore-path .gitignore . --fix",
     "prepare": "husky install",
+    "start": "parcel",
     "test": "jest"
   },
   "dependencies": {
     "@parcel/transformer-react-refresh-wrap": "^2.0.0-alpha.3",
     "@react-firebase/auth": "^0.2.10",
+    "@testing-library/react": "^12.0.0",
     "bootstrap": "5.1.0",
     "firebase": "^8.10.0",
     "prop-types": "^15.7.2",

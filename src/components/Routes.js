@@ -1,6 +1,6 @@
 import {Route, Switch} from "react-router-dom";
-import About from "./About";
-import Home from "./Home";
+import About from "../pages/About";
+import Home from "../pages/Home";
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -18,8 +18,8 @@ function Routes(props) {
 }
 
 Routes.propTypes = {
-  "init": PropTypes.bool,
-  "signedIn": PropTypes.bool
+  init: PropTypes.bool,
+  signedIn: PropTypes.bool
 };
 
 export default Routes;

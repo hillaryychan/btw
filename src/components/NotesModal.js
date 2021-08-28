@@ -10,15 +10,23 @@ function NotesModal(props) {
         <Modal.Title>New Note</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <NotesForm handleClose={props.handleClose} />
+        <NotesForm
+          noteData={props.noteData}
+          handleClose={props.handleClose}
+          action={props.action}
+          doNoteAction={props.doNoteAction}
+        />
       </Modal.Body>
     </Modal>
   );
 }
 
 NotesModal.propTypes = {
-  "handleClose": PropTypes.func,
-  "show": PropTypes.bool
+  action: PropTypes.string,
+  doNoteAction: PropTypes.func,
+  handleClose: PropTypes.func,
+  noteData: PropTypes.object,
+  show: PropTypes.bool
 };
 
 export default NotesModal;

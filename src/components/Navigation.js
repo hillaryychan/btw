@@ -2,7 +2,7 @@ import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
 import AuthButtons from "./AuthButtons";
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "./utils/styles";
+import styles from "../utils/styles";
 
 function Navigation(props) {
   return (
@@ -32,8 +32,8 @@ function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  "init": PropTypes.bool,
-  "signedIn": PropTypes.bool
+  init: PropTypes.bool,
+  signedIn: PropTypes.bool
 };
 
 export default Navigation;

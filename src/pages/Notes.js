@@ -1,15 +1,16 @@
 import "firebase/firestore";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import React, {Component} from "react";
-import Button from "react-bootstrap/Button";
+import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
-import {createDoc} from "../utils/helper";
 import firebase from "firebase/app";
 
 class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filter: "",
       initNotes: true,
       notes: [],
       show: false
@@ -19,6 +20,7 @@ class Notes extends Component {
     this.addNote = this.addNote.bind(this);
     this.deleteNote = this.deleteNote.bind(this);
     this.updateNote = this.updateNote.bind(this);
+    this.filterNotes = this.filterNotes.bind(this);
   }
 
   handleClose() {
@@ -35,7 +37,10 @@ class Notes extends Component {
       add(note).
       then((docRef) => {
         this.setState((prevState) => ({
-          notes: [createDoc(docRef.id, note), ...prevState.notes]
+          notes: [
+            createDoc(docRef.id, note, this.state.filter),
+            ...prevState.notes
+          ]
         }));
       }).
       catch(() => {
@@ -65,12 +70,22 @@ class Notes extends Component {
       update(note).
       then(() => {
         const {notes} = this.state;
-        notes[idx] = createDoc(docRef, note);
+        notes[idx] = createDoc(docRef, note, this.state.filter);
         this.setState([notes]);
       }).
       catch(() => {
         // TODO: error handling
       });
+  }
+
+  filterNotes(person) {
+    let {notes} = this.state;
+    notes = notes.map((doc) => {
+      // Show note if person undefined or falsy
+      doc.show = canShow(doc.data, person);
+      return doc;
+    });
+    this.setState({filter: person, notes});
   }
 
   componentDidMount() {
@@ -82,7 +97,7 @@ class Notes extends Component {
       get().
       then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          retrievedNotes.push(createDoc(doc.id, doc.data()));
+          retrievedNotes.push(createDoc(doc.id, doc.data(), this.state.filter));
         });
       }).
       then((_) => {
@@ -91,12 +106,37 @@ class Notes extends Component {
   }
 
   render() {
+    const audienceSet = new Set();
+    this.state.notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
     return (
       <>
         <h1>My Notes</h1>
-        <Button variant="primary" onClick={this.handleShow}>
-          New Note
-        </Button>
+        <Row>
+          <Col>
+            <Form.Label column>Filter by audience</Form.Label>
+            <Form.Select>
+              <option value="none" onClick={() => this.filterNotes("")}>
+                No audience filter
+              </option>
+              {[...audienceSet].map((person, idx) => <option
+                key={idx}
+                value={person}
+                onClick={() => this.filterNotes(person)}
+              >
+                {person}
+              </option>)}
+            </Form.Select>{" "}
+          </Col>
+          <Col>
+            <Button
+              variant="primary"
+              onClick={this.handleShow}
+              className="float-end"
+            >
+              New Note
+            </Button>
+          </Col>
+        </Row>
         <NotesModal
           handleClose={this.handleClose}
           show={this.state.show}

@@ -38,24 +38,28 @@ function NoteView(props) {
             <hr />
           }
           <div id={`note-${idx}-actions`}>
-            <Row className="g-2" xs={2}>
+            <Row className="g-2">
               <Col>
                 <Button
                   size="sm"
                   variant="success"
+                  className="my-1"
                   onClick={() => props.deleteNote(idx, note.ref)}
                 >
                   Complete
                 </Button>{" "}
-                <Button size="sm" variant="secondary" onClick={handleShow}>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="my-1"
+                  onClick={handleShow}
+                >
                   Edit
                 </Button>
-              </Col>
-              <Col>
                 <Button
                   size="sm"
                   variant="danger"
-                  className="float-end"
+                  className="my-1 float-end"
                   onClick={() => props.deleteNote(idx, note.ref)}
                 >
                   Delete
@@ -69,7 +73,7 @@ function NoteView(props) {
           handleClose={handleClose}
           show={show}
           action="Save Note"
-          doNoteAction={(noteToUpdate) => props.updateNote(idx, note.ref, noteToUpdate)
+          doNoteAction={(noteToUpdate) => props.updateNote(idx, note.ref, note.data, noteToUpdate)
           }
         />
       </Accordion.Item>

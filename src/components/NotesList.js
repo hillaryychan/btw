@@ -1,10 +1,20 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import NoteView from "./NoteView";
 import PropTypes from "prop-types";
 
 function NotesList(props) {
   const [collapse, useCollapse] = useState(false); // Hack to make accordion collapse on delete
+  const [notes, setNotes] = useState(props.notes);
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      setNotes(props.notes);
+    } else {
+      didMountRef.current = true;
+    }
+  }, [props.notes]);
 
   function deleteNote(idx, docRef) {
     useCollapse(!collapse);
@@ -13,7 +23,7 @@ function NotesList(props) {
 
   if (props.initNotes) {
     return null;
-  } else if (props.notes.length === 0) {
+  } else if (notes.length === 0) {
     return (
       <div id="notes-list">
         <p>You have no notes</p>
@@ -24,13 +34,20 @@ function NotesList(props) {
   return (
     <div id="notes-list">
       <Accordion key={collapse}>
-        {props.notes.map((note, idx) => <NoteView
-          key={idx}
-          idx={idx}
-          note={note}
-          deleteNote={deleteNote}
-          updateNote={props.updateNote}
-        />)}
+        {notes.map((note, idx) => {
+          if (note.show) {
+            return (
+              <NoteView
+                key={idx}
+                idx={idx}
+                note={note}
+                deleteNote={deleteNote}
+                updateNote={props.updateNote}
+              />
+            );
+          }
+          return null;
+        })}
       </Accordion>
     </div>
   );

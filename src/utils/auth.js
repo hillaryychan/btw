@@ -11,6 +11,15 @@ function initFirebaseAuth() {
   });
 }
 
+function signUp(email, password) {
+  firebase.
+    auth().
+    createUserWithEmailAndPassword(email, password).
+    catch((error) => {
+      alert(error);
+    });
+}
+
 function signIn() {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.
@@ -38,5 +47,5 @@ function isUserSignedIn() {
   return Boolean(firebase.auth().currentUser);
 }
 
-export {getUserId, getUsername, isUserSignedIn, signIn, signOut};
+export {getUserId, getUsername, isUserSignedIn, signIn, signOut, signUp};
 export default initFirebaseAuth;

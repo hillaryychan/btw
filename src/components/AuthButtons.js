@@ -1,10 +1,16 @@
 import {Button, Navbar} from "react-bootstrap";
-import {getUsername, signIn, signOut} from "../utils/auth";
+import {getUsername, signOut} from "../utils/auth";
 import PropTypes from "prop-types";
 import React from "react";
 import styles from "../utils/styles";
+import {useHistory} from "react-router-dom";
 
 function AuthButtons(props) {
+  const history = useHistory();
+
+  function handleClick(path) {
+    history.push(path);
+  }
   if (props.init) {
     return null;
   } else if (props.signedIn) {
@@ -20,9 +26,22 @@ function AuthButtons(props) {
     );
   }
   return (
-    <Button variant="primary" onClick={signIn}>
-      Sign in with Google
-    </Button>
+    <>
+      <Button
+        variant="primary"
+        className="mx-1"
+        onClick={() => handleClick("signin")}
+      >
+        Sign in
+      </Button>
+      <Button
+        variant="secondary"
+        className="mx-1"
+        onClick={() => handleClick("signup")}
+      >
+        Sign up
+      </Button>
+    </>
   );
 }
 

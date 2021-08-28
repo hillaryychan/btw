@@ -1,5 +1,4 @@
 import Home from "../Home";
-import Notes from "../Notes";
 import React from "react";
 import firebase from "firebase/app";
 import renderer from "react-test-renderer";
@@ -88,8 +87,12 @@ it("Home page when signed in", () => {
     orderBy: jest.fn().mockReturnThis(),
     then: jest.fn().mockResolvedValueOnce()
   };
-  jest.spyOn(Notes.prototype, "componentDidMount");
+  const firebaseAuthMock = {
+    currentUser: jest.fn().mockReturnThis(),
+    uid: jest.fn().mockResolvedValueOnce()
+  };
   jest.spyOn(firebase, "firestore").mockImplementationOnce(() => firestoreMock);
+  jest.spyOn(firebase, "auth").mockImplementationOnce(() => firebaseAuthMock);
 
   const tree = renderer.create(<Home signedIn={true} />).toJSON();
   expect(tree).toMatchInlineSnapshot(`

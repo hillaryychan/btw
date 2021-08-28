@@ -78,7 +78,8 @@ class Notes extends Component {
       });
   }
 
-  filterNotes(person) {
+  filterNotes(event) {
+    const person = event.target.value;
     let {notes} = this.state;
     notes = notes.map((doc) => {
       // Show note if person undefined or falsy
@@ -86,6 +87,12 @@ class Notes extends Component {
       return doc;
     });
     this.setState({filter: person, notes});
+  }
+
+  getAudience() {
+    const audienceSet = new Set();
+    this.state.notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
+    return [...audienceSet].sort();
   }
 
   componentDidMount() {
@@ -106,23 +113,16 @@ class Notes extends Component {
   }
 
   render() {
-    const audienceSet = new Set();
-    this.state.notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
+    const audienceList = this.getAudience();
     return (
       <>
         <h1>My Notes</h1>
         <Row>
           <Col>
             <Form.Label column>Filter by audience</Form.Label>
-            <Form.Select>
-              <option value="none" onClick={() => this.filterNotes("")}>
-                No audience filter
-              </option>
-              {[...audienceSet].map((person, idx) => <option
-                key={idx}
-                value={person}
-                onClick={() => this.filterNotes(person)}
-              >
+            <Form.Select value={this.state.filter} onChange={this.filterNotes}>
+              <option value="">No audience filter</option>
+              {[...audienceList].map((person, idx) => <option key={idx} value={person}>
                 {person}
               </option>)}
             </Form.Select>{" "}

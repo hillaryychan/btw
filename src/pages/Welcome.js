@@ -1,9 +1,15 @@
 import Button from "react-bootstrap/Button";
 import React from "react";
-import {signIn} from "../utils/auth";
 import styles from "../utils/styles";
+import {useHistory} from "react-router-dom";
 
 function Welcome() {
+  const history = useHistory();
+
+  function handleClick(path) {
+    history.push(path);
+  }
+
   return (
     <>
       <h1>
@@ -13,8 +19,8 @@ function Welcome() {
         Keep track of <b>what</b> you want to talk about with <b>whom</b> you
         want to talk to.
       </p>
-      <Button variant="outline-primary" onClick={signIn}>
-        Sign in with Google
+      <Button variant="outline-primary" onClick={() => handleClick("signup")}>
+        Get Started
       </Button>
     </>
   );

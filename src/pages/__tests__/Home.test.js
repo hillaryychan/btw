@@ -73,7 +73,7 @@ it("Home page when signed out", () => {
     onClick={[Function]}
     type="button"
   >
-    Sign in with Google
+    Get Started
   </button>
 </div>
 `);

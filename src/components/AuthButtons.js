@@ -11,6 +11,7 @@ function AuthButtons(props) {
   function handleClick(path) {
     history.push(path);
   }
+
   if (props.init) {
     return null;
   } else if (props.signedIn) {

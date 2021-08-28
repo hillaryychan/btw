@@ -13,13 +13,17 @@ function initFirebaseAuth() {
 
 function signIn() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
-  // TODO: provide error handling?
+  firebase.
+    auth().
+    signInWithPopup(provider).
+    catch((error) => alert(error));
 }
 
 function signOut() {
-  firebase.auth().signOut();
-  // TODO: provide error handling?
+  firebase.
+    auth().
+    signOut().
+    catch((error) => alert(error));
 }
 
 function getUsername() {

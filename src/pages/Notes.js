@@ -6,6 +6,8 @@ import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
 import firebase from "firebase/app";
 
+const MAX_NOTES = 50;
+
 class Notes extends Component {
   constructor(props) {
     super(props);
@@ -32,20 +34,26 @@ class Notes extends Component {
   }
 
   addNote(note) {
-    const db = firebase.firestore();
-    db.collection("notes").
-      add(note).
-      then((docRef) => {
-        this.setState((prevState) => ({
-          notes: [
-            createDoc(docRef.id, note, this.state.filter),
-            ...prevState.notes
-          ]
-        }));
-      }).
-      catch(() => {
-        // TODO: error handling
-      });
+    if (this.state.notes.length >= 5) {
+      alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
+
+We apologise for any inconvenience this may have caused.`);
+    } else {
+      const db = firebase.firestore();
+      db.collection("notes").
+        add(note).
+        then((docRef) => {
+          this.setState((prevState) => ({
+            notes: [
+              createDoc(docRef.id, note, this.state.filter),
+              ...prevState.notes
+            ]
+          }));
+        }).
+        catch((error) => {
+          alert(error);
+        });
+    }
   }
 
   deleteNote(idx, docRef) {
@@ -58,8 +66,8 @@ class Notes extends Component {
         notes.splice(idx, 1);
         this.setState([notes]);
       }).
-      catch(() => {
-        // TODO: error handling
+      catch((error) => {
+        alert(error);
       });
   }
 
@@ -73,8 +81,8 @@ class Notes extends Component {
         notes[idx] = createDoc(docRef, note, this.state.filter);
         this.setState([notes]);
       }).
-      catch(() => {
-        // TODO: error handling
+      catch((error) => {
+        alert(error);
       });
   }
 
@@ -100,7 +108,7 @@ class Notes extends Component {
     const db = firebase.firestore();
     db.collection("notes").
       orderBy("lastModified", "desc").
-      limit(50).
+      limit(MAX_NOTES).
       get().
       then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

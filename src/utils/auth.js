@@ -15,12 +15,14 @@ function signUp(email, password) {
   firebase.
     auth().
     createUserWithEmailAndPassword(email, password).
-    catch((error) => {
-      alert(error);
-    });
+    catch((error) => alert(error));
 }
 
-function signIn() {
+function signIn(email, password) {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+}
+
+function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.
     auth().
@@ -40,12 +42,21 @@ function getUserId() {
 }
 
 function getUsername() {
-  return firebase.auth().currentUser.displayName;
+  const user = firebase.auth().currentUser;
+  return user.displayName || user.email || "Unknown User";
 }
 
 function isUserSignedIn() {
   return Boolean(firebase.auth().currentUser);
 }
 
-export {getUserId, getUsername, isUserSignedIn, signIn, signOut, signUp};
+export {
+  getUserId,
+  getUsername,
+  isUserSignedIn,
+  signIn,
+  signInWithGoogle,
+  signOut,
+  signUp
+};
 export default initFirebaseAuth;

@@ -11,14 +11,24 @@ it("AuthButtons when initialising", () => {
 it("AuthButtons when signed out", () => {
   const tree = renderer.create(<AuthButtons />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
-<button
-  className="btn btn-primary"
-  disabled={false}
-  onClick={[Function]}
-  type="button"
->
-  Sign in with Google
-</button>
+Array [
+  <button
+    className="mx-1 btn btn-primary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sign in
+  </button>,
+  <button
+    className="mx-1 btn btn-secondary"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
+  >
+    Sign up
+  </button>,
+]
 `);
 });
 

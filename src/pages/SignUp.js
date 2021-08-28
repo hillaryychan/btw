@@ -27,6 +27,9 @@ class SignUp extends Component {
     if (!isEmail(email)) {
       errors.push("Enter a valid email");
     }
+    if (password1.length < 6) {
+      errors.push("Passwords must be at least 6 character");
+    }
     if (password1 !== password2) {
       errors.push("Passwords do not match");
     }

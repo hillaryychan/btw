@@ -100,14 +100,43 @@ it("Home page when signed in", () => {
   <h1>
     My Notes
   </h1>
-  <button
-    className="btn btn-primary"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+  <div
+    className="row"
   >
-    New Note
-  </button>
+    <div
+      className="col"
+    >
+      <label
+        className="form-label col-form-label col"
+      >
+        Filter by audience
+      </label>
+      <select
+        className="form-select"
+        onChange={[Function]}
+        value=""
+      >
+        <option
+          value=""
+        >
+          No audience filter
+        </option>
+      </select>
+       
+    </div>
+    <div
+      className="col"
+    >
+      <button
+        className="float-end btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        New Note
+      </button>
+    </div>
+  </div>
   <hr />
 </div>
 `);

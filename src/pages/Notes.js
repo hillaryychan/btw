@@ -35,7 +35,7 @@ class Notes extends Component {
   }
 
   addNote(note) {
-    if (this.state.notes.length >= 5) {
+    if (this.state.notes.length >= MAX_NOTES) {
       alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
 
 We apologise for any inconvenience this may have caused.`);

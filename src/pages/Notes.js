@@ -5,6 +5,7 @@ import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
 import firebase from "firebase/app";
+import {getUserId} from "../utils/auth";
 
 const MAX_NOTES = 50;
 
@@ -40,7 +41,7 @@ class Notes extends Component {
 We apologise for any inconvenience this may have caused.`);
     } else {
       const db = firebase.firestore();
-      db.collection("notes").
+      db.collection(getUserId()).
         add(note).
         then((docRef) => {
           this.setState((prevState) => ({
@@ -58,7 +59,7 @@ We apologise for any inconvenience this may have caused.`);
 
   deleteNote(idx, docRef) {
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       doc(docRef).
       delete().
       then(() => {
@@ -73,7 +74,7 @@ We apologise for any inconvenience this may have caused.`);
 
   updateNote(idx, docRef, note) {
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       doc(docRef).
       update(note).
       then(() => {
@@ -106,7 +107,7 @@ We apologise for any inconvenience this may have caused.`);
   componentDidMount() {
     const retrievedNotes = [];
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       orderBy("lastModified", "desc").
       limit(MAX_NOTES).
       get().

@@ -1,3 +1,4 @@
+import "../../__mocks__/matchMediaMock";
 import * as authUtils from "../../utils/auth";
 import {render, unmountComponentAtNode} from "react-dom";
 import AuthButtons from "../AuthButtons";

@@ -1,3 +1,4 @@
+import "../../__mocks__/matchMediaMock";
 import Home from "../Home";
 import React from "react";
 import firebase from "firebase/app";

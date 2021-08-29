@@ -1,3 +1,4 @@
+import "../../__mocks__/matchMediaMock";
 import React from "react";
 import SignUp from "../SignUp";
 import renderer from "react-test-renderer";
@@ -7,8 +8,20 @@ it("SignUp page rendering", () => {
   expect(tree).toMatchInlineSnapshot(`
 <div
   className="mt-2 container"
+  style={
+    Object {
+      "margin": "0 auto",
+      "maxWidth": "500px",
+    }
+  }
 >
-  <h1>
+  <h1
+    style={
+      Object {
+        "textAlign": "center",
+      }
+    }
+  >
     Sign Up
   </h1>
   <form
@@ -71,24 +84,42 @@ it("SignUp page rendering", () => {
         value=""
       />
     </div>
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <button
+        className="btn btn-primary"
+        disabled={false}
+        onClick={[Function]}
+        type="submit"
+      >
+        Sign up
+      </button>
+    </div>
+  </form>
+  <hr />
+  <div
+    style={
+      Object {
+        "display": "flex",
+        "justifyContent": "center",
+      }
+    }
+  >
     <button
-      className="btn btn-primary"
+      className="btn btn-outline-primary"
       disabled={false}
       onClick={[Function]}
       type="submit"
     >
-      Sign up
+      Sign in with Google
     </button>
-  </form>
-  <hr />
-  <button
-    className="btn btn-outline-primary"
-    disabled={false}
-    onClick={[Function]}
-    type="submit"
-  >
-    Sign in with Google
-  </button>
+  </div>
 </div>
 `);
 });

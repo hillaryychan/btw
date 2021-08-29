@@ -1,3 +1,4 @@
+import "../../__mocks__/matchMediaMock";
 import React from "react";
 import Welcome from "../Welcome";
 import renderer from "react-test-renderer";

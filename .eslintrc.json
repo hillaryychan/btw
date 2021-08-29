@@ -71,7 +71,6 @@
     "max-classes-per-file": "error",
     "max-depth": "error",
     "max-lines": "error",
-    "max-lines-per-function": ["error", 100],
     "max-nested-callbacks": "error",
     "max-params": "error",
     "max-statements-per-line": "error",

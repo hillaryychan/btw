@@ -1,3 +1,4 @@
+import "../../__mocks__/matchMediaMock";
 import "firebase/auth";
 import firebase from "firebase/app";
 import {getUsername} from "../auth";

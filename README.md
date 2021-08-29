@@ -26,28 +26,11 @@ Useful commands:
 
 ### Debugging
 
-Debugging unit tests in VS Code
+The VS Code `launch.json` already has configurations set up for debugging unit tests.
+
+Use the config `Debug Jest Test`, you should be able to automatically launch and attach to a process running your tests.
+
+Otherwise you can:
 
 1. Run tests with debugger listener using `yarn test:debug`
-1. Run debugger in VS Code. `launch.json` should already be configured to attach to tests using the config below.
-
-    ```json
-    {
-      "version": "0.2.0",
-      "configurations": [
-        {
-          "name": "Debug Jest Tests",
-          "type": "node",
-          "request": "launch",
-          "runtimeArgs": [
-            "--inspect-brk",
-            "${workspaceRoot}/node_modules/.bin/jest",
-            "--runInBand"
-          ],
-          "console": "integratedTerminal",
-          "internalConsoleOptions": "neverOpen",
-          "port": 9229
-        }
-      ]
-    }
-    ```
+1. Run the debug config `Attach to Jest Process` which will attach to the `yarn test:debug` process

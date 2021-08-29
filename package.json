@@ -13,6 +13,7 @@
     "prepare": "husky install",
     "start": "parcel src/index.html",
     "test": "jest",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "test:watch": "jest --watch"
   },
   "dependencies": {

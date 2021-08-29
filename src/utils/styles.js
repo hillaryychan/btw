@@ -10,9 +10,22 @@ const Center = {
   transform: "translate(-50%, -50%)"
 };
 
+const CenterHorizontal = {
+  display: "flex",
+  justifyContent: "center"
+};
+
+const CenterText = {
+  textAlign: "center"
+};
+
 const Faded = {
   color: "gray"
 };
+
+const Form = window.matchMedia("(max-width: 500px)").matches
+  ? {}
+  : {margin: "0 auto", maxWidth: "500px"};
 
 const ReqInput = {
   color: "red"
@@ -25,7 +38,10 @@ const Username = {
 const styles = {
   Brand,
   Center,
+  CenterHorizontal,
+  CenterText,
   Faded,
+  Form,
   ReqInput,
   Username
 };

@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import {signInWithGoogle, signUp} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
+import styles from "../utils/styles";
 
 class SignUp extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class SignUp extends Component {
       errors.push("Enter a valid email");
     }
     if (password1.length < 6) {
-      errors.push("Passwords must be at least 6 character");
+      errors.push("Passwords must be at least 6 characters");
     }
     if (password1 !== password2) {
       errors.push("Passwords do not match");
@@ -52,8 +53,8 @@ class SignUp extends Component {
   render() {
     const {email, password1, password2} = this.state;
     return (
-      <Container className="mt-2">
-        <h1>Sign Up</h1>
+      <Container className="mt-2" style={styles.Form}>
+        <h1 style={styles.CenterText}>Sign Up</h1>
         <Form>
           <Alerts errors={this.state.errors} />
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -87,20 +88,25 @@ class SignUp extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={this.submitForm}>
-            Sign up
-          </Button>
+          <div style={styles.CenterHorizontal}>
+            <Button variant="primary" type="submit" onClick={this.submitForm}>
+              Sign up
+            </Button>
+          </div>
         </Form>
         <hr />
-        <Button
-          variant="outline-primary"
-          type="submit"
-          onClick={signInWithGoogle}
-        >
-          Sign in with Google
-        </Button>
+        <div style={styles.CenterHorizontal}>
+          <Button
+            variant="outline-primary"
+            type="submit"
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </Button>
+        </div>
       </Container>
     );
   }
 }
+
 export default SignUp;

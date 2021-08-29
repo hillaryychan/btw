@@ -3,6 +3,7 @@ import React, {Component} from "react";
 import {signIn, signInWithGoogle} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
+import styles from "../utils/styles";
 
 class SignIn extends Component {
   constructor(props) {
@@ -50,8 +51,8 @@ class SignIn extends Component {
   render() {
     const {email, password} = this.state;
     return (
-      <Container className="mt-2">
-        <h1>Sign In</h1>
+      <Container className="mt-2" style={styles.Form}>
+        <h1 style={styles.CenterText}>Sign In</h1>
         <Form>
           <Alerts errors={this.state.errors} />
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -75,20 +76,25 @@ class SignIn extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={this.submitForm}>
-            Sign in
-          </Button>
+          <div style={styles.CenterHorizontal}>
+            <Button variant="primary" type="submit" onClick={this.submitForm}>
+              Sign in
+            </Button>
+          </div>
         </Form>
         <hr />
-        <Button
-          variant="outline-primary"
-          type="submit"
-          onClick={signInWithGoogle}
-        >
-          Sign in with Google
-        </Button>
+        <div style={styles.CenterHorizontal}>
+          <Button
+            variant="outline-primary"
+            type="submit"
+            onClick={signInWithGoogle}
+          >
+            Sign in with Google
+          </Button>
+        </div>
       </Container>
     );
   }
 }
+
 export default SignIn;

@@ -20,7 +20,7 @@ function AuthButtons(props) {
         <Navbar.Text className="me-2">
           Signed in as: <span style={styles.Username}>{getUsername()}</span>
         </Navbar.Text>
-        <Button variant="secondary" onClick={signOut}>
+        <Button variant="secondary" onClick={signOut} data-testid="signout-btn">
           Sign out
         </Button>
       </>
@@ -32,6 +32,7 @@ function AuthButtons(props) {
         variant="primary"
         className="mx-1"
         onClick={() => handleClick("signin")}
+        data-testid="signin-btn"
       >
         Sign in
       </Button>
@@ -39,6 +40,7 @@ function AuthButtons(props) {
         variant="secondary"
         className="mx-1"
         onClick={() => handleClick("signup")}
+        data-testid="signup-btn"
       >
         Sign up
       </Button>

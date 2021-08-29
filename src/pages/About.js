@@ -6,14 +6,14 @@ function About() {
   return (
     <Container className="mt-2">
       <h1>About</h1>
+      <p>Hello there, I&apos;m Hillary.</p>
       <p>
-        Hello there, I&apos;m Hillary. I made{" "}
-        <span style={styles.Brand}>btw</span> to be a cross between a note
-        taking app and a to-do list.{" "}
+        I made <span style={styles.Brand}>btw</span> to be a cross between a
+        note taking app and a to-do list.
       </p>
       <p>
-        I made this because I didn&apos;t like how something worked and decided
-        to do something about it.
+        Why? Because I didn&apos;t like how something worked and decided to do
+        something about it.
       </p>
       <p>
         To explain, I have a few friends that I catch up with sporadically and I

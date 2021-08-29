@@ -12,8 +12,10 @@ it("About page rendering", () => {
     About
   </h1>
   <p>
-    Hello there, I'm Hillary. I made
-     
+    Hello there, I'm Hillary.
+  </p>
+  <p>
+    I made 
     <span
       style={
         Object {
@@ -25,10 +27,9 @@ it("About page rendering", () => {
       btw
     </span>
      to be a cross between a note taking app and a to-do list.
-     
   </p>
   <p>
-    I made this because I didn't like how something worked and decided to do something about it.
+    Why? Because I didn't like how something worked and decided to do something about it.
   </p>
   <p>
     To explain, I have a few friends that I catch up with sporadically and I tend to write down a list of things that I want to talk/mention/discuss with them the next time I see them. Normally, I'd have a checklist per person detailing what I'd like to talk about with them, but

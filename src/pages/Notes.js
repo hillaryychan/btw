@@ -8,12 +8,13 @@ import firebase from "firebase/app";
 import {getUserId} from "../utils/auth";
 
 const MAX_NOTES = 50;
+const DEFAULT_FILTER = "";
 
 class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: "",
+      filter: DEFAULT_FILTER,
       initNotes: true,
       notes: [],
       show: false
@@ -65,6 +66,7 @@ We apologise for any inconvenience this may have caused.`);
       then(() => {
         const {notes} = this.state;
         notes.splice(idx, 1);
+        this.filterNotes(this.state.filter);
         this.setState([notes]);
       }).
       catch((error) => {
@@ -87,15 +89,23 @@ We apologise for any inconvenience this may have caused.`);
       });
   }
 
-  filterNotes(event) {
-    const person = event.target.value;
+  filterNotes(filter) {
     let {notes} = this.state;
+    let showable = 0;
     notes = notes.map((doc) => {
       // Show note if person undefined or falsy
-      doc.show = canShow(doc.data, person);
+      const show = canShow(doc.data, filter);
+      doc.show = show;
+      if (show) {
+        showable += 1;
+      }
       return doc;
     });
-    this.setState({filter: person, notes});
+    if (showable === 0 && filter !== DEFAULT_FILTER) {
+      this.filterNotes(DEFAULT_FILTER);
+    } else {
+      this.setState({filter, notes});
+    }
   }
 
   getAudience() {
@@ -129,8 +139,11 @@ We apologise for any inconvenience this may have caused.`);
         <Row>
           <Col>
             <Form.Label column>Filter by audience</Form.Label>
-            <Form.Select value={this.state.filter} onChange={this.filterNotes}>
-              <option value="">No audience filter</option>
+            <Form.Select
+              value={this.state.filter}
+              onChange={(event) => this.filterNotes(event.target.value)}
+            >
+              <option value={DEFAULT_FILTER}>No audience filter</option>
               {[...audienceList].map((person, idx) => <option key={idx} value={person}>
                 {person}
               </option>)}

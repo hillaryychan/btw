@@ -11,7 +11,7 @@ function Welcome() {
   }
 
   return (
-    <div style={{...styles.Center, ...styles.CenterText}}>
+    <div style={{...styles.Center, ...styles.CenterText, width: "90%"}}>
       <h1>
         Welcome to <span style={styles.Brand}>btw</span>!
       </h1>

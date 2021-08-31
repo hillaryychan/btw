@@ -51,6 +51,7 @@ it("Home page when signed out", () => {
         "textAlign": "center",
         "top": "50%",
         "transform": "translate(-50%, -50%)",
+        "width": "90%",
       }
     }
   >

@@ -14,6 +14,7 @@ it("Welcome page rendering", () => {
       "textAlign": "center",
       "top": "50%",
       "transform": "translate(-50%, -50%)",
+      "width": "90%",
     }
   }
 >

@@ -6,7 +6,17 @@ import renderer from "react-test-renderer";
 it("Welcome page rendering", () => {
   const tree = renderer.create(<Welcome />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
-Array [
+<div
+  style={
+    Object {
+      "left": "50%",
+      "position": "absolute",
+      "textAlign": "center",
+      "top": "50%",
+      "transform": "translate(-50%, -50%)",
+    }
+  }
+>
   <h1>
     Welcome to 
     <span
@@ -20,7 +30,7 @@ Array [
       btw
     </span>
     !
-  </h1>,
+  </h1>
   <p>
     Keep track of 
     <b>
@@ -31,7 +41,7 @@ Array [
       whom
     </b>
      you want to talk to.
-  </p>,
+  </p>
   <button
     className="btn btn-outline-primary"
     disabled={false}
@@ -39,7 +49,7 @@ Array [
     type="button"
   >
     Get Started
-  </button>,
-]
+  </button>
+</div>
 `);
 });

@@ -11,7 +11,7 @@ function Welcome() {
   }
 
   return (
-    <>
+    <div style={{...styles.Center, ...styles.CenterText}}>
       <h1>
         Welcome to <span style={styles.Brand}>btw</span>!
       </h1>
@@ -22,7 +22,7 @@ function Welcome() {
       <Button variant="outline-primary" onClick={() => handleClick("signup")}>
         Get Started
       </Button>
-    </>
+    </div>
   );
 }
 

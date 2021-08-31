@@ -43,39 +43,51 @@ it("Home page when signed out", () => {
   className="mt-2 container"
   id="home"
 >
-  <h1>
-    Welcome to 
-    <span
-      style={
-        Object {
-          "fontStyle": "italic",
-          "fontWeight": "bold",
-        }
+  <div
+    style={
+      Object {
+        "left": "50%",
+        "position": "absolute",
+        "textAlign": "center",
+        "top": "50%",
+        "transform": "translate(-50%, -50%)",
       }
-    >
-      btw
-    </span>
-    !
-  </h1>
-  <p>
-    Keep track of 
-    <b>
-      what
-    </b>
-     you want to talk about with 
-    <b>
-      whom
-    </b>
-     you want to talk to.
-  </p>
-  <button
-    className="btn btn-outline-primary"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+    }
   >
-    Get Started
-  </button>
+    <h1>
+      Welcome to 
+      <span
+        style={
+          Object {
+            "fontStyle": "italic",
+            "fontWeight": "bold",
+          }
+        }
+      >
+        btw
+      </span>
+      !
+    </h1>
+    <p>
+      Keep track of 
+      <b>
+        what
+      </b>
+       you want to talk about with 
+      <b>
+        whom
+      </b>
+       you want to talk to.
+    </p>
+    <button
+      className="btn btn-outline-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Get Started
+    </button>
+  </div>
 </div>
 `);
 });

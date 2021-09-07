@@ -90,12 +90,10 @@ class NotesForm extends Component {
   }
 
   createNote() {
-    const timestamp = firebase.firestore.FieldValue.serverTimestamp();
     return {
       audience: this.state.audience,
-      created: timestamp,
       description: this.state.description,
-      lastModified: timestamp,
+      lastModified: firebase.firestore.FieldValue.serverTimestamp(),
       title: this.state.title
     };
   }

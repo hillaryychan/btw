@@ -1,9 +1,9 @@
+import "../styles.css";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import AudiencePills from "./AudiencePills";
 import PropTypes from "prop-types";
 import React from "react";
 import {normaliseAudience} from "../utils/helper";
-import styles from "../utils/styles";
 
 const MAX_NAME_LEN = 35;
 
@@ -31,7 +31,7 @@ function AudienceInput(props) {
       </Row>
 
       {audienceValue !== "" &&
-        <div style={styles.Faded} className="m-1">
+        <div className="m-1 Faded">
           Audience member will be added as <b>{audienceValue}</b>
         </div>
       }

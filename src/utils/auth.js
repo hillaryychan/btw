@@ -11,24 +11,52 @@ function initFirebaseAuth() {
   });
 }
 
-function signIn() {
+function signUp(email, password) {
+  firebase.
+    auth().
+    createUserWithEmailAndPassword(email, password).
+    catch((error) => alert(error));
+}
+
+function signIn(email, password) {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+}
+
+function signInWithGoogle() {
   const provider = new firebase.auth.GoogleAuthProvider();
-  firebase.auth().signInWithPopup(provider);
-  // TODO: provide error handling?
+  firebase.
+    auth().
+    signInWithPopup(provider).
+    catch((error) => alert(error));
 }
 
 function signOut() {
-  firebase.auth().signOut();
-  // TODO: provide error handling?
+  firebase.
+    auth().
+    signOut().
+    catch((error) => alert(error));
+}
+
+function getUserId() {
+  return firebase.auth().currentUser.uid;
 }
 
 function getUsername() {
-  return firebase.auth().currentUser.displayName;
+  const user = firebase.auth().currentUser;
+  return user.displayName || user.email || "Unknown User";
 }
 
 function isUserSignedIn() {
   return Boolean(firebase.auth().currentUser);
 }
 
-export {getUsername, isUserSignedIn, signIn, signOut};
+export {
+  getUserId,
+  getUsername,
+  isUserSignedIn,
+  signIn,
+  signInWithGoogle,
+  signOut,
+  signUp
+};
 export default initFirebaseAuth;

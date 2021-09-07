@@ -5,12 +5,16 @@ import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
 import firebase from "firebase/app";
+import {getUserId} from "../utils/auth";
+
+const MAX_NOTES = 50;
+const DEFAULT_FILTER = "";
 
 class Notes extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: "",
+      filter: DEFAULT_FILTER,
       initNotes: true,
       notes: [],
       show: false
@@ -32,40 +36,47 @@ class Notes extends Component {
   }
 
   addNote(note) {
-    const db = firebase.firestore();
-    db.collection("notes").
-      add(note).
-      then((docRef) => {
-        this.setState((prevState) => ({
-          notes: [
-            createDoc(docRef.id, note, this.state.filter),
-            ...prevState.notes
-          ]
-        }));
-      }).
-      catch(() => {
-        // TODO: error handling
-      });
+    if (this.state.notes.length >= MAX_NOTES) {
+      alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
+
+We apologise for any inconvenience this may have caused.`);
+    } else {
+      const db = firebase.firestore();
+      db.collection(getUserId()).
+        add(note).
+        then((docRef) => {
+          this.setState((prevState) => ({
+            notes: [
+              createDoc(docRef.id, note, this.state.filter),
+              ...prevState.notes
+            ]
+          }));
+        }).
+        catch((error) => {
+          alert(error);
+        });
+    }
   }
 
   deleteNote(idx, docRef) {
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       doc(docRef).
       delete().
       then(() => {
         const {notes} = this.state;
         notes.splice(idx, 1);
+        this.filterNotes(this.state.filter);
         this.setState([notes]);
       }).
-      catch(() => {
-        // TODO: error handling
+      catch((error) => {
+        alert(error);
       });
   }
 
   updateNote(idx, docRef, note) {
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       doc(docRef).
       update(note).
       then(() => {
@@ -73,20 +84,28 @@ class Notes extends Component {
         notes[idx] = createDoc(docRef, note, this.state.filter);
         this.setState([notes]);
       }).
-      catch(() => {
-        // TODO: error handling
+      catch((error) => {
+        alert(error);
       });
   }
 
-  filterNotes(event) {
-    const person = event.target.value;
+  filterNotes(filter) {
     let {notes} = this.state;
+    let showable = 0;
     notes = notes.map((doc) => {
       // Show note if person undefined or falsy
-      doc.show = canShow(doc.data, person);
+      const show = canShow(doc.data, filter);
+      doc.show = show;
+      if (show) {
+        showable += 1;
+      }
       return doc;
     });
-    this.setState({filter: person, notes});
+    if (showable === 0 && filter !== DEFAULT_FILTER) {
+      this.filterNotes(DEFAULT_FILTER);
+    } else {
+      this.setState({filter, notes});
+    }
   }
 
   getAudience() {
@@ -98,9 +117,9 @@ class Notes extends Component {
   componentDidMount() {
     const retrievedNotes = [];
     const db = firebase.firestore();
-    db.collection("notes").
+    db.collection(getUserId()).
       orderBy("lastModified", "desc").
-      limit(50).
+      limit(MAX_NOTES).
       get().
       then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -120,8 +139,11 @@ class Notes extends Component {
         <Row>
           <Col>
             <Form.Label column>Filter by audience</Form.Label>
-            <Form.Select value={this.state.filter} onChange={this.filterNotes}>
-              <option value="">No audience filter</option>
+            <Form.Select
+              value={this.state.filter}
+              onChange={(event) => this.filterNotes(event.target.value)}
+            >
+              <option value={DEFAULT_FILTER}>No audience filter</option>
               {[...audienceList].map((person, idx) => <option key={idx} value={person}>
                 {person}
               </option>)}

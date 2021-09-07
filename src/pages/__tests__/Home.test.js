@@ -1,5 +1,4 @@
 import Home from "../Home";
-import Notes from "../Notes";
 import React from "react";
 import firebase from "firebase/app";
 import renderer from "react-test-renderer";
@@ -12,14 +11,7 @@ it("Home page when initialising", () => {
   id="home"
 >
   <div
-    style={
-      Object {
-        "left": "50%",
-        "position": "absolute",
-        "top": "50%",
-        "transform": "translate(-50%, -50%)",
-      }
-    }
+    className="Center"
   >
     <div
       className="spinner-border"
@@ -43,39 +35,38 @@ it("Home page when signed out", () => {
   className="mt-2 container"
   id="home"
 >
-  <h1>
-    Welcome to 
-    <span
-      style={
-        Object {
-          "fontStyle": "italic",
-          "fontWeight": "bold",
-        }
-      }
-    >
-      btw
-    </span>
-    !
-  </h1>
-  <p>
-    Keep track of 
-    <b>
-      what
-    </b>
-     you want to talk about with 
-    <b>
-      whom
-    </b>
-     you want to talk to.
-  </p>
-  <button
-    className="btn btn-outline-primary"
-    disabled={false}
-    onClick={[Function]}
-    type="button"
+  <div
+    className="Welcome"
   >
-    Sign in with Google
-  </button>
+    <h1>
+      Welcome to 
+      <span
+        className="Brand"
+      >
+        btw
+      </span>
+      !
+    </h1>
+    <p>
+      Keep track of 
+      <b>
+        what
+      </b>
+       you want to talk about with 
+      <b>
+        whom
+      </b>
+       you want to talk to.
+    </p>
+    <button
+      className="btn btn-outline-primary"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      Get Started
+    </button>
+  </div>
 </div>
 `);
 });
@@ -88,8 +79,12 @@ it("Home page when signed in", () => {
     orderBy: jest.fn().mockReturnThis(),
     then: jest.fn().mockResolvedValueOnce()
   };
-  jest.spyOn(Notes.prototype, "componentDidMount");
+  const firebaseAuthMock = {
+    currentUser: jest.fn().mockReturnThis(),
+    uid: jest.fn().mockResolvedValueOnce()
+  };
   jest.spyOn(firebase, "firestore").mockImplementationOnce(() => firestoreMock);
+  jest.spyOn(firebase, "auth").mockImplementationOnce(() => firebaseAuthMock);
 
   const tree = renderer.create(<Home signedIn={true} />).toJSON();
   expect(tree).toMatchInlineSnapshot(`

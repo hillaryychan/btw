@@ -11,14 +11,7 @@ it("Loading page rendering", () => {
   id="home"
 >
   <div
-    style={
-      Object {
-        "left": "50%",
-        "position": "absolute",
-        "top": "50%",
-        "transform": "translate(-50%, -50%)",
-      }
-    }
+    className="Center"
   >
     <div
       className="spinner-border"

@@ -13,14 +13,8 @@ it("Navigation bar rendering", () => {
     className="container"
   >
     <a
-      className="navbar-brand"
+      className="Brand navbar-brand"
       href="/"
-      style={
-        Object {
-          "fontStyle": "italic",
-          "fontWeight": "bold",
-        }
-      }
     >
       btw
     </a>

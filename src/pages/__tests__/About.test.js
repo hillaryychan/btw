@@ -18,12 +18,7 @@ it("About page rendering", () => {
   <p>
     I made 
     <span
-      style={
-        Object {
-          "fontStyle": "italic",
-          "fontWeight": "bold",
-        }
-      }
+      className="Brand"
     >
       btw
     </span>

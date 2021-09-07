@@ -48,11 +48,7 @@ Array [
   >
     Signed in as: 
     <span
-      style={
-        Object {
-          "color": "white",
-        }
-      }
+      className="Username"
     >
       John Doe
     </span>

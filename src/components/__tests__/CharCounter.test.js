@@ -9,11 +9,7 @@ it("CharCounter value rendering", () => {
     toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <span
-  style={
-    Object {
-      "color": "gray",
-    }
-  }
+  className="Faded"
 >
   (
   5

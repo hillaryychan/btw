@@ -7,26 +7,12 @@ it("Welcome page rendering", () => {
   const tree = renderer.create(<Welcome />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
-  style={
-    Object {
-      "left": "50%",
-      "position": "absolute",
-      "textAlign": "center",
-      "top": "50%",
-      "transform": "translate(-50%, -50%)",
-      "width": "90%",
-    }
-  }
+  className="Welcome"
 >
   <h1>
     Welcome to 
     <span
-      style={
-        Object {
-          "fontStyle": "italic",
-          "fontWeight": "bold",
-        }
-      }
+      className="Brand"
     >
       btw
     </span>

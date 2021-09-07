@@ -12,14 +12,7 @@ it("Home page when initialising", () => {
   id="home"
 >
   <div
-    style={
-      Object {
-        "left": "50%",
-        "position": "absolute",
-        "top": "50%",
-        "transform": "translate(-50%, -50%)",
-      }
-    }
+    className="Center"
   >
     <div
       className="spinner-border"
@@ -44,26 +37,12 @@ it("Home page when signed out", () => {
   id="home"
 >
   <div
-    style={
-      Object {
-        "left": "50%",
-        "position": "absolute",
-        "textAlign": "center",
-        "top": "50%",
-        "transform": "translate(-50%, -50%)",
-        "width": "90%",
-      }
-    }
+    className="Welcome"
   >
     <h1>
       Welcome to 
       <span
-        style={
-          Object {
-            "fontStyle": "italic",
-            "fontWeight": "bold",
-          }
-        }
+        className="Brand"
       >
         btw
       </span>

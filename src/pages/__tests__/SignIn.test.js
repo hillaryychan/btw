@@ -7,20 +7,10 @@ it("SignIn page rendering", () => {
   const tree = renderer.create(<SignIn />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
-  className="mt-2 container"
-  style={
-    Object {
-      "margin": "0 auto",
-      "maxWidth": "500px",
-    }
-  }
+  className="mt-2 AuthForm container"
 >
   <h1
-    style={
-      Object {
-        "textAlign": "center",
-      }
-    }
+    className="CenterText"
   >
     Sign In
   </h1>
@@ -66,12 +56,7 @@ it("SignIn page rendering", () => {
       />
     </div>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "center",
-        }
-      }
+      className="CenterHorizontal"
     >
       <button
         className="btn btn-primary"
@@ -85,12 +70,7 @@ it("SignIn page rendering", () => {
   </form>
   <hr />
   <div
-    style={
-      Object {
-        "display": "flex",
-        "justifyContent": "center",
-      }
-    }
+    className="CenterHorizontal"
   >
     <button
       className="btn btn-outline-primary"

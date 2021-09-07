@@ -22,7 +22,7 @@
     "@react-firebase/auth": "^0.2.10",
     "@testing-library/react": "^12.0.0",
     "bootstrap": "5.1.0",
-    "firebase": "^8.10.0",
+    "firebase": "^9.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.5",

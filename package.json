@@ -5,7 +5,6 @@
   "author": "Hillary Chan <hillary.chan91@gmail.com>",
   "license": "MIT",
   "source": "src/index.html",
-  "main": "dist/main.js",
   "lint-staged": {
     "*.js": "eslint --cache --fix"
   },

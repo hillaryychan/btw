@@ -65,7 +65,7 @@ node_modules/
 # dotenv environment variables file
 .env
 
-.cache
+.cache/
 .parcel-cache/
-dist
+dist/
 src/firebase-config.js

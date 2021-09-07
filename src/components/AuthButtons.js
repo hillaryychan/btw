@@ -1,8 +1,8 @@
+import "../styles.css";
 import {Button, Navbar} from "react-bootstrap";
 import {getUsername, signOut} from "../utils/auth";
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "../utils/styles";
 import {useHistory} from "react-router-dom";
 
 function AuthButtons(props) {
@@ -18,7 +18,7 @@ function AuthButtons(props) {
     return (
       <>
         <Navbar.Text className="me-2">
-          Signed in as: <span style={styles.Username}>{getUsername()}</span>
+          Signed in as: <span className="Username">{getUsername()}</span>
         </Navbar.Text>
         <Button variant="secondary" onClick={signOut} data-testid="signout-btn">
           Sign out

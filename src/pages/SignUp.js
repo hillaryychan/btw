@@ -1,9 +1,9 @@
+import "../styles.css";
 import {Button, Container, Form} from "react-bootstrap";
 import React, {Component} from "react";
 import {signInWithGoogle, signUp} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
-import styles from "../utils/styles";
 
 class SignUp extends Component {
   constructor(props) {
@@ -53,8 +53,8 @@ class SignUp extends Component {
   render() {
     const {email, password1, password2} = this.state;
     return (
-      <Container className="mt-2" style={styles.Form}>
-        <h1 style={styles.CenterText}>Sign Up</h1>
+      <Container className="mt-2 AuthForm">
+        <h1 className="CenterText">Sign Up</h1>
         <Form>
           <Alerts errors={this.state.errors} />
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -88,14 +88,14 @@ class SignUp extends Component {
               onChange={this.handleInputChange}
             />
           </Form.Group>
-          <div style={styles.CenterHorizontal}>
+          <div className="CenterHorizontal">
             <Button variant="primary" type="submit" onClick={this.submitForm}>
               Sign up
             </Button>
           </div>
         </Form>
         <hr />
-        <div style={styles.CenterHorizontal}>
+        <div className="CenterHorizontal">
           <Button
             variant="outline-primary"
             type="submit"

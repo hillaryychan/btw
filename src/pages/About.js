@@ -1,6 +1,6 @@
+import "../styles.css";
 import Container from "react-bootstrap/Container";
 import React from "react";
-import styles from "../utils/styles";
 
 function About() {
   return (
@@ -8,8 +8,8 @@ function About() {
       <h1>About</h1>
       <p>Hello there, I&apos;m Hillary.</p>
       <p>
-        I made <span style={styles.Brand}>btw</span> to be a cross between a
-        note taking app and a to-do list.
+        I made <span className="Brand">btw</span> to be a cross between a note
+        taking app and a to-do list.
       </p>
       <p>
         Why? Because I didn&apos;t like how something worked and decided to do

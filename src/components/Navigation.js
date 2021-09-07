@@ -1,14 +1,14 @@
+import "../styles.css";
 import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
 import AuthButtons from "./AuthButtons";
 import PropTypes from "prop-types";
 import React from "react";
-import styles from "../utils/styles";
 
 function Navigation(props) {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/" style={styles.Brand}>
+        <Navbar.Brand href="/" className="Brand">
           btw
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

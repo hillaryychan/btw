@@ -1,0 +1,48 @@
+.Brand {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.Center {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.CenterHorizontal {
+  display: flex;
+  justify-content: center;
+}
+
+.CenterText {
+  text-align: center;
+}
+
+.Faded {
+  color: gray;
+}
+
+@media (min-width: 500px) {
+  .AuthForm {
+    margin: 0 auto;
+    max-width: 500px;
+  }
+}
+
+.ReqInput {
+  color: red;
+}
+
+.Username {
+  color: white;
+}
+
+.Welcome {
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+}

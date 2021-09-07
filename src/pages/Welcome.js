@@ -1,6 +1,6 @@
+import "../styles.css";
 import Button from "react-bootstrap/Button";
 import React from "react";
-import styles from "../utils/styles";
 import {useHistory} from "react-router-dom";
 
 function Welcome() {
@@ -11,9 +11,9 @@ function Welcome() {
   }
 
   return (
-    <div style={{...styles.Center, ...styles.CenterText, width: "90%"}}>
+    <div className="Welcome">
       <h1>
-        Welcome to <span style={styles.Brand}>btw</span>!
+        Welcome to <span className="Brand">btw</span>!
       </h1>
       <p>
         Keep track of <b>what</b> you want to talk about with <b>whom</b> you

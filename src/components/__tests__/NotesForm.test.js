@@ -1,4 +1,3 @@
-import "../../__mocks__/matchMediaMock";
 import {render, unmountComponentAtNode} from "react-dom";
 import NotesForm from "../NotesForm";
 import React from "react";

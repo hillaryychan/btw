@@ -6,98 +6,102 @@ it("SignUp page rendering", () => {
   const tree = renderer.create(<SignUp />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
-  className="mt-2 AuthForm container"
+  className="mt-2 container"
 >
-  <h1
-    className="CenterText"
+  <div
+    className="AuthForm"
   >
-    Sign Up
-  </h1>
-  <form
-    className=""
-  >
-    <div
-      className="mb-3"
+    <h1
+      className="CenterText"
     >
-      <label
-        className="form-label"
-        htmlFor="formBasicEmail"
-      >
-        Email address
-      </label>
-      <input
-        className="form-control"
-        id="formBasicEmail"
-        name="email"
-        onChange={[Function]}
-        placeholder="Enter email"
-        type="email"
-        value=""
-      />
-    </div>
-    <div
-      className="mb-3"
+      Sign Up
+    </h1>
+    <form
+      className=""
     >
-      <label
-        className="form-label"
-        htmlFor="formBasicPassword"
+      <div
+        className="mb-3"
       >
-        Password
-      </label>
-      <input
-        className="form-control"
-        id="formBasicPassword"
-        name="password1"
-        onChange={[Function]}
-        placeholder="Password"
-        type="password"
-        value=""
-      />
-    </div>
-    <div
-      className="mb-3"
-    >
-      <label
-        className="form-label"
-        htmlFor="formBasicPassword"
+        <label
+          className="form-label"
+          htmlFor="formBasicEmail"
+        >
+          Email address
+        </label>
+        <input
+          className="form-control"
+          id="formBasicEmail"
+          name="email"
+          onChange={[Function]}
+          placeholder="Enter email"
+          type="email"
+          value=""
+        />
+      </div>
+      <div
+        className="mb-3"
       >
-        Re-enter password
-      </label>
-      <input
-        className="form-control"
-        id="formBasicPassword"
-        name="password2"
-        onChange={[Function]}
-        placeholder="Re-enter password"
-        type="password"
-        value=""
-      />
-    </div>
+        <label
+          className="form-label"
+          htmlFor="formBasicPassword"
+        >
+          Password
+        </label>
+        <input
+          className="form-control"
+          id="formBasicPassword"
+          name="password1"
+          onChange={[Function]}
+          placeholder="Password"
+          type="password"
+          value=""
+        />
+      </div>
+      <div
+        className="mb-3"
+      >
+        <label
+          className="form-label"
+          htmlFor="formBasicPassword"
+        >
+          Re-enter password
+        </label>
+        <input
+          className="form-control"
+          id="formBasicPassword"
+          name="password2"
+          onChange={[Function]}
+          placeholder="Re-enter password"
+          type="password"
+          value=""
+        />
+      </div>
+      <div
+        className="CenterHorizontal"
+      >
+        <button
+          className="btn btn-primary"
+          disabled={false}
+          onClick={[Function]}
+          type="submit"
+        >
+          Sign up
+        </button>
+      </div>
+    </form>
+    <hr />
     <div
       className="CenterHorizontal"
     >
       <button
-        className="btn btn-primary"
+        className="btn btn-outline-primary"
         disabled={false}
         onClick={[Function]}
         type="submit"
       >
-        Sign up
+        Sign in with Google
       </button>
     </div>
-  </form>
-  <hr />
-  <div
-    className="CenterHorizontal"
-  >
-    <button
-      className="btn btn-outline-primary"
-      disabled={false}
-      onClick={[Function]}
-      type="submit"
-    >
-      Sign in with Google
-    </button>
   </div>
 </div>
 `);

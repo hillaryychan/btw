@@ -51,46 +51,48 @@ class SignIn extends Component {
   render() {
     const {email, password} = this.state;
     return (
-      <Container className="mt-2 AuthForm">
-        <h1 className="CenterText">Sign In</h1>
-        <Form>
-          <Alerts errors={this.state.errors} />
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              name="email"
-              type="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={this.handleInputChange}
-            />
-          </Form.Group>
+      <Container className="mt-2">
+        <div className="AuthForm">
+          <h1 className="CenterText">Sign In</h1>
+          <Form>
+            <Alerts errors={this.state.errors} />
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={this.handleInputChange}
-            />
-          </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.handleInputChange}
+              />
+            </Form.Group>
+            <div className="CenterHorizontal">
+              <Button variant="primary" type="submit" onClick={this.submitForm}>
+                Sign in
+              </Button>
+            </div>
+          </Form>
+          <hr />
           <div className="CenterHorizontal">
-            <Button variant="primary" type="submit" onClick={this.submitForm}>
-              Sign in
+            <Button
+              variant="outline-primary"
+              type="submit"
+              onClick={signInWithGoogle}
+            >
+              Sign in with Google
             </Button>
           </div>
-        </Form>
-        <hr />
-        <div className="CenterHorizontal">
-          <Button
-            variant="outline-primary"
-            type="submit"
-            onClick={signInWithGoogle}
-          >
-            Sign in with Google
-          </Button>
         </div>
       </Container>
     );

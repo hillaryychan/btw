@@ -37,9 +37,10 @@ function About() {
         </li>
         <li>
           Sometimes I have a lot to say about an idea and need more than one
-          line to express it. Sure we can have sub-items, but that doesn&apos;t
-          work for rambling thoughts and musings that are meant to supplement my
-          idea instead of being an extra sub-idea I want to point out
+          line to express it. Sure we can have sub-items on a checklist, but
+          that doesn&apos;t work for rambling thoughts and musings that are
+          meant to supplement my idea instead of being an extra sub-idea I want
+          to discuss
         </li>
       </ul>
       <p>Basically, I wanted a glorified checklist that</p>

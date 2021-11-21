@@ -74,7 +74,7 @@
     "max-nested-callbacks": "error",
     "max-params": "error",
     "max-statements-per-line": "error",
-    "multiline-ternary": "error",
+    "multiline-ternary": ["error", "always-multiline"],
     "new-cap": "error",
     "new-parens": "error",
     "newline-per-chained-call": "error",
@@ -95,7 +95,11 @@
     "no-extend-native": "error",
     "no-extra-bind": "error",
     "no-extra-label": "error",
-    "no-extra-parens": "error",
+    "no-extra-parens": [
+      "error",
+      "all",
+      { "enforceForArrowConditionals": false }
+    ],
     "no-floating-decimal": "error",
     "no-implicit-coercion": "error",
     "no-implicit-globals": "error",

@@ -11,7 +11,7 @@ function Home(props) {
   }
 
   return (
-    <Container id="home" className="mt-2">
+    <Container id="home" className="mt-2 mb-5">
       {props.signedIn
         ? <Notes />
         : <Welcome />}

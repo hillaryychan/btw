@@ -30,6 +30,10 @@ function NotesList(props) {
       </div>
     );
   }
+  const numShowable = notes.reduce(
+    (count, note) => (note.show ? count + 1 : count),
+    0
+  );
 
   return (
     <div id="notes-list">
@@ -49,6 +53,9 @@ function NotesList(props) {
           return null;
         })}
       </Accordion>
+      <div className="mt-2 CenterText Faded">
+        Viewing {numShowable} of {notes.length} notes
+      </div>
     </div>
   );
 }

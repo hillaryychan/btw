@@ -32,7 +32,7 @@ it("Home page when signed out", () => {
   const tree = renderer.create(<Home />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
-  className="mt-2 container"
+  className="mt-2 mb-5 container"
   id="home"
 >
   <div
@@ -89,7 +89,7 @@ it("Home page when signed in", () => {
   const tree = renderer.create(<Home signedIn={true} />).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
-  className="mt-2 container"
+  className="mt-2 mb-5 container"
   id="home"
 >
   <h1>

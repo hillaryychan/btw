@@ -11,7 +11,9 @@ function AudienceInput(props) {
   const audienceValue = normaliseAudience(props.audienceInput);
   return (
     <Form.Group className="mb-3">
-      <Form.Label>Audience</Form.Label>
+      <Form.Label>
+        Audience<span className="ReqInput">*</span>
+      </Form.Label>
       <Row className="g-2" xs={2}>
         <Col md>
           <Form.Control

@@ -75,16 +75,14 @@ class NotesForm extends Component {
   }
 
   validateForm() {
-    const {title} = this.state;
-    const {description} = this.state;
-    const {audience} = this.state;
+    const {title, audience} = this.state;
     const errors = [];
 
-    if (title === "" && description === "" && audience.length === 0) {
-      errors.push("Note cannot be empty");
-    }
     if (title === "") {
       errors.push("Note must have a title");
+    }
+    if (audience.length === 0) {
+      errors.push("Note must have at least one audience");
     }
     if (containsDuplicates(audience)) {
       errors.push("Audience contains duplicates");

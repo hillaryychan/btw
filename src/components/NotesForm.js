@@ -55,10 +55,13 @@ class NotesForm extends Component {
     const {audienceInput} = this.state;
     const member = normaliseAudience(audienceInput);
     if (member !== "") {
-      this.setState((prevState) => ({
-        audience: [...prevState.audience, member],
+      const {audience} = this.state;
+      audience.push(member);
+      audience.sort();
+      this.setState({
+        audience,
         audienceInput: this.initialState.audienceInput // reset audienceInput
-      }));
+      });
     }
   }
 

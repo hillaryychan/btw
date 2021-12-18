@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import PropTypes from "prop-types";
 import React from "react";
 
-const MAX_DESC_LEN = 1000;
+const MAX_DESC_LEN = 10000;
 
 function DescriptionInput(props) {
   return (

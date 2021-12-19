@@ -45,20 +45,9 @@ function getUserId() {
   return firebase.auth().currentUser.uid;
 }
 
-function getUsername() {
-  const user = firebase.auth().currentUser;
-  return user.displayName || user.email || "Unknown User";
-}
-
-function isUserSignedIn() {
-  return Boolean(firebase.auth().currentUser);
-}
-
 export {
   getUser,
   getUserId,
-  getUsername,
-  isUserSignedIn,
   signIn,
   signInWithGoogle,
   signOut,

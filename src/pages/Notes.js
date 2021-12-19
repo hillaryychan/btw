@@ -162,8 +162,8 @@ We apologise for any inconvenience this may have caused.`);
         <NotesModal
           handleClose={this.handleClose}
           show={this.state.show}
-          action="Create Note"
-          doNoteAction={this.addNote}
+          actionName="Create Note"
+          submitAction={this.addNote}
         />
         <hr />
         <NotesList

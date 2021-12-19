@@ -36,7 +36,7 @@ function createNote(form) {
 function initFormState(noteData) {
   return {
     title: noteData?.title || "",
-    description: noteData?.title || "",
+    description: noteData?.description || "",
     audience: noteData?.audience || [],
     audienceInput: ""
   };
@@ -88,7 +88,7 @@ export default function NotesForm(props) {
     const formErrors = validateForm(form);
     if (formErrors.length === 0) {
       const note = createNote(form);
-      props.doNoteAction(note);
+      props.submitAction(note);
       exitForm();
     }
     setErrors(formErrors);
@@ -113,16 +113,15 @@ export default function NotesForm(props) {
         Cancel
       </Button>{" "}
       <Button variant="primary" type="submit" onClick={submitForm}>
-        {props.action}
+        {props.actionName}
       </Button>
     </Form>
   );
 }
 
 NotesForm.propTypes = {
-  action: PropTypes.string,
-  doNoteAction: PropTypes.func,
+  actionName: PropTypes.string,
+  submitAction: PropTypes.func,
   handleClose: PropTypes.func,
-  noteData: PropTypes.object,
-  notes: PropTypes.array
+  noteData: PropTypes.object
 };

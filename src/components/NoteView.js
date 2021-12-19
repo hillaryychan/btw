@@ -72,8 +72,8 @@ function NoteView(props) {
           noteData={note.data}
           handleClose={handleClose}
           show={show}
-          action="Save Note"
-          doNoteAction={(noteToUpdate) => props.updateNote(idx, note.ref, noteToUpdate)
+          actionName="Save Note"
+          submitAction={(noteToUpdate) => props.updateNote(idx, note.ref, noteToUpdate)
           }
         />
       </Accordion.Item>

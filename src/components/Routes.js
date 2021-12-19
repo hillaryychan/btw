@@ -23,9 +23,7 @@ function Routes(props) {
           : <SignUp />}
       </Route>
       <Route path="/signin">
-        {user
-          ? <Redirect to="/" />
-          : <SignIn />}
+        <SignIn />
       </Route>
     </Switch>
   );

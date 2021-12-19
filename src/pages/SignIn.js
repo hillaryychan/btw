@@ -1,9 +1,11 @@
 import "../styles.css";
 import {Button, Container, Form} from "react-bootstrap";
-import React, {useCallback, useRef, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {signIn, signInWithGoogle} from "../utils/auth";
 import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
+import useApp from "../contexts/AppContext";
+import {useHistory} from "react-router";
 
 function validateForm(email) {
   const errors = [];
@@ -14,9 +16,18 @@ function validateForm(email) {
 }
 
 export default function SignIn() {
+  const {user} = useApp();
+  const history = useHistory();
+
   const [errors, setErrors] = useState([]);
   const emailInput = useRef("");
   const passwordInput = useRef("");
+
+  useEffect(() => {
+    if (user) {
+      history.push("/");
+    }
+  }, [user]);
 
   const submitForm = useCallback((event) => {
     const email = emailInput.current.value;

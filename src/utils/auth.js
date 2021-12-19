@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 function initFirebaseAuth() {
   // Every time auth state is changed re-render app
   firebase.auth().onAuthStateChanged(() => {
-    ReactDOM.render(<App />, document.getElementById("root"));
+    ReactDOM.render(<App init={false} />, document.getElementById("root"));
   });
 }
 

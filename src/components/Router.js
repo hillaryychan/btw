@@ -6,16 +6,14 @@ import PropTypes from "prop-types";
 import React from "react";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
-import useApp from "../contexts/AppContext";
 
 function Router(props) {
-  const {user} = useApp();
   return (
     <BrowserRouter>
       <Navigation init={props.init} />
       <Switch>
         <Route exact path="/">
-          <Home init={props.init} signedIn={Boolean(user)} />
+          <Home init={props.init} />
         </Route>
         <Route path="/about">
           <About />

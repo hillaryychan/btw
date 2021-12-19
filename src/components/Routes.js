@@ -1,4 +1,4 @@
-import {Redirect, Route, Switch} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import About from "../pages/About";
 import Home from "../pages/Home";
 import PropTypes from "prop-types";
@@ -18,9 +18,7 @@ function Routes(props) {
         <About />
       </Route>
       <Route path="/signup">
-        {user
-          ? <Redirect to="/" />
-          : <SignUp />}
+        <SignUp />
       </Route>
       <Route path="/signin">
         <SignIn />

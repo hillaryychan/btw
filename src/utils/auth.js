@@ -37,6 +37,10 @@ function signOut() {
     catch((error) => alert(error));
 }
 
+function getUser() {
+  return firebase.auth().currentUser;
+}
+
 function getUserId() {
   return firebase.auth().currentUser.uid;
 }
@@ -51,6 +55,7 @@ function isUserSignedIn() {
 }
 
 export {
+  getUser,
   getUserId,
   getUsername,
   isUserSignedIn,

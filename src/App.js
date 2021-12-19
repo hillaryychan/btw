@@ -3,15 +3,18 @@ import Navigation from "./components/Navigation";
 import PropTypes from "prop-types";
 import React from "react";
 import Routes from "./components/Routes";
-import {isUserSignedIn} from "./utils/auth";
+import {appContext} from "./contexts/AppContext";
+import {getUser} from "./utils/auth";
 
 function App(props) {
-  const isSignedIn = isUserSignedIn();
+  const user = getUser();
   return (
-    <BrowserRouter>
-      <Navigation init={props.init} signedIn={isSignedIn} />
-      <Routes init={props.init} signedIn={isSignedIn} />
-    </BrowserRouter>
+    <appContext.Provider value={{user}}>
+      <BrowserRouter>
+        <Navigation init={props.init} />
+        <Routes init={props.init} />
+      </BrowserRouter>
+    </appContext.Provider>
   );
 }
 

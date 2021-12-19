@@ -5,23 +5,25 @@ import PropTypes from "prop-types";
 import React from "react";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import useApp from "../contexts/AppContext";
 
 function Routes(props) {
+  const {user} = useApp();
   return (
     <Switch>
       <Route exact path="/">
-        <Home init={props.init} signedIn={props.signedIn} />
+        <Home init={props.init} signedIn={Boolean(user)} />
       </Route>
       <Route path="/about">
         <About />
       </Route>
       <Route path="/signup">
-        {props.signedIn
+        {user
           ? <Redirect to="/" />
           : <SignUp />}
       </Route>
       <Route path="/signin">
-        {props.signedIn
+        {user
           ? <Redirect to="/" />
           : <SignIn />}
       </Route>
@@ -30,8 +32,7 @@ function Routes(props) {
 }
 
 Routes.propTypes = {
-  init: PropTypes.bool,
-  signedIn: PropTypes.bool
+  init: PropTypes.bool
 };
 
 export default Routes;

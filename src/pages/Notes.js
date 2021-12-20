@@ -38,7 +38,7 @@ export default function Notes(props) {
     if (showable === 0 && filter !== DEFAULT_FILTER) {
       filterNotes(DEFAULT_FILTER);
     } else {
-      setNotes(newNotes);
+      setNotes([...newNotes]);
       setFilter(filterBy);
     }
   });

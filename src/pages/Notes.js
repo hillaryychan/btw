@@ -4,8 +4,8 @@ import React, {useCallback, useEffect, useState} from "react";
 import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
+import PropTypes from "prop-types";
 import firebase from "firebase/app";
-import useApp from "../contexts/AppContext";
 
 const MAX_NOTES = 50;
 const DEFAULT_FILTER = "";
@@ -16,8 +16,8 @@ function getAudience(notes) {
   return [...audienceSet].sort();
 }
 
-export default function Notes() {
-  const {user} = useApp();
+export default function Notes(props) {
+  const {userId} = props;
   const [initNotes, setInitNotes] = useState(true);
   const [modalShowState, setModalShowState] = useState(false);
   const [notes, setNotes] = useState([]);
@@ -53,7 +53,7 @@ export default function Notes() {
 
   const deleteNote = useCallback((idx, docRef) => {
     const db = firebase.firestore();
-    db.collection(user.uid).
+    db.collection(userId).
       doc(docRef).
       delete().
       then(() => {
@@ -74,7 +74,7 @@ export default function Notes() {
 We apologise for any inconvenience this may have caused.`);
     } else {
       const db = firebase.firestore();
-      db.collection(user.uid).
+      db.collection(userId).
         add(note).
         then((docRef) => {
           setNotes([createDoc(docRef.id, note, filter), ...notes]);
@@ -87,7 +87,7 @@ We apologise for any inconvenience this may have caused.`);
 
   const updateNote = useCallback((idx, docRef, note) => {
     const db = firebase.firestore();
-    db.collection(user.uid).
+    db.collection(userId).
       doc(docRef).
       update(note).
       then(() => {
@@ -103,7 +103,7 @@ We apologise for any inconvenience this may have caused.`);
   useEffect(() => {
     const retrievedNotes = [];
     const db = firebase.firestore();
-    db.collection(user.uid).
+    db.collection(userId).
       orderBy("lastModified", "desc").
       limit(MAX_NOTES).
       get().
@@ -157,3 +157,7 @@ We apologise for any inconvenience this may have caused.`);
     </>
   );
 }
+
+Notes.propTypes = {
+  userId: PropTypes.string
+};

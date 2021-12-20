@@ -15,9 +15,7 @@ function Home(props) {
 
   return (
     <Container id="home" className="mt-2 mb-5">
-      {user
-        ? <Notes />
-        : <Welcome />}
+      {user ? <Notes userId={user.uid} /> : <Welcome />}
     </Container>
   );
 }

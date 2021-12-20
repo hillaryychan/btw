@@ -150,6 +150,7 @@ We apologise for any inconvenience this may have caused.`);
       <hr />
       <NotesList
         initNotes={initNotes}
+        filter={filter}
         notes={notes}
         deleteNote={deleteNote}
         updateNote={updateNote}

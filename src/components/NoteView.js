@@ -1,3 +1,4 @@
+import "../styles.css";
 import {Accordion, Button, Col, Row} from "react-bootstrap";
 import React, {useState} from "react";
 import AudiencePills from "./AudiencePills";
@@ -39,27 +40,29 @@ function NoteView(props) {
           }
           <div id={`note-${idx}-actions`}>
             <Row className="g-2">
-              <Col>
-                <Button
-                  size="sm"
-                  variant="success"
-                  className="my-1"
-                  onClick={() => props.deleteNote(idx, note.ref)}
-                >
-                  Complete
-                </Button>{" "}
+              <Col className="Box">
                 <Button
                   size="sm"
                   variant="secondary"
-                  className="my-1"
+                  className="me-1"
                   onClick={handleShow}
                 >
                   Edit
                 </Button>
+                {props.filter !== "" &&
+                  <Button
+                    size="sm"
+                    variant="success"
+                    className=""
+                    onClick={() => props.deleteNote(idx, note.ref)}
+                  >
+                    Complete for {props.filter}
+                  </Button>
+                }
                 <Button
                   size="sm"
                   variant="danger"
-                  className="my-1 float-end"
+                  className="ms-1"
                   onClick={() => props.deleteNote(idx, note.ref)}
                 >
                   Delete
@@ -84,6 +87,7 @@ function NoteView(props) {
 NoteView.propTypes = {
   deleteNote: PropTypes.func,
   idx: PropTypes.number,
+  filter: PropTypes.string,
   note: PropTypes.object,
   updateNote: PropTypes.func
 };

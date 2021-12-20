@@ -44,6 +44,7 @@ function NotesList(props) {
               <NoteView
                 key={idx}
                 idx={idx}
+                filter={props.filter}
                 note={note}
                 deleteNote={deleteNote}
                 updateNote={props.updateNote}
@@ -61,9 +62,10 @@ function NotesList(props) {
 }
 
 NotesList.propTypes = {
-  deleteNote: PropTypes.func,
   initNotes: PropTypes.bool,
+  filter: PropTypes.string,
   notes: PropTypes.array,
+  deleteNote: PropTypes.func,
   updateNote: PropTypes.func
 };
 

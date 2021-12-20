@@ -5,6 +5,11 @@
   }
 }
 
+.Box {
+  display: flex;
+  justify-content: space-between;
+}
+
 .Brand {
   font-style: italic;
   font-weight: bold;

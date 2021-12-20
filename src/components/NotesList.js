@@ -46,6 +46,7 @@ function NotesList(props) {
                 idx={idx}
                 filter={props.filter}
                 note={note}
+                completeNote={props.completeNote}
                 deleteNote={deleteNote}
                 updateNote={props.updateNote}
               />
@@ -65,6 +66,7 @@ NotesList.propTypes = {
   initNotes: PropTypes.bool,
   filter: PropTypes.string,
   notes: PropTypes.array,
+  completeNote: PropTypes.func,
   deleteNote: PropTypes.func,
   updateNote: PropTypes.func
 };

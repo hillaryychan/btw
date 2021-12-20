@@ -51,22 +51,6 @@ export default function Notes(props) {
     setModalShowState(false);
   });
 
-  const deleteNote = useCallback((idx, docRef) => {
-    const db = firebase.firestore();
-    db.collection(userId).
-      doc(docRef).
-      delete().
-      then(() => {
-        const newNotes = notes;
-        newNotes.splice(idx, 1);
-        filterNotes(filter);
-        setNotes(newNotes);
-      }).
-      catch((error) => {
-        alert(error);
-      });
-  });
-
   const addNote = useCallback((note) => {
     if (notes.length >= MAX_NOTES) {
       alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
@@ -99,6 +83,36 @@ We apologise for any inconvenience this may have caused.`);
         alert(error);
       });
   });
+
+  const deleteNote = useCallback((idx, docRef) => {
+    const db = firebase.firestore();
+    db.collection(userId).
+      doc(docRef).
+      delete().
+      then(() => {
+        const newNotes = notes;
+        newNotes.splice(idx, 1);
+        filterNotes(filter);
+        setNotes(newNotes);
+      }).
+      catch((error) => {
+        alert(error);
+      });
+  });
+
+  const completeNote = useCallback((idx, docRef, filterBy) => {
+    const note = notes[idx];
+    const audienceIdx = note.data.audience.indexOf(filterBy);
+    if (audienceIdx > -1) {
+      note.data.audience.splice(audienceIdx, 1);
+    }
+    if (note.data.audience.length === 0) {
+      deleteNote(idx, docRef);
+    } else {
+      updateNote(idx, docRef, note.data);
+    }
+  });
+
 
   useEffect(() => {
     const retrievedNotes = [];
@@ -152,6 +166,7 @@ We apologise for any inconvenience this may have caused.`);
         initNotes={initNotes}
         filter={filter}
         notes={notes}
+        completeNote={completeNote}
         deleteNote={deleteNote}
         updateNote={updateNote}
       />

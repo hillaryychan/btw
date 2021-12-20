@@ -54,7 +54,7 @@ function NoteView(props) {
                     size="sm"
                     variant="success"
                     className=""
-                    onClick={() => props.deleteNote(idx, note.ref)}
+                    onClick={() => props.completeNote(idx, note.ref, props.filter)}
                   >
                     Complete for {props.filter}
                   </Button>
@@ -85,10 +85,11 @@ function NoteView(props) {
 }
 
 NoteView.propTypes = {
-  deleteNote: PropTypes.func,
   idx: PropTypes.number,
   filter: PropTypes.string,
   note: PropTypes.object,
+  completeNote: PropTypes.func,
+  deleteNote: PropTypes.func,
   updateNote: PropTypes.func
 };
 

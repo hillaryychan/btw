@@ -1,7 +1,7 @@
 import {createContext, useContext} from "react";
 
 export const appContext = createContext({
-  currentUser: null
+  user: null
 });
 
 export default function useApp() {

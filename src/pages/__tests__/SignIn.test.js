@@ -32,10 +32,8 @@ it("SignIn page rendering", () => {
           className="form-control"
           id="formBasicEmail"
           name="email"
-          onChange={[Function]}
-          placeholder="Enter email"
+          placeholder="email@email.com"
           type="email"
-          value=""
         />
       </div>
       <div
@@ -51,10 +49,8 @@ it("SignIn page rendering", () => {
           className="form-control"
           id="formBasicPassword"
           name="password"
-          onChange={[Function]}
-          placeholder="Password"
+          placeholder="password"
           type="password"
-          value=""
         />
       </div>
       <div

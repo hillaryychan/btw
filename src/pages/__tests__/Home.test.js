@@ -1,5 +1,6 @@
 import Home from "../Home";
 import React from "react";
+import {appContext} from "../../contexts/AppContext";
 import firebase from "firebase/app";
 import renderer from "react-test-renderer";
 
@@ -79,14 +80,14 @@ it("Home page when signed in", () => {
     orderBy: jest.fn().mockReturnThis(),
     then: jest.fn().mockResolvedValueOnce()
   };
-  const firebaseAuthMock = {
-    currentUser: jest.fn().mockReturnThis(),
-    uid: jest.fn().mockResolvedValueOnce()
-  };
   jest.spyOn(firebase, "firestore").mockImplementationOnce(() => firestoreMock);
-  jest.spyOn(firebase, "auth").mockImplementationOnce(() => firebaseAuthMock);
+  const props = {
+    user: {
+      displayName: "John Doe"
+    }
+  };
 
-  const tree = renderer.create(<Home signedIn={true} />).toJSON();
+  const tree = renderer.create(<appContext.Provider value={props}><Home /></appContext.Provider>).toJSON();
   expect(tree).toMatchInlineSnapshot(`
 <div
   className="mt-2 mb-5 container"

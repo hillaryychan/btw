@@ -1,9 +1,11 @@
 import * as authUtils from "../../utils/auth";
-import {render, unmountComponentAtNode} from "react-dom";
 import AuthButtons from "../AuthButtons";
 import React from "react";
 import {act} from "react-dom/test-utils";
+import {appContext} from "../../contexts/AppContext";
+import {render} from "@testing-library/react";
 import renderer from "react-test-renderer";
+import {unmountComponentAtNode} from "react-dom";
 
 describe("AuthButtons rendering", () => {
   it("AuthButtons when initialising", () => {
@@ -38,8 +40,16 @@ Array [
   });
 
   it("AuthButtons when signed in", () => {
-    jest.spyOn(authUtils, "getUsername").mockReturnValue("John Doe");
-    const tree = renderer.create(<AuthButtons signedIn={true} />).toJSON();
+    const props = {
+      user: {
+        displayName: "John Doe"
+      }
+    };
+    const tree = renderer.
+      create(<appContext.Provider value={props}>
+        <AuthButtons />
+      </appContext.Provider>).
+      toJSON();
     expect(tree).toMatchInlineSnapshot(`
 Array [
   <span
@@ -82,7 +92,11 @@ describe("AuthButtons onClick", () => {
   });
 
   it("when signed in, 'Sign out' calls signOut()", () => {
-    jest.spyOn(authUtils, "getUsername").mockReturnValue("John Doe");
+    const props = {
+      user: {
+        displayName: "John Doe"
+      }
+    };
     const signOutBtn = jest.
       spyOn(authUtils, "signOut").
       mockImplementationOnce(() => {
@@ -90,7 +104,9 @@ describe("AuthButtons onClick", () => {
       });
 
     act(() => {
-      render(<AuthButtons signedIn={true} />, container);
+      render(<appContext.Provider value={props}>
+        <AuthButtons />
+      </appContext.Provider>);
     });
 
     const button = document.querySelector("[data-testid=signout-btn]");

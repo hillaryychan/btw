@@ -21,8 +21,7 @@ function Home(props) {
 }
 
 Home.propTypes = {
-  init: PropTypes.bool,
-  signedIn: PropTypes.bool
+  init: PropTypes.bool
 };
 
 export default Home;

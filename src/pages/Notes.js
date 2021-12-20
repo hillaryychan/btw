@@ -1,100 +1,34 @@
 import "firebase/firestore";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import React, {Component} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
+import PropTypes from "prop-types";
 import firebase from "firebase/app";
-import {getUserId} from "../utils/auth";
 
 const MAX_NOTES = 50;
 const DEFAULT_FILTER = "";
 
-class Notes extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filter: DEFAULT_FILTER,
-      initNotes: true,
-      notes: [],
-      show: false
-    };
-    this.handleClose = this.handleClose.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.addNote = this.addNote.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
-    this.updateNote = this.updateNote.bind(this);
-    this.filterNotes = this.filterNotes.bind(this);
-  }
+function getAudience(notes) {
+  const audienceSet = new Set();
+  notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
+  return [...audienceSet].sort();
+}
 
-  handleClose() {
-    return this.setState({show: false});
-  }
+export default function Notes(props) {
+  const {userId} = props;
+  const [initNotes, setInitNotes] = useState(true);
+  const [modalShowState, setModalShowState] = useState(false);
+  const [notes, setNotes] = useState([]);
+  const [filter, setFilter] = useState(DEFAULT_FILTER);
 
-  handleShow() {
-    return this.setState({show: true});
-  }
-
-  addNote(note) {
-    if (this.state.notes.length >= MAX_NOTES) {
-      alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
-
-We apologise for any inconvenience this may have caused.`);
-    } else {
-      const db = firebase.firestore();
-      db.collection(getUserId()).
-        add(note).
-        then((docRef) => {
-          this.setState((prevState) => ({
-            notes: [
-              createDoc(docRef.id, note, this.state.filter),
-              ...prevState.notes
-            ]
-          }));
-        }).
-        catch((error) => {
-          alert(error);
-        });
-    }
-  }
-
-  deleteNote(idx, docRef) {
-    const db = firebase.firestore();
-    db.collection(getUserId()).
-      doc(docRef).
-      delete().
-      then(() => {
-        const {notes} = this.state;
-        notes.splice(idx, 1);
-        this.filterNotes(this.state.filter);
-        this.setState([notes]);
-      }).
-      catch((error) => {
-        alert(error);
-      });
-  }
-
-  updateNote(idx, docRef, note) {
-    const db = firebase.firestore();
-    db.collection(getUserId()).
-      doc(docRef).
-      update(note).
-      then(() => {
-        const {notes} = this.state;
-        notes[idx] = createDoc(docRef, note, this.state.filter);
-        this.setState([notes]);
-      }).
-      catch((error) => {
-        alert(error);
-      });
-  }
-
-  filterNotes(filter) {
-    let {notes} = this.state;
+  const filterNotes = useCallback((filterBy) => {
+    let newNotes = notes;
     let showable = 0;
-    notes = notes.map((doc) => {
+    newNotes = newNotes.map((doc) => {
       // Show note if person undefined or falsy
-      const show = canShow(doc.data, filter);
+      const show = canShow(doc.data, filterBy);
       doc.show = show;
       if (show) {
         showable += 1;
@@ -102,79 +36,128 @@ We apologise for any inconvenience this may have caused.`);
       return doc;
     });
     if (showable === 0 && filter !== DEFAULT_FILTER) {
-      this.filterNotes(DEFAULT_FILTER);
+      filterNotes(DEFAULT_FILTER);
     } else {
-      this.setState({filter, notes});
+      setNotes(newNotes);
+      setFilter(filterBy);
     }
-  }
+  });
 
-  getAudience() {
-    const audienceSet = new Set();
-    this.state.notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
-    return [...audienceSet].sort();
-  }
+  const showModal = useCallback(() => {
+    setModalShowState(true);
+  });
 
-  componentDidMount() {
+  const closeModal = useCallback(() => {
+    setModalShowState(false);
+  });
+
+  const deleteNote = useCallback((idx, docRef) => {
+    const db = firebase.firestore();
+    db.collection(userId).
+      doc(docRef).
+      delete().
+      then(() => {
+        const newNotes = notes;
+        newNotes.splice(idx, 1);
+        filterNotes(filter);
+        setNotes(newNotes);
+      }).
+      catch((error) => {
+        alert(error);
+      });
+  });
+
+  const addNote = useCallback((note) => {
+    if (notes.length >= MAX_NOTES) {
+      alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
+
+We apologise for any inconvenience this may have caused.`);
+    } else {
+      const db = firebase.firestore();
+      db.collection(userId).
+        add(note).
+        then((docRef) => {
+          setNotes([createDoc(docRef.id, note, filter), ...notes]);
+        }).
+        catch((error) => {
+          alert(error);
+        });
+    }
+  });
+
+  const updateNote = useCallback((idx, docRef, note) => {
+    const db = firebase.firestore();
+    db.collection(userId).
+      doc(docRef).
+      update(note).
+      then(() => {
+        const newNotes = notes;
+        newNotes[idx] = createDoc(docRef, note, filter);
+        setNotes([...newNotes]);
+      }).
+      catch((error) => {
+        alert(error);
+      });
+  });
+
+  useEffect(() => {
     const retrievedNotes = [];
     const db = firebase.firestore();
-    db.collection(getUserId()).
+    db.collection(userId).
       orderBy("lastModified", "desc").
       limit(MAX_NOTES).
       get().
       then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          retrievedNotes.push(createDoc(doc.id, doc.data(), this.state.filter));
+          retrievedNotes.push(createDoc(doc.id, doc.data(), filter));
         });
       }).
       then((_) => {
-        this.setState({initNotes: false, notes: retrievedNotes});
+        setInitNotes(false);
+        setNotes(retrievedNotes);
       });
-  }
+  }, []);
 
-  render() {
-    const audienceList = this.getAudience();
-    return (
-      <>
-        <h1>My Notes</h1>
-        <Row>
-          <Col>
-            <Form.Label column>Filter by audience</Form.Label>
-            <Form.Select
-              value={this.state.filter}
-              onChange={(event) => this.filterNotes(event.target.value)}
-            >
-              <option value={DEFAULT_FILTER}>No audience filter</option>
-              {[...audienceList].map((person, idx) => <option key={idx} value={person}>
-                {person}
-              </option>)}
-            </Form.Select>{" "}
-          </Col>
-          <Col>
-            <Button
-              variant="primary"
-              onClick={this.handleShow}
-              className="float-end"
-            >
-              New Note
-            </Button>
-          </Col>
-        </Row>
-        <NotesModal
-          handleClose={this.handleClose}
-          show={this.state.show}
-          action="Create Note"
-          doNoteAction={this.addNote}
-        />
-        <hr />
-        <NotesList
-          initNotes={this.state.initNotes}
-          notes={this.state.notes}
-          deleteNote={this.deleteNote}
-          updateNote={this.updateNote}
-        />
-      </>
-    );
-  }
+  const audienceList = getAudience(notes);
+  return (
+    <>
+      <h1>My Notes</h1>
+      <Row>
+        <Col>
+          <Form.Label column>Filter by audience</Form.Label>
+          <Form.Select
+            value={filter}
+            onChange={(event) => filterNotes(event.target.value)}
+          >
+            <option value={DEFAULT_FILTER}>No audience filter</option>
+            {[...audienceList].map((person, idx) => <option key={idx} value={person}>
+              {person}
+            </option>)}
+          </Form.Select>{" "}
+        </Col>
+        <Col>
+          <Button variant="primary" onClick={showModal} className="float-end">
+            New Note
+          </Button>
+        </Col>
+      </Row>
+      <NotesModal
+        handleClose={closeModal}
+        show={modalShowState}
+        actionName="Create Note"
+        submitAction={addNote}
+      />
+      <hr />
+      <NotesList
+        initNotes={initNotes}
+        notes={notes}
+        deleteNote={deleteNote}
+        updateNote={updateNote}
+      />
+    </>
+  );
 }
 
-export default Notes;
+Notes.propTypes = {
+  userId: PropTypes.string
+};

@@ -1,17 +1,15 @@
-import {BrowserRouter} from "react-router-dom";
-import Navigation from "./components/Navigation";
 import PropTypes from "prop-types";
 import React from "react";
-import Routes from "./components/Routes";
-import {isUserSignedIn} from "./utils/auth";
+import Router from "./components/Router";
+import {appContext} from "./contexts/AppContext";
+import {getUser} from "./utils/auth";
 
 function App(props) {
-  const isSignedIn = isUserSignedIn();
+  const user = getUser();
   return (
-    <BrowserRouter>
-      <Navigation init={props.init} signedIn={isSignedIn} />
-      <Routes init={props.init} signedIn={isSignedIn} />
-    </BrowserRouter>
+    <appContext.Provider value={{user}}>
+      <Router init={props.init} />
+    </appContext.Provider>
   );
 }
 

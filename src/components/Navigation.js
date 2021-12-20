@@ -23,7 +23,7 @@ function Navigation(props) {
             </NavDropdown>
           </Nav>
           <Nav>
-            <AuthButtons init={props.init} signedIn={props.signedIn} />
+            <AuthButtons init={props.init} />
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -32,8 +32,7 @@ function Navigation(props) {
 }
 
 Navigation.propTypes = {
-  init: PropTypes.bool,
-  signedIn: PropTypes.bool
+  init: PropTypes.bool
 };
 
 export default Navigation;

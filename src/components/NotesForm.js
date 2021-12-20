@@ -1,6 +1,6 @@
 import "firebase/firestore";
 import {Button, Form} from "react-bootstrap";
-import React, {Component} from "react";
+import React, {useCallback, useState} from "react";
 import {containsDuplicates, normaliseAudience} from "../utils/helper";
 import Alerts from "./Alerts";
 import AudienceInput from "./AudienceInput";
@@ -9,147 +9,119 @@ import PropTypes from "prop-types";
 import TitleInput from "./TitleInput";
 import firebase from "firebase/app";
 
-class NotesForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.initialState = this.initFormState();
-    this.exitForm = this.exitForm.bind(this);
-    this.submitForm = this.submitForm.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.addAudience = this.addAudience.bind(this);
-    this.removeAudience = this.removeAudience.bind(this);
-  }
+function validateForm(form) {
+  const {title, audience} = form;
+  const errors = [];
 
-  initFormState() {
-    const state = {
-      audience: [],
-      audienceInput: "",
-      description: "",
-      errors: [],
-      title: ""
-    };
-    const note = this.props.noteData;
-    if (note) {
-      state.title = note.title;
-      state.description = note.description;
-      state.audience = note.audience;
-    }
-    return state;
+  if (title === "") {
+    errors.push("Note must have a title");
   }
-
-  resetState() {
-    this.setState(this.initialState);
+  if (audience.length === 0) {
+    errors.push("Note must have at least one audience");
+  } else if (containsDuplicates(audience)) {
+    errors.push("Audience contains duplicates");
   }
+  return errors;
+}
 
-  exitForm() {
-    this.props.handleClose();
-    this.resetState();
-  }
+function createNote(form) {
+  return {
+    audience: form.audience,
+    description: form.description,
+    lastModified: firebase.firestore.FieldValue.serverTimestamp(),
+    title: form.title
+  };
+}
 
-  handleInputChange(event) {
+function initFormState(noteData) {
+  return {
+    title: noteData?.title || "",
+    description: noteData?.description || "",
+    audience: noteData?.audience || [],
+    audienceInput: ""
+  };
+}
+
+export default function NotesForm(props) {
+  const [errors, setErrors] = useState([]);
+  const initialState = initFormState(props.noteData);
+  const [form, setForm] = useState(initialState);
+
+  const exitForm = useCallback(() => {
+    props.handleClose();
+    setForm(initialState); // reset form state
+  });
+
+  const handleInputChange = useCallback((event) => {
     const {target} = event;
-    this.setState({[target.name]: target.value});
-  }
+    setForm({...form, [target.name]: target.value});
+  });
 
-  addAudience() {
-    const {audienceInput} = this.state;
-    const member = normaliseAudience(audienceInput);
+  const addAudience = useCallback(() => {
+    const member = normaliseAudience(form.audienceInput);
     if (member !== "") {
-      const {audience} = this.state;
-      audience.push(member);
-      audience.sort();
-      this.setState({
-        audience,
-        audienceInput: this.initialState.audienceInput // reset audienceInput
+      const newAudience = form.audience;
+      newAudience.push(member);
+      newAudience.sort();
+      setForm({
+        ...form,
+        audience: newAudience,
+        audienceInput: ""
       });
     }
-  }
+  });
 
-  removeAudience(event) {
+  const removeAudience = useCallback((event) => {
     const person = event.target.id;
     const idx = parseInt(person.slice(5), 10);
 
-    const {audience} = this.state;
-    audience.splice(idx, 1);
-    this.setState([audience]);
-  }
+    const newAudience = form.audience;
+    newAudience.splice(idx, 1);
+    setForm({
+      ...form,
+      audience: newAudience
+    });
+  });
 
-  validateForm() {
-    const {title, audience} = this.state;
-    const errors = [];
-
-    if (title === "") {
-      errors.push("Note must have a title");
-    }
-    if (audience.length === 0) {
-      errors.push("Note must have at least one audience");
-    }
-    if (containsDuplicates(audience)) {
-      errors.push("Audience contains duplicates");
-    }
-    return errors;
-  }
-
-  createNote() {
-    return {
-      audience: this.state.audience,
-      description: this.state.description,
-      lastModified: firebase.firestore.FieldValue.serverTimestamp(),
-      title: this.state.title
-    };
-  }
-
-  submitForm(event) {
+  const submitForm = useCallback((event) => {
     event.preventDefault();
-    const errors = this.validateForm();
-    if (errors.length === 0) {
-      const note = this.createNote();
-      this.props.doNoteAction(note);
-      this.exitForm();
+    const formErrors = validateForm(form);
+    if (formErrors.length === 0) {
+      const note = createNote(form);
+      props.submitAction(note);
+      exitForm();
     }
-    this.setState({errors});
-  }
+    setErrors(formErrors);
+  });
 
-  render() {
-    return (
-      <Form>
-        <Alerts errors={this.state.errors} />
-        <TitleInput
-          title={this.state.title}
-          handleInputChange={this.handleInputChange}
-        />
-        <DescriptionInput
-          description={this.state.description}
-          handleInputChange={this.handleInputChange}
-        />
-        <AudienceInput
-          addAudience={this.addAudience}
-          audience={this.state.audience}
-          audienceInput={this.state.audienceInput}
-          handleInputChange={this.handleInputChange}
-          removeAudience={this.removeAudience}
-        />
-        <Button
-          variant="secondary"
-          onClick={this.exitForm}
-          data-testid="cancel-btn"
-        >
-          Cancel
-        </Button>{" "}
-        <Button variant="primary" type="submit" onClick={this.submitForm}>
-          {this.props.action}
-        </Button>
-      </Form>
-    );
-  }
+  return (
+    <Form>
+      <Alerts errors={errors} />
+      <TitleInput title={form.title} handleInputChange={handleInputChange} />
+      <DescriptionInput
+        description={form.description}
+        handleInputChange={handleInputChange}
+      />
+      <AudienceInput
+        audience={form.audience}
+        audienceInput={form.audienceInput}
+        handleInputChange={handleInputChange}
+        addAudience={addAudience}
+        removeAudience={removeAudience}
+      />
+      <Button variant="secondary" onClick={exitForm} data-testid="cancel-btn">
+        Cancel
+      </Button>{" "}
+      <Button variant="primary" type="submit" onClick={submitForm}>
+        {props.actionName}
+      </Button>
+    </Form>
+  );
 }
 
 NotesForm.propTypes = {
-  action: PropTypes.string,
-  doNoteAction: PropTypes.func,
+  actionName: PropTypes.string,
+  submitAction: PropTypes.func,
   handleClose: PropTypes.func,
-  noteData: PropTypes.object,
-  notes: PropTypes.array
+  noteData: PropTypes.object
 };
-
-export default NotesForm;

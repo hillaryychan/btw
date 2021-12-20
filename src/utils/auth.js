@@ -7,7 +7,7 @@ import firebase from "firebase/app";
 function initFirebaseAuth() {
   // Every time auth state is changed re-render app
   firebase.auth().onAuthStateChanged(() => {
-    ReactDOM.render(<App />, document.getElementById("root"));
+    ReactDOM.render(<App init={false} />, document.getElementById("root"));
   });
 }
 
@@ -37,23 +37,12 @@ function signOut() {
     catch((error) => alert(error));
 }
 
-function getUserId() {
-  return firebase.auth().currentUser.uid;
-}
-
-function getUsername() {
-  const user = firebase.auth().currentUser;
-  return user.displayName || user.email || "Unknown User";
-}
-
-function isUserSignedIn() {
-  return Boolean(firebase.auth().currentUser);
+function getUser() {
+  return firebase.auth().currentUser;
 }
 
 export {
-  getUserId,
-  getUsername,
-  isUserSignedIn,
+  getUser,
   signIn,
   signInWithGoogle,
   signOut,

@@ -13,8 +13,8 @@ function NotesModal(props) {
         <NotesForm
           noteData={props.noteData}
           handleClose={props.handleClose}
-          action={props.action}
-          doNoteAction={props.doNoteAction}
+          actionName={props.actionName}
+          submitAction={props.submitAction}
         />
       </Modal.Body>
     </Modal>
@@ -22,8 +22,8 @@ function NotesModal(props) {
 }
 
 NotesModal.propTypes = {
-  action: PropTypes.string,
-  doNoteAction: PropTypes.func,
+  actionName: PropTypes.string,
+  submitAction: PropTypes.func,
   handleClose: PropTypes.func,
   noteData: PropTypes.object,
   show: PropTypes.bool

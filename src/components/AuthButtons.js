@@ -1,11 +1,13 @@
 import "../styles.css";
 import {Button, Navbar} from "react-bootstrap";
-import {getUsername, signOut} from "../utils/auth";
 import PropTypes from "prop-types";
 import React from "react";
+import {signOut} from "../utils/auth";
+import useApp from "../contexts/AppContext";
 import {useHistory} from "react-router-dom";
 
 function AuthButtons(props) {
+  const {user} = useApp();
   const history = useHistory();
 
   function handleClick(path) {
@@ -14,11 +16,11 @@ function AuthButtons(props) {
 
   if (props.init) {
     return null;
-  } else if (props.signedIn) {
+  } else if (user) {
     return (
       <>
         <Navbar.Text className="me-2">
-          Signed in as: <span className="Username">{getUsername()}</span>
+          Signed in as: <span className="Username">{user.displayName || user.email || "Unknown User"}</span>
         </Navbar.Text>
         <Button variant="secondary" onClick={signOut} data-testid="signout-btn">
           Sign out
@@ -49,8 +51,7 @@ function AuthButtons(props) {
 }
 
 AuthButtons.propTypes = {
-  init: PropTypes.bool,
-  signedIn: PropTypes.bool
+  init: PropTypes.bool
 };
 
 export default AuthButtons;

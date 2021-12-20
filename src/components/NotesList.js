@@ -37,7 +37,7 @@ function NotesList(props) {
 
   return (
     <div id="notes-list">
-      <Accordion key={collapse}>
+      <Accordion key={collapse} flush>
         {notes.map((note, idx) => {
           if (note.show) {
             return (

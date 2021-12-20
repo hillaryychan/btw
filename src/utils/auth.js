@@ -41,13 +41,8 @@ function getUser() {
   return firebase.auth().currentUser;
 }
 
-function getUserId() {
-  return firebase.auth().currentUser.uid;
-}
-
 export {
   getUser,
-  getUserId,
   signIn,
   signInWithGoogle,
   signOut,

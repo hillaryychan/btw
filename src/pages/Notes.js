@@ -100,20 +100,6 @@ We apologise for any inconvenience this may have caused.`);
       });
   });
 
-  const completeNote = useCallback((idx, docRef, filterBy) => {
-    const note = notes[idx];
-    const audienceIdx = note.data.audience.indexOf(filterBy);
-    if (audienceIdx > -1) {
-      note.data.audience.splice(audienceIdx, 1);
-    }
-    if (note.data.audience.length === 0) {
-      deleteNote(idx, docRef);
-    } else {
-      updateNote(idx, docRef, note.data);
-    }
-  });
-
-
   useEffect(() => {
     const retrievedNotes = [];
     const db = firebase.firestore();
@@ -166,7 +152,6 @@ We apologise for any inconvenience this may have caused.`);
         initNotes={initNotes}
         filter={filter}
         notes={notes}
-        completeNote={completeNote}
         deleteNote={deleteNote}
         updateNote={updateNote}
       />

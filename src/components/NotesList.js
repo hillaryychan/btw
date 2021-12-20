@@ -21,6 +21,20 @@ function NotesList(props) {
     props.deleteNote(idx, docRef);
   }
 
+  function completeNote(idx, docRef, filterBy) {
+    const note = notes[idx];
+    const audienceIdx = note.data.audience.indexOf(filterBy);
+    if (audienceIdx > -1) {
+      useCollapse(!collapse);
+      note.data.audience.splice(audienceIdx, 1);
+      if (note.data.audience.length === 0) {
+        deleteNote(idx, docRef);
+      } else {
+        props.updateNote(idx, docRef, note.data);
+      }
+    }
+  }
+
   if (props.initNotes) {
     return null;
   } else if (notes.length === 0) {
@@ -46,7 +60,7 @@ function NotesList(props) {
                 idx={idx}
                 filter={props.filter}
                 note={note}
-                completeNote={props.completeNote}
+                completeNote={completeNote}
                 deleteNote={deleteNote}
                 updateNote={props.updateNote}
               />
@@ -66,7 +80,6 @@ NotesList.propTypes = {
   initNotes: PropTypes.bool,
   filter: PropTypes.string,
   notes: PropTypes.array,
-  completeNote: PropTypes.func,
   deleteNote: PropTypes.func,
   updateNote: PropTypes.func
 };

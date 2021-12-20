@@ -20,7 +20,6 @@
   "dependencies": {
     "@parcel/transformer-react-refresh-wrap": "^2.0.0-alpha.3",
     "@react-firebase/auth": "^0.2.10",
-    "@testing-library/react": "^12.0.0",
     "bootstrap": "5.1.0",
     "firebase": "^8.10.0",
     "prop-types": "^15.7.2",
@@ -35,6 +34,7 @@
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
     "@parcel/transformer-image": "2.0.0-rc.0",
+    "@testing-library/react": "^12.1.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.0.6",
     "eslint": "^7.32.0",

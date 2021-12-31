@@ -49,7 +49,12 @@ function initFormState(noteData?: Note) {
   };
 }
 
-export default function NotesForm({actionName, submitAction, handleClose, noteData}: NotesFormProps) {
+export default function NotesForm({
+  actionName,
+  submitAction,
+  handleClose,
+  noteData
+}: NotesFormProps) {
   const [errors, setErrors] = useState<ErrorMessages>([]);
   const initialState = initFormState(noteData);
   const [form, setForm] = useState<NoteFormData>(initialState);

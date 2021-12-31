@@ -3,6 +3,7 @@ import {Button, Container, Form} from "react-bootstrap";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {signIn, signInWithGoogle} from "../utils/auth";
 import Alerts from "../components/Alerts";
+import {ErrorMessages} from "../types";
 import isEmail from "validator/lib/isEmail";
 import useApp from "../contexts/AppContext";
 import {useHistory} from "react-router";
@@ -19,9 +20,9 @@ export default function SignIn() {
   const {user} = useApp();
   const history = useHistory();
 
-  const [errors, setErrors] = useState([]);
-  const emailInput = useRef("");
-  const passwordInput = useRef("");
+  const [errors, setErrors] = useState<ErrorMessages>([]);
+  const emailInput = useRef<HTMLInputElement>(null);
+  const passwordInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (user) {
@@ -29,24 +30,27 @@ export default function SignIn() {
     }
   }, [user]);
 
-  const submitForm = useCallback((event) => {
-    const email = emailInput.current.value;
-    const password = passwordInput.current.value;
+  const submitForm = useCallback(
+    (event) => {
+      const email = emailInput.current?.value ?? "";
+      const password = passwordInput.current?.value ?? "";
 
-    event.preventDefault();
-    const validationErrors = validateForm(email);
-    if (validationErrors.length === 0) {
-      signIn(email, password).catch((error) => {
-        if (error.message) {
-          setErrors([error.message]);
-        } else {
-          setErrors(["There was an error signing in"]);
-        }
-      });
-    } else {
-      setErrors(validationErrors);
-    }
-  });
+      event.preventDefault();
+      const validationErrors = validateForm(email);
+      if (validationErrors.length === 0) {
+        signIn(email, password).catch((error) => {
+          if (error.message) {
+            setErrors([error.message]);
+          } else {
+            setErrors(["There was an error signing in"]);
+          }
+        });
+      } else {
+        setErrors(validationErrors);
+      }
+    },
+    [emailInput, passwordInput]
+  );
 
   return (
     <Container className="mt-2">

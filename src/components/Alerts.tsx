@@ -4,7 +4,7 @@ import React from "react";
 
 export type AlertsProps = {
   errors: ErrorMessages;
-}
+};
 
 export default function Alerts({errors}: AlertsProps) {
   if (errors) {

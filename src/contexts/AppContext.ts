@@ -4,6 +4,7 @@ import firebase from "firebase/app";
 export type AppContextType = {
   user: firebase.User | null;
 };
+
 export const appContext = createContext<AppContextType>({
   user: null
 });

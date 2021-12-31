@@ -22,8 +22,7 @@ function validateForm(email: string, password1: string, password2: string) {
   return errors;
 }
 
-
-export default function SignUp () {
+export default function SignUp() {
   const {user} = useApp();
   const history = useHistory();
 
@@ -38,20 +37,23 @@ export default function SignUp () {
     }
   }, [user]);
 
-  const submitForm = useCallback((event) => {
-    const email = emailInput.current?.value ?? "";
-    const password1 = password1Input.current?.value ?? "";
-    const password2 = password2Input.current?.value ?? "";
+  const submitForm = useCallback(
+    (event) => {
+      const email = emailInput.current?.value ?? "";
+      const password1 = password1Input.current?.value ?? "";
+      const password2 = password2Input.current?.value ?? "";
 
-    event.preventDefault();
-    const validationErrors = validateForm(email, password1, password2);
-    if (validationErrors.length === 0) {
-      signUp(email, password1);
-      setErrors([]);
-    } else {
-      setErrors(validationErrors);
-    }
-  }, [emailInput, password1Input, password2Input]);
+      event.preventDefault();
+      const validationErrors = validateForm(email, password1, password2);
+      if (validationErrors.length === 0) {
+        signUp(email, password1);
+        setErrors([]);
+      } else {
+        setErrors(validationErrors);
+      }
+    },
+    [emailInput, password1Input, password2Input]
+  );
   return (
     <Container className="mt-2">
       <div className="AuthForm">

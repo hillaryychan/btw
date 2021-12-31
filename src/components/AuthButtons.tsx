@@ -7,7 +7,7 @@ import {useHistory} from "react-router-dom";
 
 export type AuthButtonsProps = {
   init: boolean;
-}
+};
 
 export default function AuthButtons({init}: AuthButtonsProps) {
   const {user} = useApp();
@@ -23,7 +23,10 @@ export default function AuthButtons({init}: AuthButtonsProps) {
     return (
       <>
         <Navbar.Text className="me-2">
-          Signed in as: <span className="Username">{user.displayName || user.email || "Unknown User"}</span>
+          Signed in as:{" "}
+          <span className="Username">
+            {user.displayName || user.email || "Unknown User"}
+          </span>
         </Navbar.Text>
         <Button variant="secondary" onClick={signOut} data-testid="signout-btn">
           Sign out

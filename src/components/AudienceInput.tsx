@@ -14,7 +14,13 @@ export type AudienceInputProps = {
   removeAudience: (event: React.MouseEvent) => void;
 };
 
-export default function AudienceInput({addAudience, audience, audienceInput, handleInputChange, removeAudience}: AudienceInputProps) {
+export default function AudienceInput({
+  addAudience,
+  audience,
+  audienceInput,
+  handleInputChange,
+  removeAudience
+}: AudienceInputProps) {
   const audienceValue = normaliseAudience(audienceInput);
   return (
     <Form.Group className="mb-3">
@@ -44,10 +50,7 @@ export default function AudienceInput({addAudience, audience, audienceInput, han
           Audience member will be added as <b>{audienceValue}</b>
         </div>
       }
-      <AudiencePills
-        audience={audience}
-        doAction={removeAudience}
-      />
+      <AudiencePills audience={audience} doAction={removeAudience} />
     </Form.Group>
   );
 }

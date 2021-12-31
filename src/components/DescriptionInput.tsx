@@ -8,7 +8,10 @@ export type DescriptionInputProps = {
   description: string;
 };
 
-export default function DescriptionInput({handleInputChange, description}: DescriptionInputProps) {
+export default function DescriptionInput({
+  handleInputChange,
+  description
+}: DescriptionInputProps) {
   return (
     <Form.Group className="mb-3">
       <Form.Label>

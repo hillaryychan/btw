@@ -10,7 +10,10 @@ export type TitleInputProps = {
   title: string;
 };
 
-export default function TitleInput({handleInputChange, title}: TitleInputProps) {
+export default function TitleInput({
+  handleInputChange,
+  title
+}: TitleInputProps) {
   return (
     <Form.Group className="mb-3">
       <Form.Label>
@@ -28,4 +31,3 @@ export default function TitleInput({handleInputChange, title}: TitleInputProps) 
     </Form.Group>
   );
 }
-

@@ -1,8 +1,15 @@
 import {Badge, OverlayTrigger, Tooltip} from "react-bootstrap";
-import PropTypes from "prop-types";
-import React from "react";
+import React, {ReactNode} from "react";
+import {AudienceList} from "src/types";
+import {OverlayInjectedProps} from "react-bootstrap/esm/Overlay";
 
-function renderTooltip(props) {
+export type AudiencePillsProps = {
+  actionName?: string;
+  audience: AudienceList;
+  doAction?: (event: React.MouseEvent) => void;
+};
+
+function renderTooltip(props: OverlayInjectedProps): ReactNode {
   return (
     <Tooltip id="button-tooltip" {...props}>
       Click to remove
@@ -10,7 +17,7 @@ function renderTooltip(props) {
   );
 }
 
-function AudiencePills(props) {
+export default function AudiencePills(props: AudiencePillsProps) {
   const {audience} = props;
   if (audience && audience.length > 0) {
     if (props.doAction) {
@@ -50,11 +57,3 @@ function AudiencePills(props) {
   }
   return null;
 }
-
-AudiencePills.propTypes = {
-  actionName: PropTypes.string,
-  audience: PropTypes.array,
-  doAction: PropTypes.func
-};
-
-export default AudiencePills;

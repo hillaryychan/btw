@@ -1,35 +1,27 @@
 import "../styles.css";
 import {Button, Container, Form} from "react-bootstrap";
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {signInWithGoogle, signUp} from "../utils/auth";
-import Alerts from "../components/Alerts";
+import {signIn, signInWithGoogle} from "../utils/auth";
+import Alerts from "src/components/Alerts";
 import isEmail from "validator/lib/isEmail";
-import useApp from "../contexts/AppContext";
+import useApp from "src/contexts/AppContext";
 import {useHistory} from "react-router";
 
-function validateForm(email, password1, password2) {
+function validateForm(email) {
   const errors = [];
   if (!isEmail(email)) {
     errors.push("Enter a valid email");
   }
-  if (password1.length < 6) {
-    errors.push("Passwords must be at least 6 characters");
-  }
-  if (password1 !== password2) {
-    errors.push("Passwords do not match");
-  }
   return errors;
 }
 
-
-export default function SignUp () {
+export default function SignIn() {
   const {user} = useApp();
   const history = useHistory();
 
   const [errors, setErrors] = useState([]);
   const emailInput = useRef("");
-  const password1Input = useRef("");
-  const password2Input = useRef("");
+  const passwordInput = useRef("");
 
   useEffect(() => {
     if (user) {
@@ -39,22 +31,27 @@ export default function SignUp () {
 
   const submitForm = useCallback((event) => {
     const email = emailInput.current.value;
-    const password1 = password1Input.current.value;
-    const password2 = password2Input.current.value;
+    const password = passwordInput.current.value;
 
     event.preventDefault();
-    const validationErrors = validateForm(email, password1, password2);
+    const validationErrors = validateForm(email);
     if (validationErrors.length === 0) {
-      signUp(email, password1);
-      setErrors([]);
+      signIn(email, password).catch((error) => {
+        if (error.message) {
+          setErrors([error.message]);
+        } else {
+          setErrors(["There was an error signing in"]);
+        }
+      });
     } else {
       setErrors(validationErrors);
     }
   });
+
   return (
     <Container className="mt-2">
       <div className="AuthForm">
-        <h1 className="CenterText">Sign Up</h1>
+        <h1 className="CenterText">Sign In</h1>
         <Form>
           <Alerts errors={errors} />
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -63,31 +60,22 @@ export default function SignUp () {
               ref={emailInput}
               name="email"
               type="email"
-              placeholder="Enter email"
+              placeholder="email@email.com"
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              ref={password1Input}
-              name="password1"
+              ref={passwordInput}
+              name="password"
               type="password"
-              placeholder="Password"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Re-enter password</Form.Label>
-            <Form.Control
-              ref={password2Input}
-              name="password2"
-              type="password"
-              placeholder="Re-enter password"
+              placeholder="password"
             />
           </Form.Group>
           <div className="CenterHorizontal">
             <Button variant="primary" type="submit" onClick={submitForm}>
-              Sign up
+              Sign in
             </Button>
           </div>
         </Form>

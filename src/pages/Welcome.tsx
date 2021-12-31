@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import React from "react";
 import {useHistory} from "react-router-dom";
 
-function Welcome() {
+export default function Welcome() {
   const history = useHistory();
 
-  function handleClick(path) {
+  function handleClick(path: string) {
     history.push(path);
   }
 
@@ -25,5 +25,3 @@ function Welcome() {
     </div>
   );
 }
-
-export default Welcome;

@@ -1,15 +1,22 @@
 import "firebase/firestore";
 import {Button, Form} from "react-bootstrap";
+import {ErrorMessages, Note, NoteFormData} from "src/types";
 import React, {useCallback, useState} from "react";
-import {containsDuplicates, normaliseAudience} from "../utils/helper";
-import Alerts from "./Alerts";
-import AudienceInput from "./AudienceInput";
-import DescriptionInput from "./DescriptionInput";
-import PropTypes from "prop-types";
-import TitleInput from "./TitleInput";
+import {containsDuplicates, normaliseAudience} from "src/utils/helper";
+import Alerts from "src/components/Alerts";
+import AudienceInput from "src/components/AudienceInput";
+import DescriptionInput from "src/components/DescriptionInput";
+import TitleInput from "src/components/TitleInput";
 import firebase from "firebase/app";
 
-function validateForm(form) {
+export type NotesFormProps = {
+  actionName: string;
+  submitAction: (note: Note) => void;
+  handleClose: () => void;
+  noteData?: Note;
+};
+
+function validateForm(form: NoteFormData) {
   const {title, audience} = form;
   const errors = [];
 
@@ -24,7 +31,7 @@ function validateForm(form) {
   return errors;
 }
 
-function createNote(form) {
+function createNote(form: NoteFormData) {
   return {
     audience: form.audience,
     description: form.description,
@@ -33,7 +40,7 @@ function createNote(form) {
   };
 }
 
-function initFormState(noteData) {
+function initFormState(noteData?: Note) {
   return {
     title: noteData?.title || "",
     description: noteData?.description || "",
@@ -42,20 +49,20 @@ function initFormState(noteData) {
   };
 }
 
-export default function NotesForm(props) {
-  const [errors, setErrors] = useState([]);
-  const initialState = initFormState(props.noteData);
-  const [form, setForm] = useState(initialState);
+export default function NotesForm({actionName, submitAction, handleClose, noteData}: NotesFormProps) {
+  const [errors, setErrors] = useState<ErrorMessages>([]);
+  const initialState = initFormState(noteData);
+  const [form, setForm] = useState<NoteFormData>(initialState);
 
   const exitForm = useCallback(() => {
-    props.handleClose();
+    handleClose();
     setForm(initialState); // reset form state
-  });
+  }, []);
 
   const handleInputChange = useCallback((event) => {
     const {target} = event;
     setForm({...form, [target.name]: target.value});
-  });
+  }, []);
 
   const addAudience = useCallback(() => {
     const member = normaliseAudience(form.audienceInput);
@@ -69,7 +76,7 @@ export default function NotesForm(props) {
         audienceInput: ""
       });
     }
-  });
+  }, []);
 
   const removeAudience = useCallback((event) => {
     const person = event.target.id;
@@ -81,18 +88,18 @@ export default function NotesForm(props) {
       ...form,
       audience: newAudience
     });
-  });
+  }, []);
 
   const submitForm = useCallback((event) => {
     event.preventDefault();
     const formErrors = validateForm(form);
     if (formErrors.length === 0) {
       const note = createNote(form);
-      props.submitAction(note);
+      submitAction(note);
       exitForm();
     }
     setErrors(formErrors);
-  });
+  }, []);
 
   return (
     <Form>
@@ -113,15 +120,8 @@ export default function NotesForm(props) {
         Cancel
       </Button>{" "}
       <Button variant="primary" type="submit" onClick={submitForm}>
-        {props.actionName}
+        {actionName}
       </Button>
     </Form>
   );
 }
-
-NotesForm.propTypes = {
-  actionName: PropTypes.string,
-  submitAction: PropTypes.func,
-  handleClose: PropTypes.func,
-  noteData: PropTypes.object
-};

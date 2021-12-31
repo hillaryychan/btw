@@ -2,7 +2,7 @@ import "../styles.css";
 import {Container, Spinner} from "react-bootstrap";
 import React from "react";
 
-function Loading() {
+export default function Loading() {
   return (
     <Container id="home" className="mt-2">
       <div className="Center">
@@ -13,5 +13,3 @@ function Loading() {
     </Container>
   );
 }
-
-export default Loading;

@@ -1,11 +1,19 @@
+import {Note, NoteDocument} from "src/types";
 import React, {useEffect, useRef, useState} from "react";
 import Accordion from "react-bootstrap/Accordion";
 import NoteView from "./NoteView";
-import PropTypes from "prop-types";
 
-function NotesList(props) {
+export type NotesListProps = {
+  initNotes: boolean;
+  filter: string;
+  notes: NoteDocument[];
+  deleteNote: (idx: number, docRef: string) => void;
+  updateNote: (idx: number, docRef: string, note: Note) => void;
+};
+
+export default function NotesList(props: NotesListProps) {
   const [collapse, useCollapse] = useState(false); // Hack to make accordion collapse on delete
-  const [notes, setNotes] = useState(props.notes);
+  const [notes, setNotes] = useState<NoteDocument[]>(props.notes);
   const didMountRef = useRef(false);
 
   useEffect(() => {
@@ -16,12 +24,12 @@ function NotesList(props) {
     }
   }, [props.notes]);
 
-  function deleteNote(idx, docRef) {
+  function deleteNote(idx: number, docRef: string) {
     useCollapse(!collapse);
-    props.deleteNote(idx, docRef);
+    deleteNote(idx, docRef);
   }
 
-  function completeNote(idx, docRef, filterBy) {
+  function completeNote(idx: number, docRef: string, filterBy: string) {
     const note = notes[idx];
     const audienceIdx = note.data.audience.indexOf(filterBy);
     if (audienceIdx > -1) {
@@ -75,13 +83,3 @@ function NotesList(props) {
     </div>
   );
 }
-
-NotesList.propTypes = {
-  initNotes: PropTypes.bool,
-  filter: PropTypes.string,
-  notes: PropTypes.array,
-  deleteNote: PropTypes.func,
-  updateNote: PropTypes.func
-};
-
-export default NotesList;

@@ -1,20 +1,23 @@
 import "../styles.css";
 import {Button, Navbar} from "react-bootstrap";
-import PropTypes from "prop-types";
 import React from "react";
 import {signOut} from "../utils/auth";
 import useApp from "../contexts/AppContext";
 import {useHistory} from "react-router-dom";
 
-function AuthButtons(props) {
+export type AuthButtonsProps = {
+  init: boolean;
+}
+
+export default function AuthButtons({init}: AuthButtonsProps) {
   const {user} = useApp();
   const history = useHistory();
 
-  function handleClick(path) {
+  function handleClick(path: string) {
     history.push(path);
   }
 
-  if (props.init) {
+  if (init) {
     return null;
   } else if (user) {
     return (
@@ -49,9 +52,3 @@ function AuthButtons(props) {
     </>
   );
 }
-
-AuthButtons.propTypes = {
-  init: PropTypes.bool
-};
-
-export default AuthButtons;

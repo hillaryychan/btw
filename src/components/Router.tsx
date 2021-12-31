@@ -1,19 +1,22 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import About from "../pages/About";
-import Home from "../pages/Home";
-import Navigation from "../components/Navigation";
-import PropTypes from "prop-types";
+import About from "src/pages/About";
+import Home from "src/pages/Home";
+import Navigation from "src/components/Navigation";
 import React from "react";
-import SignIn from "../pages/SignIn";
-import SignUp from "../pages/SignUp";
+import SignIn from "src/pages/SignIn";
+import SignUp from "src/pages/SignUp";
 
-function Router(props) {
+export type RouterProps = {
+  init: boolean;
+};
+
+export default function Router({init}: RouterProps): JSX.Element {
   return (
     <BrowserRouter>
-      <Navigation init={props.init} />
+      <Navigation init={init} />
       <Switch>
         <Route exact path="/">
-          <Home init={props.init} />
+          <Home init={init} />
         </Route>
         <Route path="/about">
           <About />
@@ -28,9 +31,3 @@ function Router(props) {
     </BrowserRouter>
   );
 }
-
-Router.propTypes = {
-  init: PropTypes.bool
-};
-
-export default Router;

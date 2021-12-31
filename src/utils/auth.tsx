@@ -1,5 +1,5 @@
 import "firebase/auth";
-import App from "../App";
+import App from "src/App";
 import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";
@@ -11,14 +11,14 @@ function initFirebaseAuth() {
   });
 }
 
-function signUp(email, password) {
+function signUp(email: string, password: string) {
   firebase.
     auth().
     createUserWithEmailAndPassword(email, password).
     catch((error) => alert(error));
 }
 
-function signIn(email, password) {
+function signIn(email: string, password: string) {
   return firebase.auth().signInWithEmailAndPassword(email, password);
 }
 
@@ -41,11 +41,5 @@ function getUser() {
   return firebase.auth().currentUser;
 }
 
-export {
-  getUser,
-  signIn,
-  signInWithGoogle,
-  signOut,
-  signUp
-};
+export {getUser, signIn, signInWithGoogle, signOut, signUp};
 export default initFirebaseAuth;

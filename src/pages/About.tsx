@@ -2,7 +2,7 @@ import "../styles.css";
 import Container from "react-bootstrap/Container";
 import React from "react";
 
-function About() {
+export default function About(): JSX.Element {
   return (
     <Container className="mt-2">
       <h1>About</h1>
@@ -60,5 +60,3 @@ function About() {
     </Container>
   );
 }
-
-export default About;

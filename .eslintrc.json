@@ -5,8 +5,13 @@
     "jest": true,
     "node": true
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -14,8 +19,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+
     "accessor-pairs": "error",
     "array-bracket-newline": "error",
     "array-bracket-spacing": "error",
@@ -151,8 +159,7 @@
     "no-unreachable-loop": "error",
     "no-unsafe-optional-chaining": "error",
     "no-unused-expressions": "error",
-    "no-unused-vars": [2, { "args": "all", "argsIgnorePattern": "^_$" }],
-    "no-use-before-define": "error",
+    "no-unused-vars": [2, { "args": "none" }],
     "no-useless-backreference": "error",
     "no-useless-call": "error",
     "no-useless-computed-key": "error",

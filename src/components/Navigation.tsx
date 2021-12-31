@@ -1,10 +1,13 @@
 import "../styles.css";
 import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
-import AuthButtons from "./AuthButtons";
-import PropTypes from "prop-types";
+import AuthButtons from "src/components/AuthButtons";
 import React from "react";
 
-function Navigation(props) {
+export type NavigationProps = {
+  init: boolean;
+};
+
+export default function Navigation({init}: NavigationProps): JSX.Element {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -23,16 +26,10 @@ function Navigation(props) {
             </NavDropdown>
           </Nav>
           <Nav>
-            <AuthButtons init={props.init} />
+            <AuthButtons init={init} />
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 }
-
-Navigation.propTypes = {
-  init: PropTypes.bool
-};
-
-export default Navigation;

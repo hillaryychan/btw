@@ -1,14 +1,22 @@
 import "../styles.css";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import AudiencePills from "./AudiencePills";
-import PropTypes from "prop-types";
+import {AudienceList} from "src/types";
+import AudiencePills from "src/components/AudiencePills";
 import React from "react";
-import {normaliseAudience} from "../utils/helper";
+import {normaliseAudience} from "src/utils/helper";
 
 const MAX_NAME_LEN = 35;
 
-function AudienceInput(props) {
-  const audienceValue = normaliseAudience(props.audienceInput);
+export type AudienceInputProps = {
+  addAudience: () => void;
+  audience: AudienceList;
+  audienceInput: string;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  removeAudience: (event: React.MouseEvent) => void;
+};
+
+export default function AudienceInput({addAudience, audience, audienceInput, handleInputChange, removeAudience}: AudienceInputProps) {
+  const audienceValue = normaliseAudience(audienceInput);
   return (
     <Form.Group className="mb-3">
       <Form.Label>
@@ -21,12 +29,12 @@ function AudienceInput(props) {
             as="input"
             maxLength={MAX_NAME_LEN}
             placeholder="Add an audience"
-            value={props.audienceInput}
-            onChange={props.handleInputChange}
+            value={audienceInput}
+            onChange={handleInputChange}
           />
         </Col>
         <Col md>
-          <Button variant="outline-primary" onClick={props.addAudience}>
+          <Button variant="outline-primary" onClick={addAudience}>
             Add
           </Button>
         </Col>
@@ -38,19 +46,9 @@ function AudienceInput(props) {
         </div>
       }
       <AudiencePills
-        audience={props.audience}
-        doAction={props.removeAudience}
+        audience={audience}
+        doAction={removeAudience}
       />
     </Form.Group>
   );
 }
-
-AudienceInput.propTypes = {
-  addAudience: PropTypes.func,
-  audience: PropTypes.array,
-  audienceInput: PropTypes.string,
-  handleInputChange: PropTypes.func,
-  removeAudience: PropTypes.func
-};
-
-export default AudienceInput;

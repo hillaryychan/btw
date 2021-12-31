@@ -1,29 +1,32 @@
 import "firebase/firestore";
+import {AudienceList, Note, NoteDocument} from "src/types";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import React, {useCallback, useEffect, useState} from "react";
-import {canShow, createDoc} from "../utils/helper";
-import NotesList from "../components/NotesList";
-import NotesModal from "../components/NotesModal";
-import PropTypes from "prop-types";
+import {canShow, createDoc} from "src/utils/helper";
+import NotesList from "src/components/NotesList";
+import NotesModal from "src/components/NotesModal";
 import firebase from "firebase/app";
 
 const MAX_NOTES = 50;
 const DEFAULT_FILTER = "";
 
-function getAudience(notes) {
-  const audienceSet = new Set();
-  notes.map((doc) => doc.data.audience.map((person) => audienceSet.add(person)));
+export type NotesProps = {
+  userId: string;
+};
+
+function getAudience(notes: NoteDocument[]): AudienceList {
+  const audienceSet = new Set<string>();
+  notes.map((doc) => doc.data.audience.map((person: string) => audienceSet.add(person)));
   return [...audienceSet].sort();
 }
 
-export default function Notes(props) {
-  const {userId} = props;
-  const [initNotes, setInitNotes] = useState(true);
-  const [modalShowState, setModalShowState] = useState(false);
-  const [notes, setNotes] = useState([]);
-  const [filter, setFilter] = useState(DEFAULT_FILTER);
+export default function Notes({userId}: NotesProps) {
+  const [initNotes, setInitNotes] = useState<boolean>(true);
+  const [modalShowState, setModalShowState] = useState<boolean>(false);
+  const [notes, setNotes] = useState<NoteDocument[]>([]);
+  const [filter, setFilter] = useState<string>(DEFAULT_FILTER);
 
-  const filterNotes = useCallback((unfilteredNotes, filterBy) => {
+  const filterNotes = useCallback((unfilteredNotes: NoteDocument[], filterBy: string) => {
     let showable = 0;
     const filteredNotes = unfilteredNotes.map((doc) => {
       // Show note if person undefined or falsy
@@ -40,7 +43,7 @@ export default function Notes(props) {
       setNotes([...filteredNotes]);
       setFilter(filterBy);
     }
-  });
+  }, []);
 
   const addNote = useCallback((note) => {
     if (notes.length >= MAX_NOTES) {
@@ -58,9 +61,9 @@ We apologise for any inconvenience this may have caused.`);
           alert(error);
         });
     }
-  });
+  }, []);
 
-  const updateNote = useCallback((idx, docRef, note) => {
+  const updateNote = useCallback((idx: number, docRef: string, note: Note) => {
     const db = firebase.firestore();
     db.collection(userId).
       doc(docRef).
@@ -73,9 +76,9 @@ We apologise for any inconvenience this may have caused.`);
       catch((error) => {
         alert(error);
       });
-  });
+  }, []);
 
-  const deleteNote = useCallback((idx, docRef) => {
+  const deleteNote = useCallback((idx: number, docRef: string) => {
     const db = firebase.firestore();
     db.collection(userId).
       doc(docRef).
@@ -88,10 +91,10 @@ We apologise for any inconvenience this may have caused.`);
       catch((error) => {
         alert(error);
       });
-  });
+  }, []);
 
   useEffect(() => {
-    const retrievedNotes = [];
+    const retrievedNotes: NoteDocument[] = [];
     const db = firebase.firestore();
     db.collection(userId).
       orderBy("lastModified", "desc").
@@ -108,7 +111,7 @@ We apologise for any inconvenience this may have caused.`);
       });
   }, []);
 
-  const audienceList = getAudience(notes);
+  const audienceList: AudienceList = getAudience(notes);
   return (
     <>
       <h1>My Notes</h1>
@@ -126,7 +129,11 @@ We apologise for any inconvenience this may have caused.`);
           </Form.Select>{" "}
         </Col>
         <Col>
-          <Button variant="primary" onClick={() => setModalShowState(true)} className="float-end">
+          <Button
+            variant="primary"
+            onClick={() => setModalShowState(true)}
+            className="float-end"
+          >
             New Note
           </Button>
         </Col>
@@ -148,7 +155,3 @@ We apologise for any inconvenience this may have caused.`);
     </>
   );
 }
-
-Notes.propTypes = {
-  userId: PropTypes.string
-};

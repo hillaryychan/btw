@@ -2,10 +2,9 @@ import "../styles.css";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {AudienceList} from "../types";
 import AudiencePills from "./AudiencePills";
+import {MAX_NAME_LEN} from "../constants";
 import React from "react";
 import {normaliseAudience} from "../utils/helper";
-
-const MAX_NAME_LEN = 35;
 
 export type AudienceInputProps = {
   addAudience: () => void;

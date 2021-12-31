@@ -1,8 +1,7 @@
 import CharCounter from "./CharCounter";
 import Form from "react-bootstrap/Form";
+import {MAX_DESC_LEN} from "../constants";
 import React from "react";
-
-const MAX_DESC_LEN = 10000;
 
 export type DescriptionInputProps = {
   handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;

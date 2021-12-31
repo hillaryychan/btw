@@ -3,6 +3,7 @@ import {Accordion, Button, Col, Row} from "react-bootstrap";
 import {Note, NoteDocument} from "src/types";
 import React, {useState} from "react";
 import AudiencePills from "./AudiencePills";
+import {DEFAULT_FILTER} from "../constants";
 import NotesModal from "./NotesModal";
 
 export type NoteViewProps = {
@@ -14,7 +15,14 @@ export type NoteViewProps = {
   updateNote: (idx: number, docRef: string, note: Note) => void;
 };
 
-export default function NoteView({idx, filter, note, completeNote, deleteNote, updateNote}: NoteViewProps) {
+export default function NoteView({
+  idx,
+  filter,
+  note,
+  completeNote,
+  deleteNote,
+  updateNote
+}: NoteViewProps) {
   const [show, useShow] = useState(false);
 
   function handleClose() {
@@ -56,7 +64,7 @@ export default function NoteView({idx, filter, note, completeNote, deleteNote, u
                 >
                   Edit
                 </Button>
-                {filter !== "" &&
+                {filter !== DEFAULT_FILTER &&
                   <Button
                     size="sm"
                     variant="success"
@@ -83,8 +91,7 @@ export default function NoteView({idx, filter, note, completeNote, deleteNote, u
           handleClose={handleClose}
           show={show}
           actionName="Save Note"
-          submitAction={(noteToUpdate) => updateNote(idx, note.ref, noteToUpdate)
-          }
+          submitAction={(noteToUpdate) => updateNote(idx, note.ref, noteToUpdate)}
         />
       </Accordion.Item>
     </>

@@ -2199,7 +2199,7 @@
   dependencies:
     "@parcel/plugin" "^2.0.1"
 
-"@parcel/transformer-react-refresh-wrap@^2.0.0-alpha.3", "@parcel/transformer-react-refresh-wrap@^2.0.1":
+"@parcel/transformer-react-refresh-wrap@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@parcel/transformer-react-refresh-wrap/-/transformer-react-refresh-wrap-2.0.1.tgz#4f8c6df15c23e66a61c430615baaf57b5a7791bc"
   integrity sha512-zZj2Leh39ODh3C2xDh3eVvp1VnfVqeY5PrNdIcNfWw2DMBli13azcwYmF4Uim8natRqMFIsWsfKNesEY+mGLfA==

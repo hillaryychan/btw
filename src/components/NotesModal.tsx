@@ -1,6 +1,6 @@
 import Modal from "react-bootstrap/Modal";
-import {Note} from "src/types";
-import NotesForm from "src/components/NotesForm";
+import {Note} from "../types";
+import NotesForm from "./NotesForm";
 import React from "react";
 
 export type NotesModalProps = {

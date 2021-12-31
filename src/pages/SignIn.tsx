@@ -2,12 +2,12 @@ import "../styles.css";
 import {Button, Container, Form} from "react-bootstrap";
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import {signIn, signInWithGoogle} from "../utils/auth";
-import Alerts from "src/components/Alerts";
+import Alerts from "../components/Alerts";
 import isEmail from "validator/lib/isEmail";
-import useApp from "src/contexts/AppContext";
+import useApp from "../contexts/AppContext";
 import {useHistory} from "react-router";
 
-function validateForm(email) {
+function validateForm(email: string) {
   const errors = [];
   if (!isEmail(email)) {
     errors.push("Enter a valid email");

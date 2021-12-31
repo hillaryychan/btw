@@ -1,5 +1,5 @@
 import "firebase/auth";
-import App from "src/App";
+import App from "../App";
 import React from "react";
 import ReactDOM from "react-dom";
 import firebase from "firebase/app";

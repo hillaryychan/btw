@@ -1,9 +1,9 @@
 import "../styles.css";
 import {Button, Col, Form, Row} from "react-bootstrap";
-import {AudienceList} from "src/types";
-import AudiencePills from "src/components/AudiencePills";
+import {AudienceList} from "../types";
+import AudiencePills from "./AudiencePills";
 import React from "react";
-import {normaliseAudience} from "src/utils/helper";
+import {normaliseAudience} from "../utils/helper";
 
 const MAX_NAME_LEN = 35;
 

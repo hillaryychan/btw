@@ -1,11 +1,11 @@
 import "../styles.css";
 import {Button, Container, Form} from "react-bootstrap";
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import {signInWithGoogle, signUp} from "src/utils/auth";
-import Alerts from "src/components/Alerts";
-import {ErrorMessages} from "src/types";
+import {signInWithGoogle, signUp} from "../utils/auth";
+import Alerts from "../components/Alerts";
+import {ErrorMessages} from "../types";
 import isEmail from "validator/lib/isEmail";
-import useApp from "src/contexts/AppContext";
+import useApp from "../contexts/AppContext";
 import {useHistory} from "react-router";
 
 function validateForm(email: string, password1: string, password2: string) {

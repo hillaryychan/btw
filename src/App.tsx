@@ -1,7 +1,7 @@
 import React from "react";
-import Router from "src/components/Router";
-import {appContext} from "src/contexts/AppContext";
-import {getUser} from "src/utils/auth";
+import Router from "./components/Router";
+import {appContext} from "./contexts/AppContext";
+import {getUser} from "./utils/auth";
 
 export type AppProps = {
   init: boolean;

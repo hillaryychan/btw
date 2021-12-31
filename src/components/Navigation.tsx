@@ -1,6 +1,6 @@
 import "../styles.css";
 import {Container, Nav, NavDropdown, Navbar} from "react-bootstrap";
-import AuthButtons from "src/components/AuthButtons";
+import AuthButtons from "./AuthButtons";
 import React from "react";
 
 export type NavigationProps = {

@@ -2,11 +2,11 @@ import "firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import {ErrorMessages, Note, NoteFormData} from "src/types";
 import React, {useCallback, useState} from "react";
-import {containsDuplicates, normaliseAudience} from "src/utils/helper";
-import Alerts from "src/components/Alerts";
-import AudienceInput from "src/components/AudienceInput";
-import DescriptionInput from "src/components/DescriptionInput";
-import TitleInput from "src/components/TitleInput";
+import {containsDuplicates, normaliseAudience} from "../utils/helper";
+import Alerts from "./Alerts";
+import AudienceInput from "./AudienceInput";
+import DescriptionInput from "./DescriptionInput";
+import TitleInput from "./TitleInput";
 import firebase from "firebase/app";
 
 export type NotesFormProps = {

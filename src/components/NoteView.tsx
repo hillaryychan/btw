@@ -1,14 +1,21 @@
 import "../styles.css";
 import {Accordion, Button, Col, Row} from "react-bootstrap";
+import {Note, NoteDocument} from "src/types";
 import React, {useState} from "react";
 import AudiencePills from "./AudiencePills";
 import NotesModal from "./NotesModal";
-import PropTypes from "prop-types";
 
-function NoteView(props) {
+export type NoteViewProps = {
+  idx: number;
+  filter: string;
+  note: NoteDocument;
+  completeNote: (idx: number, docRef: string, filterBy: string) => void;
+  deleteNote: (idx: number, docRef: string) => void;
+  updateNote: (idx: number, docRef: string, note: Note) => void;
+};
+
+export default function NoteView({idx, filter, note, completeNote, deleteNote, updateNote}: NoteViewProps) {
   const [show, useShow] = useState(false);
-  const {note} = props;
-  const {idx} = props;
 
   function handleClose() {
     return useShow(false);
@@ -20,7 +27,7 @@ function NoteView(props) {
 
   return (
     <>
-      <Accordion.Item eventKey={idx}>
+      <Accordion.Item eventKey={`${idx}`}>
         <Accordion.Header>
           <b>{note.data.title}</b>
         </Accordion.Header>
@@ -49,21 +56,21 @@ function NoteView(props) {
                 >
                   Edit
                 </Button>
-                {props.filter !== "" &&
+                {filter !== "" &&
                   <Button
                     size="sm"
                     variant="success"
                     className=""
-                    onClick={() => props.completeNote(idx, note.ref, props.filter)}
+                    onClick={() => completeNote(idx, note.ref, filter)}
                   >
-                    Complete for {props.filter}
+                    Complete for {filter}
                   </Button>
                 }
                 <Button
                   size="sm"
                   variant="danger"
                   className="ms-1"
-                  onClick={() => props.deleteNote(idx, note.ref)}
+                  onClick={() => deleteNote(idx, note.ref)}
                 >
                   Delete
                 </Button>
@@ -76,21 +83,10 @@ function NoteView(props) {
           handleClose={handleClose}
           show={show}
           actionName="Save Note"
-          submitAction={(noteToUpdate) => props.updateNote(idx, note.ref, noteToUpdate)
+          submitAction={(noteToUpdate) => updateNote(idx, note.ref, noteToUpdate)
           }
         />
       </Accordion.Item>
     </>
   );
 }
-
-NoteView.propTypes = {
-  idx: PropTypes.number,
-  filter: PropTypes.string,
-  note: PropTypes.object,
-  completeNote: PropTypes.func,
-  deleteNote: PropTypes.func,
-  updateNote: PropTypes.func
-};
-
-export default NoteView;

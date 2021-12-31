@@ -1,9 +1,9 @@
 import Container from "react-bootstrap/Container";
-import Loading from "src/components/Loading";
-import Notes from "src/components/Notes";
+import Loading from "./Loading";
+import Notes from "./Notes";
 import React from "react";
-import Welcome from "src/components/Welcome";
-import useApp from "src/contexts/AppContext";
+import Welcome from "./Welcome";
+import useApp from "../contexts/AppContext";
 
 export type HomeProps = {
   init: boolean;

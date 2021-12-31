@@ -1,10 +1,10 @@
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import About from "src/pages/About";
-import Home from "src/pages/Home";
-import Navigation from "src/components/Navigation";
+import About from "../pages/About";
+import Home from "../pages/Home";
+import Navigation from "../components/Navigation";
 import React from "react";
-import SignIn from "src/pages/SignIn";
-import SignUp from "src/pages/SignUp";
+import SignIn from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
 
 export type RouterProps = {
   init: boolean;

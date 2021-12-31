@@ -1,10 +1,10 @@
 import "firebase/firestore";
-import {AudienceList, Note, NoteDocument} from "src/types";
+import {AudienceList, Note, NoteDocument} from "../types";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import React, {useCallback, useEffect, useState} from "react";
-import {canShow, createDoc} from "src/utils/helper";
-import NotesList from "src/components/NotesList";
-import NotesModal from "src/components/NotesModal";
+import {canShow, createDoc} from "../utils/helper";
+import NotesList from "../components/NotesList";
+import NotesModal from "../components/NotesModal";
 import firebase from "firebase/app";
 
 const MAX_NOTES = 50;

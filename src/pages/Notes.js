@@ -23,10 +23,9 @@ export default function Notes(props) {
   const [notes, setNotes] = useState([]);
   const [filter, setFilter] = useState(DEFAULT_FILTER);
 
-  const filterNotes = useCallback((filterBy) => {
-    let newNotes = notes;
+  const filterNotes = useCallback((unfilteredNotes, filterBy) => {
     let showable = 0;
-    newNotes = newNotes.map((doc) => {
+    const filteredNotes = unfilteredNotes.map((doc) => {
       // Show note if person undefined or falsy
       const show = canShow(doc.data, filterBy);
       doc.show = show;
@@ -36,19 +35,11 @@ export default function Notes(props) {
       return doc;
     });
     if (showable === 0 && filter !== DEFAULT_FILTER) {
-      filterNotes(DEFAULT_FILTER);
+      filterNotes(filteredNotes, DEFAULT_FILTER);
     } else {
-      setNotes([...newNotes]);
+      setNotes([...filteredNotes]);
       setFilter(filterBy);
     }
-  });
-
-  const showModal = useCallback(() => {
-    setModalShowState(true);
-  });
-
-  const closeModal = useCallback(() => {
-    setModalShowState(false);
   });
 
   const addNote = useCallback((note) => {
@@ -77,7 +68,7 @@ We apologise for any inconvenience this may have caused.`);
       then(() => {
         const newNotes = notes;
         newNotes[idx] = createDoc(docRef, note, filter);
-        setNotes([...newNotes]);
+        filterNotes(newNotes, filter);
       }).
       catch((error) => {
         alert(error);
@@ -92,8 +83,7 @@ We apologise for any inconvenience this may have caused.`);
       then(() => {
         const newNotes = notes;
         newNotes.splice(idx, 1);
-        filterNotes(filter);
-        setNotes(newNotes);
+        filterNotes(newNotes, filter);
       }).
       catch((error) => {
         alert(error);
@@ -127,7 +117,7 @@ We apologise for any inconvenience this may have caused.`);
           <Form.Label column>Filter by audience</Form.Label>
           <Form.Select
             value={filter}
-            onChange={(event) => filterNotes(event.target.value)}
+            onChange={(event) => filterNotes(notes, event.target.value)}
           >
             <option value={DEFAULT_FILTER}>No audience filter</option>
             {[...audienceList].map((person, idx) => <option key={idx} value={person}>
@@ -136,13 +126,13 @@ We apologise for any inconvenience this may have caused.`);
           </Form.Select>{" "}
         </Col>
         <Col>
-          <Button variant="primary" onClick={showModal} className="float-end">
+          <Button variant="primary" onClick={() => setModalShowState(true)} className="float-end">
             New Note
           </Button>
         </Col>
       </Row>
       <NotesModal
-        handleClose={closeModal}
+        handleClose={() => setModalShowState(false)}
         show={modalShowState}
         actionName="Create Note"
         submitAction={addNote}

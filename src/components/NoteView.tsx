@@ -23,15 +23,7 @@ export default function NoteView({
   deleteNote,
   updateNote
 }: NoteViewProps) {
-  const [show, useShow] = useState(false);
-
-  function handleClose() {
-    return useShow(false);
-  }
-
-  function handleShow() {
-    return useShow(true);
-  }
+  const [show, setShow] = useState(false);
 
   return (
     <>
@@ -60,7 +52,7 @@ export default function NoteView({
                   size="sm"
                   variant="secondary"
                   className="me-1"
-                  onClick={handleShow}
+                  onClick={() => setShow(true)}
                 >
                   Edit
                 </Button>
@@ -88,7 +80,7 @@ export default function NoteView({
         </Accordion.Body>
         <NotesModal
           noteData={note.data}
-          handleClose={handleClose}
+          handleClose={() => setShow(false)}
           show={show}
           actionName="Save Note"
           submitAction={(noteToUpdate) => updateNote(idx, note.ref, noteToUpdate)}

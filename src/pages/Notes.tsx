@@ -35,7 +35,7 @@ export default function Notes({userId}: NotesProps) {
       }
       return doc;
     });
-    if (showable === 0 && filter !== DEFAULT_FILTER) {
+    if (showable === 0 && filterBy !== DEFAULT_FILTER) {
       filterNotes(filteredNotes, DEFAULT_FILTER);
     } else {
       setNotes([...filteredNotes]);

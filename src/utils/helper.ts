@@ -1,7 +1,8 @@
-import {AudienceList, Note, NoteDocument} from "src/types";
+import {AudienceList, Note, NoteDocument} from "../types";
+import {DEFAULT_FILTER} from "../constants";
 
 export function canShow(note: Note, filter: string) {
-  return filter ? note.audience.includes(filter) : true;
+  return filter === DEFAULT_FILTER ? true : note.audience.includes(filter);
 }
 
 export function containsDuplicates(array: AudienceList) {

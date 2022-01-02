@@ -54,6 +54,7 @@ export default function SignUp() {
     },
     [emailInput, password1Input, password2Input]
   );
+
   return (
     <Container className="mt-2">
       <div className="AuthForm">

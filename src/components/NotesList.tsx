@@ -26,7 +26,7 @@ export default function NotesList(props: NotesListProps) {
 
   function deleteNote(idx: number, docRef: string) {
     useCollapse(!collapse);
-    deleteNote(idx, docRef);
+    props.deleteNote(idx, docRef);
   }
 
   function completeNote(idx: number, docRef: string, filterBy: string) {
@@ -36,7 +36,7 @@ export default function NotesList(props: NotesListProps) {
       useCollapse(!collapse);
       note.data.audience.splice(audienceIdx, 1);
       if (note.data.audience.length === 0) {
-        deleteNote(idx, docRef);
+        props.deleteNote(idx, docRef);
       } else {
         props.updateNote(idx, docRef, note.data);
       }

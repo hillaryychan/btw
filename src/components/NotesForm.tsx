@@ -1,7 +1,7 @@
 import "firebase/firestore";
 import {Button, Form} from "react-bootstrap";
 import {ErrorMessages, Note, NoteFormData} from "src/types";
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import {containsDuplicates, normaliseAudience} from "../utils/helper";
 import Alerts from "./Alerts";
 import AudienceInput from "./AudienceInput";
@@ -44,7 +44,7 @@ function initFormState(noteData?: Note) {
   return {
     title: noteData?.title || "",
     description: noteData?.description || "",
-    audience: noteData?.audience || [],
+    audience: noteData ? [...noteData.audience] : [],
     audienceInput: ""
   };
 }
@@ -59,17 +59,17 @@ export default function NotesForm({
   const initialState = initFormState(noteData);
   const [form, setForm] = useState<NoteFormData>(initialState);
 
-  const exitForm = useCallback(() => {
+  function exitForm () {
     handleClose();
     setForm(initialState); // reset form state
-  }, []);
+  }
 
-  const handleInputChange = useCallback((event) => {
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const {target} = event;
     setForm({...form, [target.name]: target.value});
-  }, []);
+  }
 
-  const addAudience = useCallback(() => {
+  function addAudience() {
     const member = normaliseAudience(form.audienceInput);
     if (member !== "") {
       const newAudience = form.audience;
@@ -81,9 +81,9 @@ export default function NotesForm({
         audienceInput: ""
       });
     }
-  }, []);
+  }
 
-  const removeAudience = useCallback((event) => {
+  function removeAudience(event: React.MouseEvent) {
     const person = event.target.id;
     const idx = parseInt(person.slice(5), 10);
 
@@ -93,9 +93,9 @@ export default function NotesForm({
       ...form,
       audience: newAudience
     });
-  }, []);
+  }
 
-  const submitForm = useCallback((event) => {
+  function submitForm(event: React.FormEvent) {
     event.preventDefault();
     const formErrors = validateForm(form);
     if (formErrors.length === 0) {
@@ -104,7 +104,7 @@ export default function NotesForm({
       exitForm();
     }
     setErrors(formErrors);
-  }, []);
+  }
 
   return (
     <Form>

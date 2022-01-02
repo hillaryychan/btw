@@ -2,12 +2,11 @@ import "firebase/firestore";
 import {AudienceList, Note, NoteDocument} from "../types";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {DEFAULT_FILTER, MAX_NOTES} from "../constants";
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {canShow, createDoc} from "../utils/helper";
 import NotesList from "../components/NotesList";
 import NotesModal from "../components/NotesModal";
 import firebase from "firebase/app";
-
 
 export type NotesProps = {
   userId: string;
@@ -25,7 +24,7 @@ export default function Notes({userId}: NotesProps) {
   const [notes, setNotes] = useState<NoteDocument[]>([]);
   const [filter, setFilter] = useState<string>(DEFAULT_FILTER);
 
-  const filterNotes = useCallback((unfilteredNotes: NoteDocument[], filterBy: string) => {
+  function filterNotes(unfilteredNotes: NoteDocument[], filterBy: string) {
     let showable = 0;
     const filteredNotes = unfilteredNotes.map((doc) => {
       // Show note if person undefined or falsy
@@ -42,13 +41,13 @@ export default function Notes({userId}: NotesProps) {
       setNotes([...filteredNotes]);
       setFilter(filterBy);
     }
-  }, []);
+  }
 
-  const addNote = useCallback((note) => {
+  function addNote(note: Note) {
     if (notes.length >= MAX_NOTES) {
       alert(`We cannot create your note because we have limited the no. of notes per account to ${MAX_NOTES}.
 
-We apologise for any inconvenience this may have caused.`);
+          We apologise for any inconvenience this may have caused.`);
     } else {
       const db = firebase.firestore();
       db.collection(userId).
@@ -60,9 +59,9 @@ We apologise for any inconvenience this may have caused.`);
           alert(error);
         });
     }
-  }, []);
+  }
 
-  const updateNote = useCallback((idx: number, docRef: string, note: Note) => {
+  function updateNote(idx: number, docRef: string, note: Note) {
     const db = firebase.firestore();
     db.collection(userId).
       doc(docRef).
@@ -75,9 +74,9 @@ We apologise for any inconvenience this may have caused.`);
       catch((error) => {
         alert(error);
       });
-  }, []);
+  }
 
-  const deleteNote = useCallback((idx: number, docRef: string) => {
+  function deleteNote(idx: number, docRef: string) {
     const db = firebase.firestore();
     db.collection(userId).
       doc(docRef).
@@ -90,7 +89,7 @@ We apologise for any inconvenience this may have caused.`);
       catch((error) => {
         alert(error);
       });
-  }, []);
+  }
 
   useEffect(() => {
     const retrievedNotes: NoteDocument[] = [];
@@ -104,7 +103,7 @@ We apologise for any inconvenience this may have caused.`);
           retrievedNotes.push(createDoc(doc.id, doc.data(), filter));
         });
       }).
-      then((_) => {
+      then(() => {
         setInitNotes(false);
         setNotes(retrievedNotes);
       });

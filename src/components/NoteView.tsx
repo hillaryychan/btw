@@ -35,7 +35,7 @@ export default function NoteView({
 
   return (
     <>
-      <Accordion.Item eventKey={`${idx}`}>
+      <Accordion.Item eventKey={`${idx}`} id={`note-accordion-${idx}`}>
         <Accordion.Header>
           <b>{note.data.title}</b>
         </Accordion.Header>

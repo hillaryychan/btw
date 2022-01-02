@@ -11,8 +11,13 @@ export type NotesListProps = {
   updateNote: (idx: number, docRef: string, note: Note) => void;
 };
 
+function toggleAccordion(idx: number) {
+  const accordionItem = document.getElementById(`note-accordion-${idx}`);
+  const toggleButton = accordionItem?.querySelector(".accordion-button") as HTMLButtonElement;
+  toggleButton.click();
+}
+
 export default function NotesList(props: NotesListProps) {
-  const [collapse, useCollapse] = useState(false); // Hack to make accordion collapse on delete
   const [notes, setNotes] = useState<NoteDocument[]>(props.notes);
   const didMountRef = useRef(false);
 
@@ -25,7 +30,7 @@ export default function NotesList(props: NotesListProps) {
   }, [props.notes]);
 
   function deleteNote(idx: number, docRef: string) {
-    useCollapse(!collapse);
+    toggleAccordion(idx);
     props.deleteNote(idx, docRef);
   }
 
@@ -33,7 +38,7 @@ export default function NotesList(props: NotesListProps) {
     const note = notes[idx];
     const audienceIdx = note.data.audience.indexOf(filterBy);
     if (audienceIdx > -1) {
-      useCollapse(!collapse);
+      toggleAccordion(idx);
       note.data.audience.splice(audienceIdx, 1);
       if (note.data.audience.length === 0) {
         props.deleteNote(idx, docRef);
@@ -59,7 +64,7 @@ export default function NotesList(props: NotesListProps) {
 
   return (
     <div id="notes-list">
-      <Accordion key={collapse} flush>
+      <Accordion flush>
         {notes.map((note, idx) => {
           if (note.show) {
             return (

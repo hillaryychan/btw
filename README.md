@@ -9,8 +9,9 @@ See the btw's [about](https://by-the-way-c3675.web.app/about) page for a more de
 
 ### Requirements
 
-* [Node.js](https://nodejs.org/en/)
+* [Node.js v16](https://nodejs.org/en/)
 * [Yarn](https://yarnpkg.com/)
+* [Firebase](https://firebase.google.com/)
 
 ### Setting up
 

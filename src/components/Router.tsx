@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import About from "../pages/About";
 import Home from "../pages/Home";
 import Navigation from "../components/Navigation";
@@ -14,20 +14,12 @@ export default function Router({init}: RouterProps): JSX.Element {
   return (
     <BrowserRouter>
       <Navigation init={init} />
-      <Switch>
-        <Route exact path="/">
-          <Home init={init} />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home init={init} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+      </Routes>
     </BrowserRouter>
   );
 }

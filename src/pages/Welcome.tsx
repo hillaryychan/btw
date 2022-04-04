@@ -1,13 +1,13 @@
 import "../styles.css";
 import Button from "react-bootstrap/Button";
 import React from "react";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function Welcome() {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function handleClick(path: string) {
-    history.push(path);
+    navigate(path);
   }
 
   return (

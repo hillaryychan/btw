@@ -3,7 +3,7 @@ import {Button, Navbar} from "react-bootstrap";
 import React from "react";
 import {signOut} from "../utils/auth";
 import useApp from "../contexts/AppContext";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export type AuthButtonsProps = {
   init: boolean;
@@ -11,10 +11,10 @@ export type AuthButtonsProps = {
 
 export default function AuthButtons({init}: AuthButtonsProps) {
   const {user} = useApp();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   function handleClick(path: string) {
-    history.push(path);
+    navigate(path);
   }
 
   if (init) {

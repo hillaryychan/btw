@@ -10,6 +10,8 @@
   },
   "scripts": {
     "build": "parcel build",
+    "clean:build": "rm -rf .parcel-cache dist",
+    "clean:all": "rm -rf node_modules .parcel-cache dist",
     "lint": "eslint --ignore-path .gitignore . --fix",
     "prepare": "husky install",
     "start": "parcel",

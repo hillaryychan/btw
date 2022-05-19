@@ -6,7 +6,7 @@ import Alerts from "../components/Alerts";
 import {ErrorMessages} from "../types";
 import isEmail from "validator/lib/isEmail";
 import useApp from "../contexts/AppContext";
-import {useHistory} from "react-router";
+import {useNavigate} from "react-router";
 
 function validateForm(email: string) {
   const errors = [];
@@ -18,7 +18,7 @@ function validateForm(email: string) {
 
 export default function SignIn() {
   const {user} = useApp();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [errors, setErrors] = useState<ErrorMessages>([]);
   const emailInput = useRef<HTMLInputElement>(null);
@@ -26,7 +26,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (user) {
-      history.push("/");
+      navigate("/");
     }
   }, [user]);
 
